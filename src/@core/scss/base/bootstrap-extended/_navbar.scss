@@ -425,9 +425,10 @@
 
   .navbar-nav {
     .active {
-      &.nav-link {
+      
         background-color: rgba($black, 0.03);
-      }
+        color:red;
+      
     }
 
     .disabled {

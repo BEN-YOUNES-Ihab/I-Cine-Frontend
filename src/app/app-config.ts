@@ -16,17 +16,17 @@ import { CoreConfig } from '@core/types';
 // prettier-ignore
 export const coreConfig: CoreConfig = {
   app: {
-    appName     : 'Vuexy',                                        // App Name
-    appTitle    : 'Vuexy - Angular 12+ Bootstrap Admin Template', // App Title
+    appName     : 'I-Ciné',                                        // App Name
+    appTitle    : 'I-Ciné', // App Title
     appLogoImage: 'assets/images/logo/logo.svg',                  // App Logo
     appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
   },
   layout: {
     skin  : 'default',                        // default, dark, bordered, semi-dark
-    type  : 'vertical',                       // vertical, horizontal
+    type  : 'horizontal',                       // vertical, horizontal
     animation : 'fadeIn',                     // fadeInLeft, zoomIn , fadeIn, none
     menu : {
-      hidden               : false,           // Boolean: true, false
+      hidden               : true,           // Boolean: true, false
       collapsed            : false,           // Boolean: true, false
     },
     // ? For horizontal menu, navbar type will work for navMenu type

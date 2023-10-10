@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { CoreConfigService } from '@core/services/config.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth-login-v2',
@@ -31,18 +32,22 @@ export class AuthLoginV2Component implements OnInit {
    * @param {CoreConfigService} _coreConfigService
    */
   constructor(
-    private _coreConfigService: CoreConfigService,
-    private _formBuilder: FormBuilder,
-    private _route: ActivatedRoute,
-    private _router: Router
+    private coreConfigService: CoreConfigService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService
   ) {
     this._unsubscribeAll = new Subject();
-
+    if (localStorage.getItem('accessToken')) {
+      localStorage.clear();
+      this.authService.currentUser.next(null);
+    }
     // Configure the layout
-    this._coreConfigService.config = {
+    this.coreConfigService.config = {
       layout: {
         navbar: {
-          hidden: true
+          hidden: false
         },
         menu: {
           hidden: true
@@ -68,40 +73,41 @@ export class AuthLoginV2Component implements OnInit {
     this.passwordTextType = !this.passwordTextType;
   }
 
-  onSubmit() {
+  login(form: FormGroup) {
     this.submitted = true;
-
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (form.invalid) {
       return;
+    } else {
+      this.authService.login(form.value).subscribe(data => {
+        if (data) {
+          console.log("onjour")
+          localStorage.setItem('accessToken', data.accessToken);
+          localStorage.setItem('currentUser', JSON.stringify(data.currentUser));
+          this.authService.currentUser.next(data.currentUser);
+          localStorage.setItem('role', data.currentUser.role);
+          this.router.navigate(['/home']);
+        } else {
+          this.error = "L'identifiant ou le mot de passe est incorrect";
+        }
+        this.loading = false;
+      }, (err) => {
+        this.loading = false;
+        this.error = "Veuillez réessayer ultérieurement."
+      });
     }
-
-    // Login
-    this.loading = true;
-
-    // redirect to home page
-    setTimeout(() => {
-      this._router.navigate(['/']);
-    }, 100);
   }
-
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    this.loginForm = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+    if(JSON.parse(localStorage.getItem('currentUser'))){
+      this.router.navigate(['/home']);
+    }
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
 
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-
     // Subscribe to config changes
-    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+    this.coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
     });
   }

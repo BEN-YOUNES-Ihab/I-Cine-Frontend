@@ -10,11 +10,15 @@ import { AuthenticationService } from 'app/auth/service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreMediaService } from '@core/services/media.service';
+import {ActivatedRoute} from '@angular/router';
 
 import { User } from 'app/auth/models';
 
 import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
+import { AuthService } from 'app/main/pages/authentication/services/auth.service';
+
+import { CurrentUser } from 'app/main/pages/users/models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -30,7 +34,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public currentSkin: string;
   public prevSkin: string;
 
-  public currentUser: User;
+  public currentUser: CurrentUser;
 
   public languageOptions: any;
   public navigation: any;
@@ -81,9 +85,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _coreMediaService: CoreMediaService,
     private _coreSidebarService: CoreSidebarService,
     private _mediaObserver: MediaObserver,
-    public _translateService: TranslateService
+    public _translateService: TranslateService,
+    private _activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {
-    this._authenticationService.currentUser.subscribe(x => (this.currentUser = x));
 
     this.languageOptions = {
       en: {
@@ -106,6 +111,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     // Set the private defaults
     this._unsubscribeAll = new Subject();
+
+    authService.currentUser.pipe(takeUntil(this._unsubscribeAll)).subscribe(x => {
+      this.currentUser = x;
+    });
+
   }
 
   // Public Methods
@@ -165,8 +175,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
    * Logout method
    */
   logout() {
-    this._authenticationService.logout();
-    this._router.navigate(['/pages/authentication/login-v2']);
+    this.authService.logout();
+  }
+
+  /**
+   * Check 
+   */
+  CheckUrl() {
+    if(this._activatedRoute.toString()=="/sample"){
+      console.log("hi");
+    }else{
+      console.log(this._router.url);
+    }
   }
 
   // Lifecycle Hooks
@@ -178,7 +198,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // get the currentUser details from localStorage
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    //  if (localStorage.getItem("accessToken")) {
+    //   this._userService.getUserToEdit(this.authService.currentUserValue._id).subscribe(data => {
+    //     this.currentUser = data as CurrentUser;
+    //     if (this.currentUser.photo) {
+    //       this.avatarImage = this.imgPrefix + this.currentUser.photo;
+    //     }
+    //   });
+    // }
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
@@ -194,6 +221,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
           }
         }, 0);
       }
+      this.CheckUrl();
     });
 
     // Horizontal Layout Only: Add class fixed-top to navbar below large screen
