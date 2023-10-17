@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { CoreConfigService } from '@core/services/config.service';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth-login-v2',
@@ -36,7 +37,8 @@ export class AuthLoginV2Component implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
     this._unsubscribeAll = new Subject();
     if (localStorage.getItem('accessToken')) {
@@ -61,6 +63,20 @@ export class AuthLoginV2Component implements OnInit {
     };
   }
 
+  sucessToastr(message,title) {
+    this.toastr.success(message, title, {
+      positionClass: 'toast-bottom-left',
+      toastClass: 'ngx-toastr myToast',
+      closeButton: true
+    });
+  }
+  errorToastr(message,title) {
+    this.toastr.error(message, title, {
+      positionClass: 'toast-bottom-left',
+      toastClass: 'ngx-toastr myToast',
+      closeButton: true
+    });
+  }
   // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;
@@ -85,14 +101,13 @@ export class AuthLoginV2Component implements OnInit {
           localStorage.setItem('accessToken', data.accessToken);
           localStorage.setItem('currentUser', JSON.stringify(data.currentUser));
           this.authService.currentUser.next(data.currentUser);
-          localStorage.setItem('role', data.currentUser.role);
+          this.sucessToastr("Bienvenue sur la platforme I-Ciné","Bienvenue!")
           this.router.navigate(['/home']);
         } else {
           this.error = "L'identifiant ou le mot de passe est incorrect";
         }
-        this.loading = false;
+        
       }, (err) => {
-        this.loading = false;
         this.error = "Veuillez réessayer ultérieurement."
       });
     }

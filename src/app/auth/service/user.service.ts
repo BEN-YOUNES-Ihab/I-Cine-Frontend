@@ -19,9 +19,10 @@ export class UserService {
     return this._http.get<User[]>(`${environment.apiUrl}/users`);
   }
 
-  /**
-   * Get user by id
-   */
+  isLoggedIn(){
+    return localStorage.getItem('accessToken')!=null;
+  }
+  
   getById(id: number) {
     return this._http.get<User>(`${environment.apiUrl}/users/${id}`);
   }

@@ -12,13 +12,11 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreMediaService } from '@core/services/media.service';
 import {ActivatedRoute} from '@angular/router';
 
-import { User } from 'app/auth/models';
-
-import { coreConfig } from 'app/app-config';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/main/pages/authentication/services/auth.service';
 
 import { CurrentUser } from 'app/main/pages/users/models/user';
+import { UserService } from 'app/main/pages/users/services/users.service';
 
 @Component({
   selector: 'app-navbar',
@@ -87,7 +85,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
     private _activatedRoute: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private _userService: UserService
   ) {
 
     this.languageOptions = {
@@ -178,17 +177,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
-  /**
-   * Check 
-   */
-  CheckUrl() {
-    if(this._activatedRoute.toString()=="/sample"){
-      console.log("hi");
-    }else{
-      console.log(this._router.url);
-    }
-  }
-
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -197,15 +185,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     // get the currentUser details from localStorage
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //  if (localStorage.getItem("accessToken")) {
-    //   this._userService.getUserToEdit(this.authService.currentUserValue._id).subscribe(data => {
-    //     this.currentUser = data as CurrentUser;
-    //     if (this.currentUser.photo) {
-    //       this.avatarImage = this.imgPrefix + this.currentUser.photo;
-    //     }
-    //   });
-    // }
+    if(localStorage.getItem("accessToken")){
+      this.currentUser = this.authService.currentUserValue ; 
+    }
+    // this.authService.currentUser.subscribe(res => {
+    //   this.currentUser = res as CurrentUser;
+    // });      
     // Subscribe to the config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
       this.coreConfig = config;
@@ -221,7 +206,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
           }
         }, 0);
       }
-      this.CheckUrl();
     });
 
     // Horizontal Layout Only: Add class fixed-top to navbar below large screen

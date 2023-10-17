@@ -13,6 +13,8 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
 import { UsersModule } from './users/users.module';
 import { RegistrationModule } from './registration/registration.module';
+import { MoviesComponent } from './movies/movies/movies.component';
+import { SessionModule } from './session/session.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { RegistrationModule } from './registration/registration.module';
     MiscellaneousModule,
     UsersModule,
     RegistrationModule,
-    AccountSettingsModule
+    AccountSettingsModule,
+    SessionModule
   ],
 
   providers: []

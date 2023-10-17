@@ -37,14 +37,6 @@
           </a>
         </li>
       </div>
-      <div *ngIf="currentUser">
-        <li   class="nav-item">
-          <a class="nav-link menu-toggle" *ngIf="currentUser.role=='admin'" [routerLink]="['/pages/users']" [routerLinkActive]="'active'">
-            Utilisateurs
-          </a>
-        </li>
-      </div>
-      
     </ul>
 
   </div>
@@ -70,7 +62,6 @@
       </a>
     </li>
     <div class="nav-item d-none d-lg-block">
-      <app-navbar-search></app-navbar-search>
     </div>
     <!--/ Toggle skin -->
     <!-- User Dropdown -->
@@ -86,24 +77,37 @@
         <div class="user-nav d-sm-flex d-none" *ngIf="currentUser">
           <span class="user-name font-weight-bolder">{{
             currentUser.firstName + " " + currentUser.lastName
-          }}</span>
+          }}</span><span *ngIf="currentUser && currentUser.role=='admin'" >Admin</span>
         </div>
-        <span class="avatar"
-          ><img
-            class="round"
-            src="../../../../assets/images/portrait/small/avatar-s-27.png"
-            alt="avatar"
-            height="40"
-            width="40" /><span></span
-        ></span>
+        <button
+          type="button"
+          class="btn btn-icon btn-icon rounded-circle btn-outline-primary"
+          rippleEffect
+        >
+          <span [data-feather]="'user'"></span>
+        </button>
       </a>
       <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right" >
-        <a ngbDropdownItem *ngIf="currentUser" [routerLink]="['/']"
-          ><span [data-feather]="'settings'" [class]="'mr-50'" ></span> Paramètres</a
+        
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        ><span  [data-feather]="'users'" [class]="'mr-50'"></span>Utilisateurs</a
         >
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        ><span  [data-feather]="'video'" [class]="'mr-50'"></span>Films</a
+        >
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        ><span  [data-feather]="'tv'" [class]="'mr-50'"></span>Séances</a
+        >
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        ><span  [data-feather]="'shopping-cart'" [class]="'mr-50'"></span>Réservations</a
+        >
+        <div class="dropdown-divider" *ngIf="currentUser && currentUser.role=='admin'" ></div>
 
         <a ngbDropdownItem *ngIf="!currentUser" [routerLink]="['/pages/authentication/login-v2']"
         ><span  [data-feather]="'user'" [class]="'mr-50'"></span> Se Connecter</a
+        >
+        <a ngbDropdownItem *ngIf="currentUser" [routerLink]="['/pages/account-settings']"
+        ><span [data-feather]="'settings'" [class]="'mr-100'" ></span> Paramètres</a
         >
         <div class="dropdown-divider" ></div>
 
@@ -114,6 +118,7 @@
         <a ngbDropdownItem *ngIf="!currentUser" [routerLink]="['/pages/registration']"
           ><span  [data-feather]="'user-plus'" [class]="'mr-50'"></span> S'inscrire</a
         >
+        
       </div>
     </li>
     <!--/ User Dropdown -->

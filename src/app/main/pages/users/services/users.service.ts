@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
-import { UserToAdd } from '../models/user';
+import { UserToAdd, UserToEdit, UserToEditRole } from '../models/user';
 import { environment } from 'environments/environment';
+import { Form } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,27 @@ export class UserService {
   addUser(user: UserToAdd) {
     return this.http.post(environment.apiUrl + 'auth/signUp', user);
   }
-  GetRole() {
-    return localStorage.getItem("role") || '';
+
+  getUserToEdit(user_id: string) {
+    return this.http.get(environment.apiUrl + `users/${user_id}/getUserToEdit`);
+  }
+  editUser(user: UserToEdit, email:string) {
+    return this.http.patch<any>(environment.apiUrl + `users/${email}/editUser`, user);
   }
 
+  putUserPassword(form: Form, email:string) {
+    return this.http.patch(environment.apiUrl + `users/${email}/editUserPassword`, form);  
+  }
+
+  editUserAdmin(user: UserToEditRole) {
+    return this.http.patch<any>(environment.apiUrl + `users/${user.email}/editUser`, user);
+  }
+
+  getUsersList(queryParams: any){
+    return this.http.get(environment.apiUrl + 'users/getUsersList', { params: queryParams });  
+  }
+
+  deleteUser(email:string){
+    return this.http.delete(environment.apiUrl + `users/${email}/deleteUser`);
+  }
 }

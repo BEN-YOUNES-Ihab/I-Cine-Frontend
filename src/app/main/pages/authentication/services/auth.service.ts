@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
 import { CurrentUser } from 'app/main/pages/users/models/user';
 import { environment } from 'environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,6 @@ constructor(private _http: HttpClient, private router: Router, private coreMenuS
  public get currentUserValue(): CurrentUser {
   return this.currentUser.value;
 }
-
-
 
 /**
  * User logout

@@ -1,1 +1,149 @@
-<p>users works!</p>
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+  
+      <div class="row mb-2">
+        <div class=" col-12 pr-sm-1">
+          <div class="input-group input-group-merge">
+            <input
+              type="text"
+              class="form-control"
+              name="search"
+              placeholder="Rechercher"
+              [(ngModel)]="keyword" (ngModelChange)="update()"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text cursor-pointer">
+                <i data-feather="search"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="basic-table">
+        <div class="col-12">
+          <div class="card">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>E-mail</th>
+                    <th>Role</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of usersList">
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.role}}</td>
+                    <td class="overflow-hidden">
+                      <div ngbDropdown container="body">
+                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                          <i data-feather="more-vertical"></i>
+                        </button>
+                        <div ngbDropdownMenu>
+                          <a ngbDropdownItem (click)="clickEditUser(user, modalBasic)"
+                            ><i data-feather="edit-2" class="mr-50"></i><span>Modifier</span></a
+                          ><a ngbDropdownItem (click)="deleteUser(user.email)"
+                            ><i data-feather="trash" class="mr-50"></i><span>Supprimer</span></a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <nav class="m-2">
+                <div class="d-flex align-items-center">
+                  <ul class="pagination mb-0">
+                    <li class="page-item" [class.disabled]="page == 1">
+                      <a class="page-link" (click)="prevPage()">Précédent</a>
+                    </li>
+                    <ng-container *ngFor="let i of totalPages">
+                      <li class="page-item"  [class.active]="i == page">
+                        <a class="page-link" (click)="page=i">{{i+1}}</a>
+                      </li>
+                    </ng-container>
+                    <li class="page-item" [class.disabled]="totalPages ==page">
+                      <a class="page-link" (click)="nextPage()">Suivant</a>
+                    </li>
+                  </ul>
+                  <label class="d-flex align-items-center mx-2 mb-0">
+                    Afficher
+                    <select class="form-control mx-2 selectPageSortWidth" [(ngModel)]="size" (ngModelChange)="update()">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                    </select>
+                    lignes
+                  </label>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add and Update User Modal -->
+<ng-template #modalBasic let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="addClassetitle" *ngIf="showAdd">Ajouter une classe</h4>
+    <h4 class="modal-title" id="changeClassetitle" *ngIf="showUpdate">Modifier une classe</h4>
+
+    <button type="button" id="close" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <form #classeForm="ngForm" class="event-form needs-validation" *ngIf="selectedClasse">
+      <input type="hidden" class="form-control" name="id"  [(ngModel)]="selectedClasse._id">
+      <div class="mb-2">
+        <label for="nom" class="form-label">Nom de la classe</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          name="nom"  
+          [(ngModel)]="selectedClasse.nom" 
+          placeholder="Entrer le nom de la classe" 
+          required
+          [class.error]="classeSubmitted && formNomRef.invalid"
+          #formNomRef="ngModel"
+        >
+        <span *ngIf="classeSubmitted && formNomRef.invalid" class="invalid-form">
+          <small class="form-text text-danger" *ngIf="formNomRef.errors.required">Le nom est requis!</small>
+        </span>
+      </div>
+
+      <div class="mb-2">
+        <label for="nbreleve" class="form-label">Nombre d'élèves</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          name="nbreleve"  
+          [(ngModel)]="selectedClasse.nbreleve" 
+          placeholder="Entrer le nombre d'élèves" 
+          required
+          [class.error]="classeSubmitted && formElevesRef.invalid"
+          #formElevesRef="ngModel"
+        >
+        <span *ngIf="classeSubmitted && formElevesRef.invalid" class="invalid-form">
+          <small class="form-text text-danger" *ngIf="formElevesRef.errors.required">Le nombre d'élèves est requis!</small>
+        </span>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit"  *ngIf="showAdd" (click)="addClasseDetails()" class="btn btn-primary">Ajouter</button>
+    <button type="submit"  *ngIf="showUpdate" (click)="editClasseDetails(selectedClasse)" class="btn btn-primary">Modifier</button>
+  </div>
+</ng-template>
+<!-- / Add and Update ecole Modal -->
+  
+  
