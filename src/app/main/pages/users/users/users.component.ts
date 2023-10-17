@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core'
-import { ContentHeader } from 'app/layout/components/content-header/content-header.component';
 import { UserService } from '../services/users.service';
-import { UserToEditRole } from '../models/user';
+import { CurrentUser, UserToEditRole } from '../models/user';
 import { ModalsService } from 'app/shared/services/modals.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../../authentication/services/auth.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -13,12 +13,12 @@ import { NgForm } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class UsersComponent implements OnInit {
-
+  public accountTypes = ["admin","user"];
   public showAdd !: boolean;
   public showUpdate !: boolean;
   public userSubmitted = false;
   selectedUser = new UserToEditRole;
-  
+  public currentUser : CurrentUser;
 
   public usersList : UserToEditRole[];
   public keyword = "";
@@ -28,12 +28,14 @@ export class UsersComponent implements OnInit {
   public totalPages: number = 0;
 
   constructor(
+    private authService : AuthService,
     private userService : UserService,
     private modalService: NgbModal,
     private modalsService : ModalsService,
     private toastr: ToastrService) {}
 
   ngOnInit() {
+    this.currentUser = this.authService.currentUserValue;
     this.getUsersList();
   }
 
@@ -97,12 +99,13 @@ export class UsersComponent implements OnInit {
     }, () => { })
   }
 
-  updateUser(form: NgForm){
+  updateUserRole(user : UserToEditRole ){
     this.userSubmitted = true;
-    if(form.invalid){
-      return;
+    if(!user){
+      return
     }
-    this.userService.editUserAdmin(this.selectedUser).subscribe(res=>{
+   
+    this.userService.editUserRole(user,user.email).subscribe(res=>{
       this.userSubmitted = false;
       this.sucessToastr('Opération éffectuée', 'Succès');
       this.getUsersList();

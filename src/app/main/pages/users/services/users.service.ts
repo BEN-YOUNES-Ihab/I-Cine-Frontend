@@ -31,8 +31,8 @@ export class UserService {
     return this.http.patch(environment.apiUrl + `users/${email}/editUserPassword`, form);  
   }
 
-  editUserAdmin(user: UserToEditRole) {
-    return this.http.patch<any>(environment.apiUrl + `users/${user.email}/editUser`, user);
+  editUserRole(user:UserToEditRole, email:string ) {
+    return this.http.patch<any>(environment.apiUrl + `users/${email}/editUserRole`, user);
   }
 
   getUsersList(queryParams: any){

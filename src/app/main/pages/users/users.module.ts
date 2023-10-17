@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreCommonModule } from '@core/common.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { UsersComponent } from './users/users.component';
 import { RoleGuard } from 'app/auth/helpers/role.guards';
@@ -30,6 +31,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     CoreCommonModule,
+    NgSelectModule
     ]
 })
 export class UsersModule { }

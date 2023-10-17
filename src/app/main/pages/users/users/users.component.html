@@ -36,11 +36,12 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let user of usersList">
-                    <td>{{user.lastName}}</td>
-                    <td>{{user.firstName}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.role}}</td>
-                    <td class="overflow-hidden">
+                    <td *ngIf="user.id !== currentUser.id">{{user.lastName}}</td>
+                    <td *ngIf="user.id !== currentUser.id">{{user.firstName}}</td>
+                    <td *ngIf="user.id !== currentUser.id">{{user.email}}</td>
+                    <td *ngIf="user.role == 'admin' && user.id !== currentUser.id">Administrateur</td>
+                    <td *ngIf="user.role == 'user' && user.id !== currentUser.id">Utilisateur</td>
+                    <td class="overflow-hidden" *ngIf="user.id !== currentUser.id">
                       <div ngbDropdown container="body">
                         <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
                           <i data-feather="more-vertical"></i>
@@ -94,54 +95,88 @@
   <!-- Add and Update User Modal -->
 <ng-template #modalBasic let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="addClassetitle" *ngIf="showAdd">Ajouter une classe</h4>
-    <h4 class="modal-title" id="changeClassetitle" *ngIf="showUpdate">Modifier une classe</h4>
+    <h4 class="modal-title" id="changeClassetitle">Modifier une classe</h4>
 
     <button type="button" id="close" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body" tabindex="0" ngbAutofocus>
-    <form #classeForm="ngForm" class="event-form needs-validation" *ngIf="selectedClasse">
-      <input type="hidden" class="form-control" name="id"  [(ngModel)]="selectedClasse._id">
+    <form #userForm="ngForm" class="event-form needs-validation" *ngIf="selectedUser">
+      <input type="hidden" class="form-control" name="id"  [(ngModel)]="selectedUser.id">
       <div class="mb-2">
-        <label for="nom" class="form-label">Nom de la classe</label>
+        <label for="lastName" class="form-label">Nom</label>
         <input 
           type="text" 
           class="form-control" 
-          name="nom"  
-          [(ngModel)]="selectedClasse.nom" 
-          placeholder="Entrer le nom de la classe" 
+          name="lastName"  
+          [(ngModel)]="selectedUser.lastName" 
+          placeholder="Entrer le nom" 
           required
-          [class.error]="classeSubmitted && formNomRef.invalid"
-          #formNomRef="ngModel"
+          disabled
+          [class.error]="userSubmitted && formLastName.invalid"
+          #formLastName="ngModel"
         >
-        <span *ngIf="classeSubmitted && formNomRef.invalid" class="invalid-form">
-          <small class="form-text text-danger" *ngIf="formNomRef.errors.required">Le nom est requis!</small>
+        <span *ngIf="userSubmitted && formLastName.invalid" class="invalid-form">
+          <small class="form-text text-danger" *ngIf="formLastName.errors.required">Le nom est requis!</small>
         </span>
       </div>
-
       <div class="mb-2">
-        <label for="nbreleve" class="form-label">Nombre d'élèves</label>
+        <label for="firstName" class="form-label">Prénom</label>
         <input 
-          type="number" 
+          type="text" 
           class="form-control" 
-          name="nbreleve"  
-          [(ngModel)]="selectedClasse.nbreleve" 
-          placeholder="Entrer le nombre d'élèves" 
+          name="firstName"  
+          [(ngModel)]="selectedUser.nom" 
+          placeholder="Entrer le prénom" 
           required
-          [class.error]="classeSubmitted && formElevesRef.invalid"
-          #formElevesRef="ngModel"
+          disabled
+          [class.error]="userSubmitted && formFirstName.invalid"
+          #formFirstName="ngModel"
         >
-        <span *ngIf="classeSubmitted && formElevesRef.invalid" class="invalid-form">
-          <small class="form-text text-danger" *ngIf="formElevesRef.errors.required">Le nombre d'élèves est requis!</small>
+        <span *ngIf="userSubmitted && formFirstName.invalid" class="invalid-form">
+          <small class="form-text text-danger" *ngIf="formFirstName.errors.required">Le prénom est requis!</small>
         </span>
+      </div>
+      <div class="mb-2">
+        <label for="email" class="form-label">E-mail</label>
+        <input 
+          type="email" 
+          class="form-control" 
+          name="email"  
+          [(ngModel)]="selectedUser.email" 
+          placeholder="Entrer l'email" 
+          required
+          disabled
+          [class.error]="userSubmitted && formEmail.invalid"
+          #formEmail="ngModel"
+        >
+        <span *ngIf="userSubmitted && formEmail.invalid" class="invalid-form">
+          <small class="form-text text-danger" *ngIf="formEmail.errors.required">Le mail est requis!</small>
+        </span>
+      </div>
+      <!-- <div class="mb-1">
+        <label for="role" class="form-label">Rôle</label>
+        <select required  class="form-select" name="role" [(ngModel)]="selectedUser.role">
+          <option class="form-option" [selected]="selectedUser.role" ngValue="user">Utilisateur</option>
+          <option class="form-option" [selected]="selectedUser.role" ngValue="admin">Administrateur</option>
+        </select>
+      </div> -->
+      <div class="mb-2">
+        <label for="city-column">Type du compte</label>
+        <ng-select
+          [items]="accountTypes"
+          [(ngModel)]="selectedUser.role"
+          class="ng-select-size-sm"
+          bindLabel="role"
+          name="role"
+          placeholder="Type du compte"
+        ></ng-select>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit"  *ngIf="showAdd" (click)="addClasseDetails()" class="btn btn-primary">Ajouter</button>
-    <button type="submit"  *ngIf="showUpdate" (click)="editClasseDetails(selectedClasse)" class="btn btn-primary">Modifier</button>
+    <button type="submit" (click)="updateUserRole(selectedUser)" class="btn btn-primary">Modifier</button>
   </div>
 </ng-template>
 <!-- / Add and Update ecole Modal -->
