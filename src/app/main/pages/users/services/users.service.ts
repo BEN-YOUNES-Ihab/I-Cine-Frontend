@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Router } from '@angular/router';
 import { UserToAdd, UserToEdit, UserToEditRole } from '../models/user';
 import { environment } from 'environments/environment';
 import { Form } from '@angular/forms';
@@ -13,7 +11,7 @@ export class UserService {
 
   tokenresp: any;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
  
 
   addUser(user: UserToAdd) {
@@ -42,4 +40,5 @@ export class UserService {
   deleteUser(email:string){
     return this.http.delete(environment.apiUrl + `users/${email}/deleteUser`);
   }
+
 }

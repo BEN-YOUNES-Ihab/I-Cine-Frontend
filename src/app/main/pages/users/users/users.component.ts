@@ -4,7 +4,6 @@ import { CurrentUser, UserToEditRole } from '../models/user';
 import { ModalsService } from 'app/shared/services/modals.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgForm } from '@angular/forms';
 import { AuthService } from '../../authentication/services/auth.service';
 @Component({
   selector: 'app-users',
@@ -45,10 +44,8 @@ export class UsersComponent implements OnInit {
       page: this.page.toString(),
       size: this.size.toString(),
     };
-    console.log(this.keyword);
     this.userService.getUsersList(queryParams).subscribe(
-      (data: any) => { // Use 'any' to allow any response shape
-        console.log(data);
+      (data: any) => { 
         if (data) {
           this.usersList = data.content;
           this.totalElements = data.totalElements;
@@ -116,8 +113,6 @@ export class UsersComponent implements OnInit {
   }
 
   nextPage() {
-    console.log(this.page)
-    console.log(this.totalPages - 1)
     if (this.page < this.totalPages) {
       this.page++;
       this.getUsersList();
