@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreCommonModule } from '@core/common.module';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { RegistrationComponent } from './registration/registration.component';
-//import { AuthGuard } from 'app/auth/helpers/auth.guards';
 
 
 
@@ -17,7 +16,6 @@ const routes: Routes = [
     path: 'registration',
     component: RegistrationComponent,
     data: { animation: 'registration' }
-    //,canActivate: [AuthGuard]
   }
 ];
 @NgModule({

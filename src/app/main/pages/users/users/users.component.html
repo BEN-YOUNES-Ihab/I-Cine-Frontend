@@ -39,9 +39,8 @@
                     <td *ngIf="user.id !== currentUser.id">{{user.lastName}}</td>
                     <td *ngIf="user.id !== currentUser.id">{{user.firstName}}</td>
                     <td *ngIf="user.id !== currentUser.id">{{user.email}}</td>
-                    <td *ngIf="user.role == 'admin' && user.id !== currentUser.id">Administrateur</td>
-                    <td *ngIf="user.role == 'user' && user.id !== currentUser.id">Utilisateur</td>
-                    <td class="overflow-hidden" *ngIf="user.id !== currentUser.id">
+                    <td *ngIf="user.id !== currentUser.id">{{user.role}}</td>
+                    <td *ngIf="user.id !== currentUser.id" class="overflow-hidden">
                       <div ngbDropdown container="body">
                         <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
                           <i data-feather="more-vertical"></i>

@@ -4,22 +4,27 @@
         <p class="text-center mb-2"> 
           Veuillez taper votre email et mot de passe à fin d'accéder à votre compte
         </p>  
+        <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
+          <div class="alert-body">
+            <p>{{ error }}</p>
+          </div>
+        </ngb-alert>
       <form class="auth-login-form mt-2" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
         <div class="form-group">
-          <label for="login-email" class="form-label">Email</label>
+          <label for="username" class="form-label">Email</label>
           <input
             type="text"
             formControlName="username"
             class="form-control"
             placeholder="john@example.com"
-            aria-describedby="login-email"
+            aria-describedby="username"
             tabindex="1"
             autofocus
-            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
           />
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">L'e-mail est réquis</div>
+            <div *ngIf="f.username.errors.email">L'e-mail doit être une adresse e-mail valide</div>
           </div>
         </div>
 
@@ -59,7 +64,7 @@
             class="invalid-feedback"
             [ngClass]="{ 'd-block': submitted && f.password.errors }"
           >
-            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.required">Le mot de passe est réquis</div>
           </div>
         </div>
         <div class="form-group">
@@ -73,7 +78,7 @@
 
       <p class="text-center mt-2">
         <span>Nouveau sur notre plateforme ?</span>
-        <a routerLink="/pages/authentication/register-v1">
+        <a routerLink="/pages/registration">
           <span>&nbsp;Créer un compte</span>
         </a>
       </p>

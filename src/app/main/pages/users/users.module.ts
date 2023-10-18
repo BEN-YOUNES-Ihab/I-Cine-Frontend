@@ -10,7 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 import { UsersComponent } from './users/users.component';
 import { RoleGuard } from 'app/auth/helpers/role.guards';
-//import { AuthGuard } from 'app/auth/helpers/auth.guards';
+import { AuthGuard } from 'app/auth/helpers/auth.guards';
 
 
 
@@ -19,8 +19,7 @@ const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     data: { animation: 'users' },
-    canActivate: [RoleGuard]
-    //,canActivate: [AuthGuard]
+    canActivate: [RoleGuard, AuthGuard]
   }
 ];
 @NgModule({

@@ -11,7 +11,7 @@ export class RoleGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.authService.currentUserValue.role =='admin'){
+    if(this.authService.currentUserValue.role =='Administrateur'){
       return true;
     }
     else{

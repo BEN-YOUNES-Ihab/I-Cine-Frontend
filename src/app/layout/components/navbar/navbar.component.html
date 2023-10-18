@@ -76,8 +76,8 @@
       >
         <div class="user-nav d-sm-flex d-none" *ngIf="currentUser">
           <span class="user-name font-weight-bolder">{{
-            currentUser.firstName + " " + currentUser.lastName
-          }}</span><span *ngIf="currentUser && currentUser.role=='admin'" >Admin</span>
+            currentUser.firstName + " " + currentUser.lastName | uppercase
+          }}</span><span *ngIf="currentUser">{{currentUser.role }}</span>
         </div>
         <button
           type="button"
@@ -89,22 +89,26 @@
       </a>
       <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right" >
         
-        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='Administrateur'" [routerLink]="['/pages/users']"
         ><span  [data-feather]="'users'" [class]="'mr-50'"></span>Utilisateurs</a
         >
-        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='Administrateur'" [routerLink]="['/pages/movies-admin']"
         ><span  [data-feather]="'video'" [class]="'mr-50'"></span>Films</a
         >
-        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='Administrateur'" [routerLink]="['/pages/sessions-admin']"
         ><span  [data-feather]="'tv'" [class]="'mr-50'"></span>Séances</a
         >
-        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='admin'" [routerLink]="['/pages/users']"
+        <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='Administrateur'" [routerLink]="['/pages/orders-admin']"
         ><span  [data-feather]="'shopping-cart'" [class]="'mr-50'"></span>Réservations</a
         >
-        <div class="dropdown-divider" *ngIf="currentUser && currentUser.role=='admin'" ></div>
+
+        <div class="dropdown-divider" *ngIf="currentUser && currentUser.role=='Administrateur'" ></div>
 
         <a ngbDropdownItem *ngIf="!currentUser" [routerLink]="['/pages/authentication/login-v2']"
         ><span  [data-feather]="'user'" [class]="'mr-50'"></span> Se Connecter</a
+        >
+        <a ngbDropdownItem *ngIf="currentUser" [routerLink]="['/pages/orders-list']"
+        ><span  [data-feather]="'shopping-cart'" [class]="'mr-50'"></span>Mes réservations</a
         >
         <a ngbDropdownItem *ngIf="currentUser" [routerLink]="['/pages/account-settings']"
         ><span [data-feather]="'settings'" [class]="'mr-100'" ></span> Paramètres</a

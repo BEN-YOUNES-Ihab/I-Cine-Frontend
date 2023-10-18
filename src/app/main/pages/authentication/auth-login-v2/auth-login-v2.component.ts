@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -35,7 +34,6 @@ export class AuthLoginV2Component implements OnInit {
   constructor(
     private coreConfigService: CoreConfigService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private toastr: ToastrService
@@ -94,23 +92,22 @@ export class AuthLoginV2Component implements OnInit {
     // stop here if form is invalid
     if (form.invalid) {
       return;
-    } else {
-      this.authService.login(form.value).subscribe(data => {
-        if (data) {
-          console.log("onjour")
-          localStorage.setItem('accessToken', data.accessToken);
-          localStorage.setItem('currentUser', JSON.stringify(data.currentUser));
-          this.authService.currentUser.next(data.currentUser);
-          this.sucessToastr("Bienvenue sur la platforme I-Ciné","Bienvenue!")
-          this.router.navigate(['/home']);
-        } else {
-          this.error = "L'identifiant ou le mot de passe est incorrect";
-        }
-        
-      }, (err) => {
-        this.error = "Veuillez réessayer ultérieurement."
-      });
     }
+    this.authService.login(form.value).subscribe(data => {
+      if (data) {
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('currentUser', JSON.stringify(data.currentUser));
+        this.authService.currentUser.next(data.currentUser);
+        this.sucessToastr("Bienvenue sur la platforme I-Ciné","Bienvenue!")
+        this.router.navigate(['/pages/movies-list']);
+      } else {
+        this.error = "L'identifiant ou le mot de passe est incorrect.";
+      }
+      
+    }, (err) => {
+      this.error = "L'identifiant ou le mot de passe est incorrect."
+    });
+    
   }
   ngOnInit(): void {
     if(JSON.parse(localStorage.getItem('currentUser'))){

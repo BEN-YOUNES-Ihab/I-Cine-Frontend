@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreCommonModule } from '@core/common.module';
 
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-//import { AuthGuard } from 'app/auth/helpers/auth.guards';
+import { AuthGuard } from 'app/auth/helpers/auth.guards';
 
 
 
@@ -16,8 +16,8 @@ const routes: Routes = [
   {
     path: 'account-settings',
     component: AccountSettingsComponent,
-    data: { animation: 'users' }
-    //,canActivate: [AuthGuard]
+    data: { animation: 'users' },
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({

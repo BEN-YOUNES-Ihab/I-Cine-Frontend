@@ -13,7 +13,7 @@ import { AuthService } from '../../authentication/services/auth.service';
   encapsulation: ViewEncapsulation.None
 })
 export class UsersComponent implements OnInit {
-  public accountTypes = ["admin","user"];
+  public accountTypes = ["Administrateur","Utilisateur"];
   public showAdd !: boolean;
   public showUpdate !: boolean;
   public userSubmitted = false;

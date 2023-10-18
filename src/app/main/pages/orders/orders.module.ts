@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MoviesListComponent } from './movies-list/movies-list.component';
-import { MoviesAdminComponent } from './movies-admin/movies-admin.component';
+import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
+import { OrdersListComponent } from './orders-list/orders-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { CorePipesModule } from '@core/pipes/pipes.module';
@@ -11,26 +11,26 @@ import { AuthGuard } from 'app/auth/helpers';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'movies-list',
+    redirectTo: 'orders-list',
     pathMatch: 'full'
   },
   {
-    path: 'movies-list',
-    component: MoviesListComponent,
+    path: 'orders-list',
+    component: OrdersListComponent,
     data: { animation: 'movies' },
     canActivate: [AuthGuard]
   },
   {
-    path: "movies-admin",
-    component: MoviesAdminComponent,
+    path: "orders-admin",
+    component: OrdersAdminComponent,
     canActivate: [RoleGuard, AuthGuard]
   }
 ];
 
 @NgModule({
   declarations: [
-    MoviesListComponent,
-    MoviesAdminComponent
+    OrdersListComponent,
+    OrdersAdminComponent
   ],
   imports: [
     CommonModule, 
@@ -39,4 +39,4 @@ const routes: Routes = [
     CorePipesModule
   ]
 })
-export class MoviesModule { }
+export class OrderModule { }
