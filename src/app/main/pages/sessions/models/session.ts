@@ -4,5 +4,5 @@ export class SessionToEdit {
     id:string;
     date: Date;
     places: string;
-    movie: MovieToEdit
+    movieId: number
 }

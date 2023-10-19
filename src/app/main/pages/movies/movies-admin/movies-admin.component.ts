@@ -19,9 +19,9 @@ export class MoviesAdminComponent implements OnInit {
   public movieSubmitted = false;
   public error :string ="";
 
-  selectedMovie = new MovieToEdit;
-
+  public selectedMovie = new MovieToEdit;
   public moviesList : MovieToEdit[];
+
   public keyword = "";
   public page: number = 1;
   public size: number = 5;

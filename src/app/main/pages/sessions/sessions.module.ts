@@ -5,6 +5,8 @@ import { SessionsListComponent } from './sessions-list/sessions-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { CorePipesModule } from '@core/pipes/pipes.module';
+import { RoleGuard } from 'app/auth/helpers/role.guards';
+import { AuthGuard } from 'app/auth/helpers';
 // routing
 const routes: Routes = [
   {

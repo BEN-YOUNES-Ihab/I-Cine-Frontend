@@ -1,5 +1,161 @@
-<div class="content-wrapper container-xxl p-0">
-    <div class="content-body">
-        <app-content-header [contentHeader]="contentHeader"></app-content-header>
+<div class="content-wrapper container-xxl p-0 mt-2">
+  <div class="content-body">
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+    <div class="row mb-2">
+      <div class="col-sm-3 pr-sm-1">
+        <ng2-flatpickr 
+          [config]="DateRangeOptions" 
+          placeholder="Filtrer par date" 
+          name="DateRange"
+          [(ngModel)]="keyword"
+          (ngModelChange)="update()"
+        ></ng2-flatpickr>
+      </div>
+      <div class="col-sm-6 pl-sm-1"></div>
+      <div class="col-sm-3 pl-sm-1">
+        <button
+          class="btn btn-primary btn-block"
+          (click)="clickAddSession(modalBasic)"
+          rippleEffect
+        >
+          <i data-feather="plus"></i>
+          <span class="d-none d-sm-inline-block">Ajouter une séance</span>
+        </button>
+      </div>
     </div>
+    <!-- <button (click)="test()" ></button> -->
+    <div class="row" id="basic-table">
+      <div class="col-12">
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Date</th>
+                  <th>Places</th>
+                  <th>Date de création</th>
+                  <th>Date de modification</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let session of sessionsList">
+                  <td>{{session.id}}</td>
+                  <td>{{session.date | date:'medium'}}</td>
+                  <td>{{session.places}}</td>
+                  <td>{{session.createdAt | date}}</td>
+                  <td>{{session.updatedAt | date}}</td>
+                  <td  class="overflow-hidden">
+                    <div ngbDropdown container="body">
+                      <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                        <i data-feather="more-vertical"></i>
+                      </button>
+                      <div ngbDropdownMenu>
+                        <a ngbDropdownItem (click)="clickEditSession(session, modalBasic)">
+                          <i data-feather="edit-2" class="mr-50"></i>
+                          <span>Modifier</span>
+                        </a>
+                        <a ngbDropdownItem (click)="deleteSession(session.id)">
+                          <i data-feather="trash" class="mr-50"></i>
+                          <span>Supprimer</span>
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <nav class="m-2">
+              <div class="d-flex align-items-center">
+                <ul class="pagination mb-0">
+                  <li class="page-item" [class.disabled]="page == 1">
+                    <a class="page-link" (click)="prevPage()">Précédent</a>
+                  </li>
+                  <ng-container *ngFor="let i of totalPages">
+                    <li class="page-item"  [class.active]="i == page">
+                      <a class="page-link" (click)="page=i">{{i+1}}</a>
+                    </li>
+                  </ng-container>
+                  <li class="page-item" [class.disabled]="totalPages ==page">
+                    <a class="page-link" (click)="nextPage()">Suivant</a>
+                  </li>
+                </ul>
+                <label class="d-flex align-items-center mx-2 mb-0">
+                  Afficher
+                  <select class="form-control mx-2 selectPageSortWidth" [(ngModel)]="size" (ngModelChange)="update()">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                  </select>
+                  lignes
+                </label>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<!-- Add and Update Movi Modal -->
+<ng-template #modalBasic let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="addSessionTitle" *ngIf="showAdd">Ajouter une séance</h4>
+      <h4 class="modal-title" id="updateSessionTitle" *ngIf="showUpdate">Modifier une séance</h4>
+  
+      <button type="button" id="close" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+      <form #SessionForm="ngForm" class="validate-form mt-2">
+        <div class="mb-2">
+          <label for="places" class="form-label">Nombre de places</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="places"  
+            [(ngModel)]="selectedSession.places" 
+            placeholder="Entrer le npmbre de places" 
+            required
+            [class.error]="userSubmitted && formPlaces.invalid"
+            #formPlaces="ngModel"
+          >
+          <span *ngIf="userSubmitted && formPlaces.invalid" class="invalid-form">
+            <small class="form-text text-danger" *ngIf="formPlaces.errors.required">Le nombre de places est requis!</small>
+          </span>
+        </div>
+        <div class="mb-2">
+          <div class="form-group">
+            <label for="city-column">Date</label>
+            <ng2-flatpickr 
+              [ngClass]="'firstsecond'" 
+              [config]="basicDateOptions" 
+              [(ngModel)]="selectedSession.date"
+              name="basicDate">
+            </ng2-flatpickr>
+          </div>
+          <span *ngIf="userSubmitted && formPlaces.invalid" class="invalid-form">
+            <small class="form-text text-danger" *ngIf="formPlaces.errors.required">Le nombre de places est requis!</small>
+          </span>
+          </div>
+          
+          <div class="error-class mt-2">
+            <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
+              <div class="alert-body">
+                <p>{{ error }}</p>
+              </div>
+            </ngb-alert>
+          </div>
+        </form>
+  </div>
+  <div class="modal-footer">
+      <button type="submit"  *ngIf="showAdd" (click)="createSession()" class="btn btn-primary">Ajouter</button>
+      <button type="submit"  *ngIf="showUpdate" (click)="updateSessionDetails()" class="btn btn-primary">Modifier</button>
+  </div>
+</ng-template>

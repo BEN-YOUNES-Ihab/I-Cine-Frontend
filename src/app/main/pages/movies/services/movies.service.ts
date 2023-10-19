@@ -24,6 +24,9 @@ export class MoviesService {
     return this.http.post<any>(environment.apiUrl + `movies/${id}/upload-image`, formData);
   }
 
+  getMovie(id:string){
+    return this.http.get(environment.apiUrl + `movies/${id}/getMovie`,);
+  }
 
   getMoviesList(queryParams: any){
     return this.http.get(environment.apiUrl + 'movies/getMoviesList', { params: queryParams });  
