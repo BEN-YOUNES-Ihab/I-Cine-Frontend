@@ -1,39 +1,90 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+</head>
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body" >
     <!-- content-header component -->
 
-    <!-- Basic Alerts start -->
-    <section id="home-page">
-       <!-- ngb-carousel component -->
- <ngb-carousel *ngIf="carouselImages" >
-  <ng-template ngbSlide>
-    <div class="carousel-img-wrapper">
-      <img [src]="carouselImages.one" class="img-fluid  ml-10" alt="Random first slide" />
-      <img [src]="carouselImages.two" class="img-fluid pl-2" alt="Random first slide" />
+  <!-- ngb-carousel component -->
+  <ngb-carousel [pauseOnHover]="false" *ngIf="filmUne" class="fixed-carousel">
+    <ng-template ngbSlide *ngFor="let film of filmUne; let i = index">
+      <div class="carousel-img-wrapper">
+        <img [src]="film.url" class="img-fluid full-width-image" alt="Slide {{i + 1}}" />
+      </div>
+      <div class="carousel-caption">
+        <h3 class="text-white">{{ film.nom }}</h3>
+        <p class="truncate text-white">{{ film.desc }}</p>
+        <button type="button" class="btn btn-gradient-warning">Réserver</button>
+      </div>
+    </ng-template>
+  </ngb-carousel>
 
-      <img [src]="carouselImages.three" class="img-fluid  pl-2" alt="Random first slide" />
 
-      <img [src]="carouselImages.four" class="img-fluid  pl-2" alt="Random first slide" />
-      <img [src]="carouselImages.five" class="img-fluid  pl-2" alt="Random first slide" />
 
-    </div>
-    
-    <div class="carousel-caption"></div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="carousel-img-wrapper">
-      <img [src]="carouselImages.two" class="img-fluid" alt="Random second slide" />
-    </div>
-    <div class="carousel-caption"></div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="carousel-img-wrapper">
-      <img [src]="carouselImages.three" class="img-fluid" alt="Random third slide" />
-    </div>
-    <div class="carousel-caption"></div>
-  </ng-template>
-</ngb-carousel>
-    </section>
-    <!-- Basic Alerts end -->
+
+
+
+
+  <section id="home-page" class="fixas">
+      <!-- ngb-carousel component -->
+      <div class="divider divider-left">
+        <div class="divider-text"><h2>À l'affiche...</h2></div>
+      </div>
+      <ngb-carousel [interval]="0" [showNavigationIndicators]="false" *ngIf="filmAffiche">
+        <ng-template ngbSlide *ngFor="let slide of filmSlides">
+          <div class="carousel-img-wrapper" style="padding: 16px">
+            <div class="film-container zoom-on-hover" *ngFor="let film of slide">
+              <div class="avatar-container" style="width: 150px; height: 280px;">
+                <a [href]="film.url" class="avatar-container" style="text-decoration: none;">
+                  <img [src]="film.url" width="100%" height="80%" class="img-fluid ml-10" style="border-radius: 8px;" alt="Random slide" />
+                  <h4>{{ film.nom }}</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-caption"></div>
+        </ng-template>
+      </ngb-carousel>
+      
+      <div class="divider divider-left">
+        <div class="divider-text"><h2>Avant-première...</h2></div>
+      </div>
+      <ngb-carousel [interval]="0" [showNavigationIndicators]="false" *ngIf="filmAffiche">
+        <ng-template ngbSlide *ngFor="let slide of filmSlides2">
+          <div class="carousel-img-wrapper" style="padding: 16px">
+            <div class="film-container zoom-on-hover" *ngFor="let film of slide">
+              <div class="avatar-container" style="width: 150px; height: 280px;">
+                
+                <a [href]="film.url" class="avatar-container" style="text-decoration: none;">
+                  <img [src]="film.url" width="100%" height="80%" class="img-fluid ml-10" style="border-radius: 8px;" alt="Random slide" />
+                  <h4>{{ film.nom }}</h4>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-caption"></div>
+        </ng-template>
+      </ngb-carousel>
+      
+  
+  </section>
   </div>
+</div>
+<div class="footer-basic">
+  <footer>
+      <div class="social"><a href="https://www.instagram.com/estiamofficiel/"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="https://twitter.com/estiamofficiel?lang=fr"><i class="icon ion-social-twitter"></i></a><a href="https://www.facebook.com/estiameducation/?locale=fr_FR"><i class="icon ion-social-facebook"></i></a></div>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Accueil</a></li>
+          <li class="list-inline-item"><a href="#">Film</a></li>
+          <li class="list-inline-item"><a href="#">À propos</a></li>
+          <li class="list-inline-item"><a href="#">Condition</a></li>
+          <li class="list-inline-item"><a href="#">Politique de confidentialité</a></li>
+      </ul>
+  </footer>
 </div>
