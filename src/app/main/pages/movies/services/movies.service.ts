@@ -9,8 +9,6 @@ import { environment } from 'environments/environment';
 })
 export class MoviesService {
 
-  tokenresp: any;
-
   constructor(private http: HttpClient) { }
  
 

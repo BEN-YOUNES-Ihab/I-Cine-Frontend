@@ -62,11 +62,18 @@
                           <i data-feather="more-vertical"></i>
                         </button>
                         <div ngbDropdownMenu>
-                          <a ngbDropdownItem (click)="clickEditMovie(movie, modalBasic)"
-                            ><i data-feather="edit-2" class="mr-50"></i><span>Modifier</span></a
-                          ><a ngbDropdownItem (click)="deleteMovie(movie.id)"
-                            ><i data-feather="trash" class="mr-50"></i><span>Supprimer</span></a
-                          >
+                          <a ngbDropdownItem (click)="clickEditMovie(movie, modalBasic)">
+                            <i data-feather="edit-2" class="mr-50"></i>
+                            <span>Modifier</span>
+                          </a>
+                          <a ngbDropdownItem (click)="clickSendToSessionPage(movie)">
+                            <i data-feather="tv" class="mr-50"></i>
+                            <span>Séances</span>
+                          </a>
+                          <a ngbDropdownItem (click)="deleteMovie(movie.id)">
+                            <i data-feather="trash" class="mr-50"></i>
+                            <span>Supprimer</span>
+                          </a>
                         </div>
                       </div>
                     </td>

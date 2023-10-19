@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { French } from "flatpickr/dist/l10n/fr.js"
 import { ModalsService } from 'app/shared/services/modals.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies-admin',
@@ -40,7 +41,8 @@ export class MoviesAdminComponent implements OnInit {
     private moviesService : MoviesService,
     private modalService: NgbModal,
     private toastr: ToastrService,
-    private modalsService : ModalsService
+    private modalsService : ModalsService,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
@@ -184,6 +186,7 @@ export class MoviesAdminComponent implements OnInit {
           if (data) {
             // const index = this.moviesList.findIndex(x => x.id == id);
             // this.moviesList.splice(index, 1);
+            // this.totalElements = this.totalElements - 1;
             this.update();
             this.sucessToastr('Opération éffectuée', 'Succès');
           }
@@ -192,5 +195,9 @@ export class MoviesAdminComponent implements OnInit {
         });
       }
     }, () => { })
+  }
+
+  clickSendToSessionPage(movie : MovieToEdit){
+    this.router.navigate([`/pages/${movie.id}/sessions-admin`]);
   }
 }

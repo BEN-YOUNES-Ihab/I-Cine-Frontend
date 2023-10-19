@@ -7,6 +7,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { CorePipesModule } from '@core/pipes/pipes.module';
 import { RoleGuard } from 'app/auth/helpers/role.guards';
 import { AuthGuard } from 'app/auth/helpers';
+import { OrderComponent } from './order/order.component';
 // routing
 const routes: Routes = [
   {
@@ -24,13 +25,19 @@ const routes: Routes = [
     path: "orders-admin",
     component: OrdersAdminComponent,
     canActivate: [RoleGuard, AuthGuard]
+  },
+  {
+    path: "order",
+    component: OrderComponent
+    //,canActivate: [RoleGuard, AuthGuard]
   }
 ];
 
 @NgModule({
   declarations: [
     OrdersListComponent,
-    OrdersAdminComponent
+    OrdersAdminComponent,
+    OrderComponent
   ],
   imports: [
     CommonModule, 

@@ -15,10 +15,10 @@ const routes: Routes = [
   {
     path: 'sessions-list',
     component: SessionsListComponent,
-    data: { animation: 'movies' }
+    data: { animation: 'sessions' }
   },
   {
-    path: "sessions-admin",
+    path: ":id/sessions-admin",
     component: SessionsAdminComponent
   }
 ];
