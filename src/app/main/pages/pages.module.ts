@@ -16,6 +16,7 @@ import { RegistrationModule } from './registration/registration.module';
 import { MoviesModule } from './movies/movies.module';
 import { SessionModule } from './sessions/sessions.module';
 import { OrderModule } from './orders/orders.module';
+import { BasketModule } from './basket/basket.module';
 @NgModule({
   declarations: [
   ],
@@ -33,7 +34,9 @@ import { OrderModule } from './orders/orders.module';
     AccountSettingsModule,
     MoviesModule,
     SessionModule,
-    OrderModule
+    OrderModule,
+    BasketModule
+    
   ],
 
   providers: []
