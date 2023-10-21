@@ -7,6 +7,7 @@ import { FlatpickrOptions } from 'ng2-flatpickr';
 import { French } from "flatpickr/dist/l10n/fr.js"
 import { ModalsService } from 'app/shared/services/modals.service';
 import { Router } from '@angular/router';
+import { ContentHeader } from 'app/layout/components/content-header/content-header.component';
 
 @Component({
   selector: 'app-movies-admin',
@@ -38,6 +39,14 @@ export class MoviesAdminComponent implements OnInit {
     "locale": French,
   }
   private today = new Date();
+
+  contentHeader : ContentHeader  = {
+    headerTitle: "Gestionnaire de films",
+    actionButton: false,
+    breadcrumb: {
+      type: ''
+    }
+  }
   constructor(
     private moviesService : MoviesService,
     private modalService: NgbModal,
@@ -46,7 +55,7 @@ export class MoviesAdminComponent implements OnInit {
     private router : Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getMoviesList();
   }
 

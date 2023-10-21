@@ -93,7 +93,7 @@
         ><span  [data-feather]="'users'" [class]="'mr-50'"></span>Utilisateurs</a
         >
         <a ngbDropdownItem *ngIf="currentUser && currentUser.role=='Administrateur'" [routerLink]="['/pages/movies-admin']"
-        ><span  [data-feather]="'video'" [class]="'mr-50'"></span>Films</a
+        ><span  [data-feather]="'video'" [class]="'mr-50'"></span>Gestionnaire</a
         >
 
         <div class="dropdown-divider" *ngIf="currentUser && currentUser.role=='Administrateur'" ></div>
