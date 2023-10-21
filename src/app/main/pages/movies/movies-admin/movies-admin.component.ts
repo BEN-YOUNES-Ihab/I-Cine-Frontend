@@ -32,6 +32,7 @@ export class MoviesAdminComponent implements OnInit {
   public selectedImgPath : String | ArrayBuffer;
 
   public categorysList = ["Test1", "Test2", "Test3" , "Test4"];
+  
   public basicDateOptions: FlatpickrOptions = {
     altInput: true,
     "locale": French,

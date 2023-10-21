@@ -8,6 +8,9 @@ import { CorePipesModule } from '@core/pipes/pipes.module';
 import { RoleGuard } from 'app/auth/helpers/role.guards';
 import { AuthGuard } from 'app/auth/helpers';
 import { OrderComponent } from './order/order.component';
+import { CoreSidebarModule } from '@core/components';
+import { CoreCommonModule } from '@core/common.module';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 // routing
 const routes: Routes = [
   {
@@ -22,7 +25,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "orders-admin",
+    path: ":id/orders-admin",
     component: OrdersAdminComponent,
     canActivate: [RoleGuard, AuthGuard]
   },
@@ -43,7 +46,10 @@ const routes: Routes = [
     CommonModule, 
     RouterModule.forChild(routes),
     SharedModule,
-    CorePipesModule
+    CorePipesModule,
+    CoreSidebarModule,
+    CoreCommonModule,
+    PerfectScrollbarModule
   ]
 })
 export class OrderModule { }

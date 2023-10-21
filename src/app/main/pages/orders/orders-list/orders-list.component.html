@@ -1,1 +1,116 @@
-<p>orders-list works!</p>
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+      <!-- content-header component -->
+      <!-- account setting page -->
+      <section id="page-account-settings">
+        <div class="row nav-vertical d-flex">
+          <div class="col-md-3 mb-2 mb-md-0">
+            <ul ngbNav #navVertical="ngbNav" class="nav nav-pills flex-column nav-left">
+              <li class="nav-item" ngbNavItem>
+                <a
+                  ngbNavLink
+                  class="nav-link d-flex py-75"
+                  id="account-pill-general"
+                  data-toggle="pill"
+                  href="#account-vertical-general"
+                  aria-expanded="true"
+                  (click)="clickFuturOrders()"
+                >
+                <span class="bullet bullet-sm mr-50 bullet-success"></span>
+                  <span class="font-weight-bold">A venir</span>
+                </a>
+                <ng-template ngbNavContent> 
+                  <div class="card" style="max-height: 70vh;">
+                    <div class="card-body" [perfectScrollbar]>
+                      <div class="m-2" *ngIf="ordersList.length == 0">
+                        <p>Pas de réservations à venir</p>
+                      </div>
+                      <div class="mb-2" *ngFor="let order of ordersList">
+                        <div class="row mb-1">
+                          <h5 class="col-md-5 ">Commande effectuée le {{ order.createdAt | date:'shortDate' }}</h5>
+                          <div class="col-md-7 text-right custom-total ">Réf: {{order.id}}</div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-2">
+                            <a [routerLink]="['/pages', order.session.movie.id, 'sessions-list']">
+                              <img 
+                              class="rounded cursor-pointer" 
+                              width="135" 
+                              height="150" 
+                              [src]="order.session.movie.imageUrl">
+                            </a>
+                          </div>
+                          <h6 class="col-md-8">{{order.session.movie.title}} pour le {{order.session.date | date:'short'}}</h6>
+                          
+                          <div class="col-md-2 text-right custom-total">{{order.places}} Tickets, TOTAL €{{order.amount}}</div>
+                        </div>
+                        <hr class="hr" />
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+                
+              </li>
+
+              <li class="nav-item" ngbNavItem>
+                <a
+                  ngbNavLink
+                  class="nav-link d-flex py-75"
+                  id="account-pill-password"
+                  data-toggle="pill"
+                  href="#account-vertical-password"
+                  aria-expanded="false"
+                  (click)="clickArchivedOrders()"
+                >
+                <span class="bullet bullet-sm mr-50 bullet-danger"></span>
+                  <span  class="font-weight-bold">Archivées</span>
+                </a>
+                <ng-template ngbNavContent> 
+                  <div class="card" style="max-height: 70vh;" >
+                      <label class="d-flex ml-2 mt-1 fs-7" *ngIf="ordersList.length > 0">
+                        4 commandes passées
+                        <select class="form-control mx-2" style="width: 10%;" [(ngModel)]="year" (ngModelChange)="getOrdersList()">
+                          <option value="2023">2023</option>
+                          <option value="2022">2022</option>
+                          <option value="2021">2021</option>
+                          <option value="2020">2020</option>
+                        </select>
+                      </label>
+                    <div class="card-body" [perfectScrollbar]>
+                      <div class="m-2" *ngIf="ordersList.length == 0">
+                        <p>Pas de réservations archevées</p>
+                      </div>
+                      <div class="mb-2" *ngFor="let order of ordersList">
+                        <div class="row mb-1">
+                          <h5 class="col-md-5 ">Commande effectuée le {{ order.createdAt | date:'shortDate' }}</h5>
+                          <div class="col-md-7 text-right custom-total ">Réf: {{order.id}}</div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-2">
+                            <a [routerLink]="['/pages', order.session.movie.id, 'sessions-list']">
+                              <img 
+                              class="rounded cursor-pointer" 
+                              width="135" 
+                              height="150" 
+                              [src]="order.session.movie.imageUrl">
+                            </a>
+                          </div>
+                          <h6 class="col-md-8">{{order.session.movie.title}} pour le {{order.session.date | date:'short'}}</h6>
+                          
+                          <div class="col-md-2 text-right custom-total">{{order.places}} Tickets, TOTAL €{{order.amount}}</div>
+                        </div>
+                        <hr class="hr" />
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+          <div [ngbNavOutlet]="navVertical" class="col-12 col-md-9"></div>
+        </div>
+      </section>
+      <!--/ account setting page -->
+    </div>
+  </div>
+  

@@ -10,12 +10,7 @@ import { AuthGuard } from 'app/auth/helpers';
 // routing
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'sessions-list',
-    pathMatch: 'full'
-  },
-  {
-    path: 'sessions-list',
+    path: ':id/sessions-list',
     component: SessionsListComponent,
     data: { animation: 'sessions' }
   },

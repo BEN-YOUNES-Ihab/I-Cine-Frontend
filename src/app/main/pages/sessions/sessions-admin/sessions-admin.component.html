@@ -57,6 +57,10 @@
                           <i data-feather="edit-2" class="mr-50"></i>
                           <span>Modifier</span>
                         </a>
+                        <a ngbDropdownItem (click)="redirectToOrders(session.id)">
+                          <i data-feather="shopping-cart" class="mr-50"></i>
+                          <span>Réservations</span>
+                        </a>
                         <a ngbDropdownItem (click)="deleteSession(session.id)">
                           <i data-feather="trash" class="mr-50"></i>
                           <span>Supprimer</span>

@@ -29,4 +29,7 @@ export class SessionsService {
     return this.http.delete(environment.apiUrl + `sessions/${id}/deleteSession`);
   }
 
+  getSession(id:string){
+    return this.http.get(environment.apiUrl + `sessions/${id}/getSession`);
+  }
 }

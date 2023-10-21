@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SessionsService } from '../services/sessions.service';
 import { ContentHeader } from 'app/layout/components/content-header/content-header.component';
 import { SessionToEdit } from '../models/session';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieToEdit } from '../../movies/models/movie';
 import { MoviesService } from '../../movies/services/movies.service';
 
@@ -37,11 +37,12 @@ export class SessionsAdminComponent implements OnInit {
   public basicDateOptions: FlatpickrOptions = {
     altInput: true,
     enableTime: true,
-    "locale": French,
+    "locale": French
   }
   public DateRangeOptions: FlatpickrOptions = {
     altInput: true,
-    mode: 'range'
+    mode: 'range',
+    "locale": French
   }
   private today = new Date();
 
@@ -52,13 +53,13 @@ export class SessionsAdminComponent implements OnInit {
     private toastr: ToastrService,
     private modalsService : ModalsService,
     private route: ActivatedRoute,
-    private moviesService: MoviesService
+    private moviesService: MoviesService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.movieId =  this.route.snapshot.paramMap.get('id');
     this.moviesService.getMovie(this.movieId).subscribe(data =>{
-      console.log(data)
       this.currentMovie = data as MovieToEdit;
       this.contentHeader = {
         headerTitle: this.currentMovie.title,
@@ -210,6 +211,10 @@ export class SessionsAdminComponent implements OnInit {
         });
       }
     }, () => { })
+  }
+
+  redirectToOrders(id){
+    this.router.navigate([`/pages/${id}/orders-admin`]);
   }
 
 }
