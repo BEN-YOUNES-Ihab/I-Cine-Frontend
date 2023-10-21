@@ -1,71 +1,115 @@
+
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body" >
     <!-- content-header component -->
 
   <!-- ngb-carousel component -->
-  <ngb-carousel [pauseOnHover]="false" *ngIf="filmUne" class="fixed-carousel">
-    <ng-template ngbSlide *ngFor="let film of filmUne; let i = index">
+  <ngb-carousel [pauseOnHover]="false" *ngIf="getDisplayedMovies()" class="fixed-carousel">
+    <ng-template ngbSlide *ngFor="let film of getDisplayedMovies(); let i = index">
       <div class="carousel-img-wrapper">
-        <img [src]="film.url" class="img-fluid full-width-image" alt="Slide {{i + 1}}" />
+        <img [src]="film.imageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
       </div>
-      <div class="carousel-caption">
-        <h3 class="text-white">{{ film.nom }}</h3>
-        <p class="truncate text-white">{{ film.desc }}</p>
-        <button type="button" class="btn btn-gradient-warning">Réserver</button>
+      <div class="carousel-caption desc-carousel">
+        <h3 class="text-white">{{ film.title }}</h3>
+        <p class="truncate text-white">{{ film.description }}</p>
+        <button type="button" [routerLink]="['/pages/panier']" class="btn btn-gradient-warning">Réserver</button>
       </div>
     </ng-template>
   </ngb-carousel>
 
 
 
-
+  <div class="divider dividerhome">
+    <div class="divider-text"><h3>Films 🎞️</h3></div>
+  </div>
 
 
 
   <section id="home-page" class="fixas">
-      <!-- ngb-carousel component -->
-      <div class="divider divider-left">
-        <div class="divider-text"><h2>À l'affiche...</h2></div>
-      </div>
-      <ngb-carousel [interval]="0" [showNavigationIndicators]="false" *ngIf="filmAffiche">
-        <ng-template ngbSlide *ngFor="let slide of filmSlides">
-          <div class="carousel-img-wrapper" style="padding: 16px">
-            <div class="film-container zoom-on-hover" *ngFor="let film of slide">
-              <div class="avatar-container" style="width: 150px; height: 280px;">
-                <a [href]="film.url" class="avatar-container" style="text-decoration: none;">
-                  <img [src]="film.url" width="100%" height="80%" class="img-fluid ml-10" style="border-radius: 8px;" alt="Random slide" />
-                  <h4>{{ film.nom }}</h4>
-                </a>
-              </div>
+    
+    
+    
+    <div class="row mb-2">
+        <div class=" col-12 pr-sm-1">
+          <div class="input-group input-group-merge">
+            <input
+              type="text"
+              class="form-control"
+              name="search"
+              placeholder="Rechercher"
+              [(ngModel)]="keyword" (ngModelChange)="update()"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text cursor-pointer">
+                <i data-feather="search"></i>
+              </span>
             </div>
           </div>
-          
-          <div class="carousel-caption"></div>
-        </ng-template>
-      </ngb-carousel>
-      
-      <div class="divider divider-left">
-        <div class="divider-text"><h2>Avant-première...</h2></div>
+        </div>
       </div>
-      <ngb-carousel [interval]="0" [showNavigationIndicators]="false" *ngIf="filmAffiche">
-        <ng-template ngbSlide *ngFor="let slide of filmSlides2">
-          <div class="carousel-img-wrapper" style="padding: 16px">
-            <div class="film-container zoom-on-hover" *ngFor="let film of slide">
-              <div class="avatar-container" style="width: 150px; height: 280px;">
-                
-                <a [href]="film.url" class="avatar-container" style="text-decoration: none;">
-                  <img [src]="film.url" width="100%" height="80%" class="img-fluid ml-10" style="border-radius: 8px;" alt="Random slide" />
-                  <h4>{{ film.nom }}</h4>
-                </a>
+
+      <div class="row" id="basic-table">
+        <div class="col-12">
+          <div class="">
+            <div class="table-responsive">
+              
+              <div class="product-grid">
+                <div *ngFor="let film of moviesList" [routerLink]="['/pages/panier', film.id]" class="product">
+                  <div class="test-img">
+                    <img [src]="film.imageUrl" alt="Image du produit" class="film-image">
+                  </div>
+                  <div>
+                    <h3>{{ film.title }}</h3>
+                    <p>Sortie: <strong>{{ film.releaseDate | date:'dd MMM yyyy' }}</strong></p>
+                  </div>
+                  <p>Genre: <strong>{{ film.category }}</strong></p>
+                </div>
               </div>
+
+              <!--Ancienne version !-->
+              <!-- <table class="table table-hover table-sep">
+                <tbody>
+                  <tr *ngFor="let film of moviesList" class="zoom-on-hover custom-tr" (click)="modalOpen(modalBasic, film)">
+                    <td><img [src]="film.imageUrl" alt="Image du film" class="film-image"></td>
+                    <td style="white-space: nowrap;"><strong>{{ film.title }}</strong><br><br>Sortie: <strong>{{ film.releaseDate | date:'dd MMM yyyy' }}</strong></td>
+                    <td style="white-space: nowrap;">Genre: <div style="display: inline;" class="badge badge-light-primary">{{ film.category }}</div></td>
+                  </tr>
+                </tbody>
+              </table> -->
+              <nav class="m-2">
+                <div class="d-flex align-items-center">
+                  <ul class="pagination mb-0">
+                    <li class="page-item" [class.disabled]="page == 1">
+                      <a class="page-link" (click)="prevPage()">Précédent</a>
+                    </li>
+                    <ng-container *ngFor="let i of totalPages">
+                      <li class="page-item"  [class.active]="i == page">
+                        <a class="page-link" (click)="page=i">{{i+1}}</a>
+                      </li>
+                    </ng-container>
+                    <li class="page-item" [class.disabled]="totalPages ==page">
+                      <a class="page-link" (click)="nextPage()">Suivant</a>
+                    </li>
+                  </ul>
+                  <label class="d-flex align-items-center mx-2 mb-0">
+                    Afficher
+                    <select class="form-control mx-2 selectPageSortWidth" [(ngModel)]="size" (ngModelChange)="update()">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                    </select>
+                    lignes
+                  </label>
+                </div>
+              </nav>
             </div>
           </div>
-          
-          <div class="carousel-caption"></div>
-        </ng-template>
-      </ngb-carousel>
-      
-  
+        </div>
+      </div>
+
+
+     
   </section>
   </div>
 </div>
