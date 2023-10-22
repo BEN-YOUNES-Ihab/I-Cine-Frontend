@@ -8,9 +8,7 @@ import { AuthService } from '../../authentication/services/auth.service';
   styleUrls: ['./orders-list.component.scss']
 })
 export class OrdersListComponent implements OnInit {
-  filters = [{title:"hello",date:"12/21/3123",places:"23",amount:"21"},{title:"hello",date:"12/21/3123",places:"23",amount:"21"},{title:"hello",date:"12/21/3123",places:"23",amount:"21"}]
- 
-  public ordersList : any[];
+  public ordersList : any[] = [];
   public totalElements: number = 0;
   public year = new Date().getFullYear();
   public userId ;

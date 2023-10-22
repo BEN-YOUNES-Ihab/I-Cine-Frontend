@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MovieToEdit } from '../models/movie';
+import { MoviesService } from '../services/movies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies-list',
@@ -7,9 +10,117 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoviesListComponent implements OnInit {
 
-  constructor() { }
+  public selectedMovie = new MovieToEdit;
+  public moviesList : MovieToEdit[];
+  public onDisplayMoviesList :MovieToEdit[];
+  // public categorysList: string[] = [
+  //   "Action",
+  //   "Comédie",
+  //   "Drame",
+  //   "Science-fiction",
+  //   "Horreur",
+  //   "Aventure",
+  //   "Animation",
+  //   "Fantaisie",
+  //   "Romance",
+  //   "Documentaire"
+  // ];
+
+    public categorysList: string[] = [
+    "Test1",
+    "Test2",
+    "Test3",
+    "Test4"
+  ];
+
+  public title = "";
+  public category = null;
+  public page: number = 1;
+  public size: number = 24;
+  public totalElements: number = 0;
+  public totalPages: number = 0;
+
+  public pageBasicText = 1;
+  constructor(
+    private moviesService : MoviesService,
+    private router : Router) { }
 
   ngOnInit(): void {
+    if(!this.category){
+      this.category =""
+    }
+    const queryParams = {
+      category: this.category,
+      title: this.title,
+      page: this.page.toString(),
+      size: this.size.toString(),
+    };
+    this.moviesService.getMoviesListbyCategory(queryParams).subscribe(
+      (data: any) => { 
+        if (data) {
+          this.moviesList = data.content;
+          this.onDisplayMoviesList = this.getDisplayedMovies(this.moviesList);
+          console.log(this.onDisplayMoviesList)
+          this.totalElements = data.totalElements;
+          this.totalPages = data.totalPages;
+        }
+      },
+      (error) => console.log(error)
+    );
   }
 
+  getMoviesListbyCategory(event?) {
+    if(event){
+      this.page = event;
+    }
+    if(!this.category){
+      this.category =""
+    }
+    const queryParams = {
+      category: this.category,
+      title: this.title,
+      page: this.page.toString(),
+      size: this.size.toString(),
+    };
+    this.moviesService.getMoviesListbyCategory(queryParams).subscribe(
+      (data: any) => { 
+        if (data) {
+          this.moviesList = data.content;
+          this.totalElements = data.totalElements;
+          this.totalPages = data.totalPages;
+        }
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  getNewBadge(releaseDate) {
+    if (!releaseDate) {
+      return false;
+    }
+  
+    let todayTime = new Date().getTime();
+    let releaseDateTime = new Date(releaseDate).getTime();
+    let timeDifference = todayTime - releaseDateTime;
+    const twoWeeksInMilliseconds = 2 * 7 * 24 * 60 * 60 * 1000;
+    
+    if (timeDifference < twoWeeksInMilliseconds) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  update(){
+    this.page = 1;
+    this.getMoviesListbyCategory();
+  }
+
+  
+  getDisplayedMovies(moviesList) {
+    return moviesList.filter(film => film.onDisplay === true);
+  }
+  redirectToSession(id){
+    this.router.navigate([`pages/${id}/sessions-list`]);
+  }
 }

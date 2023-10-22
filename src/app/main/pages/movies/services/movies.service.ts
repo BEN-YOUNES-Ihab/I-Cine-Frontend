@@ -32,6 +32,11 @@ export class MoviesService {
     return this.http.get(environment.apiUrl + 'movies/getMoviesList', { params: queryParams });  
   }
 
+  
+  getMoviesListbyCategory(queryParams: any){
+    return this.http.get(environment.apiUrl + 'movies/getMoviesListbyCategory', { params: queryParams });  
+  }
+
   deleteMovie(id:string){
     return this.http.delete(environment.apiUrl + `movies/${id}/deleteMovie`);
   }

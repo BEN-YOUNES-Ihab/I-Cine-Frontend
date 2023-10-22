@@ -21,6 +21,9 @@
                 </a>
                 <ng-template ngbNavContent> 
                   <div class="card" style="max-height: 70vh;">
+                    <label class="d-flex ml-2 mt-1 fs-7">
+                      {{totalElements}} commandes passées
+                    </label>
                     <div class="card-body" [perfectScrollbar]>
                       <div class="m-2" *ngIf="ordersList.length == 0">
                         <p>Pas de réservations à venir</p>
@@ -40,7 +43,7 @@
                               [src]="order.session.movie.imageUrl">
                             </a>
                           </div>
-                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'short'}}</h6>
+                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'d MMMM y, h:mm:ss'}}</h6>
                           
                           <div class="col-md-3 text-right custom-total">{{order.places}} Tickets, TOTAL €{{order.amount}}</div>
                         </div>
@@ -68,7 +71,7 @@
                 <ng-template ngbNavContent> 
                   <div class="card" style="max-height: 70vh;" >
                       <label class="d-flex ml-2 mt-1 fs-7">
-                        4 commandes passées
+                        {{totalElements}} commandes passées
                         <select class="form-control mx-2" style="width: 10%;" [(ngModel)]="year" (ngModelChange)="getOrdersList()">
                           <option value="2023">2023</option>
                           <option value="2022">2022</option>

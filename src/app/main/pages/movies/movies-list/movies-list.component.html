@@ -1,1 +1,81 @@
-<p>movies-list works!</p>
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body" >
+        <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
+            <ng-template ngbSlide *ngFor="let movie of onDisplayMoviesList">
+                <div class="carousel-img-wrapper">
+                    <img height="400px" width="100%" [src]="movie.imageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
+                </div>
+                <div class="carousel-caption desc-carousel">
+                    <h3 class="text-white">{{movie.title}}</h3>
+                    <p class="truncate text-white">{{movie.description}}</p>
+                    <button type="button" class="btn btn-gradient-warning" (click)="redirectToSession(movie.id)">Réserver</button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+
+        <!-- FILTER -->          
+        <div class="row mb-2 mt-4">
+            <div class="col-sm-6 pr-1"> 
+                <div class="input-group input-group-merge">
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        placeholder="Rechercher"
+                        [(ngModel)]="title" 
+                        (ngModelChange)="update()"
+                    />
+                    <div class="input-group-append">
+                        <span class="input-group-text cursor-pointer">
+                            <i data-feather="search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 pl-1"> 
+                    <ng-select
+                      [items]="categorysList"
+                      [(ngModel)]="category"
+                      (ngModelChange)="getMoviesListbyCategory()"
+                      class="ng-select-size-sm"
+                      bindLabel="category"
+                      name="category"
+                      placeholder="Catégorie"
+                    ></ng-select>
+            </div>
+        </div>
+        <!--/ FILTER -->          
+        
+        <!-- Movie Cards -->
+        <div class="row mt-4">
+            <div class="col-xl-2 col-md-4 col-sm-6 text-center div-card mb-2"  *ngFor="let movie of moviesList">
+                <div class="mb-1 rounded text-right movie-card cursor-pointer">
+                    <div class="background-image" (click)="redirectToSession(movie.id)" [style.background-image]="'url(' + movie.imageUrl + ')'">
+                        <div style="display: block;">
+                            <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">nouveau</div>
+                        </div>
+                        <div class="mb-1" style="display: block;">
+                            <div class="badge badge-pill badge-info margin-badge-two">{{movie.category}}</div>
+                        </div>
+                    </div>
+                </div>
+                <a (click)="redirectToSession(movie.id)"  >{{movie.title}}</a>
+            </div>
+        </div>
+        <!--/ Movie Cards -->
+
+        <!-- PAGINATION -->
+        <div class="d-flex justify-content-center">
+            <ngb-pagination (pageChange)="getMoviesListbyCategory($event)" [collectionSize]="totalElements" [(pageSize)]="size" [page]="page" aria-label="Custom pagination">
+                <ng-template ngbPaginationPrevious
+                ><span [data-feather]="'chevron-left'" [class]="'font-weight-bolder'"></span>Précédent
+                </ng-template>
+                <ng-template ngbPaginationNext
+                >Suivant<span [data-feather]="'chevron-right'" [class]="'font-weight-bolder'"></span>
+                </ng-template>
+            </ngb-pagination>
+        </div>
+        <!-- PAGINATION -->
+
+    </div>
+</div>

@@ -97,8 +97,9 @@ export class SessionsAdminComponent implements OnInit {
       queryParams.minDate = this.keyword[0];
       queryParams.maxDate = this.keyword[1];
     }
-
-    console.log(this.keyword);
+    if( queryParams.minDate!=undefined && queryParams.maxDate==undefined ){
+      return
+    }
     this.sessionsService.getSessionsList(queryParams).subscribe(
       (data: any) => { 
         if (data) {

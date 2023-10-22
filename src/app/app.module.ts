@@ -26,7 +26,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/pages/movies-list',
     pathMatch: 'full'
   },
   {
