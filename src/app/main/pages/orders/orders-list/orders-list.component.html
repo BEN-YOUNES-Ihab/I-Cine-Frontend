@@ -30,7 +30,7 @@
                       </div>
                       <div class="mb-2" *ngFor="let order of ordersList">
                         <div class="row mb-1">
-                          <h5 class="col-md-5 ">Commande effectuée le {{ order.createdAt | date:'shortDate' }}</h5>
+                          <h5 class="col-md-5 ">Commande effectuée le {{ order.createdAt | date:'d MMMM y' }}</h5>
                           <div class="col-md-7 text-right custom-total ">Réf: {{order.id}}</div>
                         </div>
                         <div class="row">
@@ -43,7 +43,7 @@
                               [src]="order.session.movie.imageUrl">
                             </a>
                           </div>
-                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'d MMMM y, h:mm:ss'}}</h6>
+                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'d MMMM y, HH:mm'}}</h6>
                           
                           <div class="col-md-3 text-right custom-total">{{order.places}} Tickets, TOTAL €{{order.amount}}</div>
                         </div>
@@ -85,7 +85,7 @@
                       </div>
                       <div class="mb-2" *ngFor="let order of ordersList">
                         <div class="row mb-1">
-                          <h5 class="col-md-5 ">Commande effectuée le {{ order.createdAt | date:'shortDate' }}</h5>
+                          <h5 class="col-md-5 ">Commande effectuée le {{ order.createdAt | date:'d MMMM y' }}</h5>
                           <div class="col-md-7 text-right custom-total ">Réf: {{order.id}}</div>
                         </div>
                         <div class="row">
@@ -98,7 +98,7 @@
                               [src]="order.session.movie.imageUrl">
                             </a>
                           </div>
-                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'short'}}</h6>
+                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'d MMMM y, HH:mm'}}</h6>
                           
                           <div class="col-md-3 text-right custom-total">{{order.places}} Tickets, TOTAL €{{order.amount}}</div>
                         </div>

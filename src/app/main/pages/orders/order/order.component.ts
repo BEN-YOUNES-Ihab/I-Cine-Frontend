@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
+  //verifier si l'url a des parametres ou pas pour afficher un message d'erreur ou success
+  // si succes : message + cacher button reserve + details d'ordre ? (de la bdd)
+  // si fail-stock mssage + cacher button reserve + retour vers la page sessions-list
+  // si fail message veuillez recomencer
 
-  constructor() { }
+  
+  // envoyer le places, queryPrice, sessionIdFront et userId pour creer un payement
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      // get params
+
+      const status = params['status'];
+      const orderId = params['orderId'];
+  
+      console.log('Status:', status);
+      console.log('Order ID:', orderId);
+    });
   }
 
 }

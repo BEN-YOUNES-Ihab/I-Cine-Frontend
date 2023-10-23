@@ -35,6 +35,7 @@
                   <th>Id</th>
                   <th>Date</th>
                   <th>Places</th>
+                  <th>Places restantes</th>
                   <th>Date de création</th>
                   <th>Date de modification</th>
                   <th></th>
@@ -45,6 +46,7 @@
                   <td>{{session.id}}</td>
                   <td>{{session.date | date:'medium'}}</td>
                   <td>{{session.places}}</td>
+                  <td>{{session.remaningPlaces}}</td>
                   <td>{{session.createdAt | date}}</td>
                   <td>{{session.updatedAt | date}}</td>
                   <td  class="overflow-hidden">
@@ -125,15 +127,34 @@
             class="form-control" 
             name="places"  
             [(ngModel)]="selectedSession.places" 
-            placeholder="Entrer le npmbre de places" 
+            placeholder="Entrer le nombre de places" 
             required
-            [class.error]="userSubmitted && formPlaces.invalid"
+            [class.error]="sessionSubmitted && formPlaces.invalid"
             #formPlaces="ngModel"
           >
-          <span *ngIf="userSubmitted && formPlaces.invalid" class="invalid-form">
+          <span *ngIf="sessionSubmitted && formPlaces.invalid" class="invalid-form">
             <small class="form-text text-danger" *ngIf="formPlaces.errors.required">Le nombre de places est requis!</small>
           </span>
         </div>
+
+        <div class="mb-2">
+          <label for="places" class="form-label">Nombre de places restantes</label>
+          <input 
+            type="number" 
+            class="form-control" 
+            name="remaningPlaces"  
+            [(ngModel)]="selectedSession.places - placesDiff" 
+            placeholder=" le nombre de places restantes" 
+            required
+            disabled
+            [class.error]="sessionSubmitted && formRemaningPlaces.invalid"
+            #formRemaningPlaces="ngModel"
+          >
+          <span *ngIf="sessionSubmitted && formRemaningPlaces.invalid" class="invalid-form">
+            <small class="form-text text-danger" *ngIf="formRemaningPlaces.errors.required">Le nombre de places est requis!</small>
+          </span>
+        </div>
+
         <div class="mb-2">
           <div class="form-group">
             <label for="city-column">Date</label>
@@ -141,11 +162,15 @@
               [ngClass]="'firstsecond'" 
               [config]="basicDateOptions" 
               [(ngModel)]="selectedSession.date"
-              name="basicDate">
+              name="basicDate"
+              required
+              [class.error]="sessionSubmitted && formDate.invalid"
+              #formDate="ngModel"
+              >
             </ng2-flatpickr>
           </div>
-          <span *ngIf="userSubmitted && formPlaces.invalid" class="invalid-form">
-            <small class="form-text text-danger" *ngIf="formPlaces.errors.required">Le nombre de places est requis!</small>
+          <span *ngIf="sessionSubmitted && formDate.invalid" class="invalid-form">
+            <small class="form-text text-danger" *ngIf="formDate.errors.required">La date est requis!</small>
           </span>
           </div>
           

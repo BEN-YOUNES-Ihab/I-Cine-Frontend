@@ -30,9 +30,14 @@ const routes: Routes = [
     canActivate: [RoleGuard, AuthGuard]
   },
   {
-    path: "order",
+    path: ":id/order",
     component: OrderComponent
-    //,canActivate: [RoleGuard, AuthGuard]
+    //,canActivate: [AuthGuard, RoleGuard]
+  },
+  {
+    path: ":id/order/:status",
+    component: OrderComponent
+    //,canActivate: [AuthGuard, RoleGuard]
   }
 ];
 

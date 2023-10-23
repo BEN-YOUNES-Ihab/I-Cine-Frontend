@@ -27,7 +27,8 @@ export class SessionsAdminComponent implements OnInit {
   public sessionsList : SessionToEdit[];
   public movieId : string;
   public currentMovie : MovieToEdit;
-  
+  public placesDiff=0;
+
   public keyword = "";
   public page: number = 1;
   public size: number = 5;
@@ -132,8 +133,10 @@ export class SessionsAdminComponent implements OnInit {
   }
 
   clickEditSession(session: SessionToEdit ,modalBasic){
+    this.error=""
     this.sessionSubmitted = false;
     this.selectedSession = session;
+    this.placesDiff = this.selectedSession.places - this.selectedSession.remaningPlaces;
     this.basicDateOptions.defaultDate = this.selectedSession.date;
     this.showAdd = false;
     this.showUpdate = true;
@@ -143,8 +146,10 @@ export class SessionsAdminComponent implements OnInit {
     
   }
   clickAddSession(modalBasic){
+    this.error=""
     this.selectedSession = new SessionToEdit;
     this.sessionSubmitted = false;
+    this.placesDiff = this.selectedSession.places - this.selectedSession.remaningPlaces;
     this.selectedSession.movieId = +this.movieId;
     this.basicDateOptions.defaultDate = this.today;
     this.selectedSession.date = this.today;
@@ -171,7 +176,10 @@ export class SessionsAdminComponent implements OnInit {
   }
   createSession(){
     this.sessionSubmitted = true;
-
+    if(!this.selectedSession.places && !this.selectedSession.remaningPlaces){
+      return
+    }
+    this.selectedSession.remaningPlaces = this.selectedSession.places;
     this.sessionsService.createSession(this.selectedSession).subscribe(data => {
       this.update();
       this.sucessToastr('Opération éffectuée', 'Succès');
@@ -185,6 +193,14 @@ export class SessionsAdminComponent implements OnInit {
 
   updateSessionDetails(){
     this.sessionSubmitted = true;
+    if(!this.selectedSession.places && !this.selectedSession.remaningPlaces){
+      return
+    }
+    if(this.selectedSession.places - this.placesDiff<0){
+      this.error="Le nombre de places restantes est inférieure à 0"
+      return
+    }
+    this.selectedSession.remaningPlaces = this.selectedSession.places - this.placesDiff;
     this.sessionsService.updateSession(this.selectedSession.id, this.selectedSession).subscribe(data => {
       this.update();
       this.sucessToastr('Opération éffectuée', 'Succès');
