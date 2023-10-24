@@ -16,9 +16,9 @@ import { CoreConfig } from '@core/types';
 // prettier-ignore
 export const coreConfig: CoreConfig = {
   app: {
-    appName     : 'I-Ciné',                                        // App Name
-    appTitle    : 'I-Ciné', // App Title
-    appLogoImage: 'assets/images/logo/logo.svg',                  // App Logo
+    appName     : 'ICiné',                                        // App Name
+    appTitle    : 'ICiné', // App Title
+    appLogoImage: 'assets/images/icons/iconic.png',                  // App Logo
     appLanguage : 'fr',                                           // App Default Language (en, fr, de, pt etc..)
   },
   layout: {

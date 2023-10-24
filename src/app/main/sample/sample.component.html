@@ -1,24 +1,150 @@
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
     <!-- content-header component -->
-    <app-content-header [contentHeader]="contentHeader"></app-content-header>
 
     <!-- Basic Alerts start -->
     <section id="sample-page">
       <div class="row">
         <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">{{ 'SAMPLE.AWESOME' | translate }}</h4>
-            </div>
-            <div class="card-body pb-1">
-              <p class="card-text">This is your second page.</p>
-              <p class="card-text">
-                Chocolate sesame snaps pie carrot cake pastry pie lollipop muffin. Carrot cake dragée chupa chups
-                jujubes. Macaroon liquorice cookie wafer tart marzipan bonbon. Gingerbread jelly-o dragée chocolate.
-              </p>
+          <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+            <div class="row">
+              <div class="col-md-6">
+                <h1 class="display-4 font-italic">Projet Full Back & Front</h1>
+                <p class="lead my-3">Concevoir et développer un site de vente en ligne de billets de cinéma en respectant les spécifications techniques établies par le client.</p>
+                <p>Slogan: <strong>Les cinémas ont besoin de nous ! 🍿</strong></p>
+                <span>Client: <strong>ROSENDORN Gavriel</strong></span>
+              </div>
+              <div class="col-md-6 text-right">
+                <img style="border-radius: 8px;" src="assets/images/icons/iconic.png" width="40%" height="40%" alt="Equipe 1" class="img-fluid">
+              </div>
             </div>
           </div>
+          
+        
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-success">Back & Front</strong>
+                  <h3 class="mb-0">Ihab BEN YOUNES</h3>
+                  <div class="mb-1 text-muted">Env : Windows</div>
+                  <p class="card-text mb-auto"><strong>Diplôme :</strong> ?</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                  <img src="assets/images/pages/about/Anonymous_emblem.svg.png" alt="Ihab" width="200" height="250"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-success">Back & Front</strong>
+                  <h3 class="mb-0">Wendy ALPHANOR</h3>
+                  <div class="mb-1 text-muted">Env : Mac OS</div>
+                  <p class="mb-auto"><strong>Diplôme :</strong> Licence Informatique</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                  <img src="assets/images/pages/about/IMG_0006.jpeg" alt="Wendy" width="200" height="250"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-primary">Back & Front</strong>
+                  <h3 class="mb-0">Jordan Nguimenang</h3>
+                  <div class="mb-1 text-muted">Env : Windows</div>
+                  <p class="mb-auto"><strong>Diplôme :</strong> ?</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                  <img src="assets/images/pages/about/T05UDSAE8KZ-U05V2BH43LK-cbc0f8fb3fc0-72.png" alt="Jordan" width="200" height="250"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-success">Back & Front</strong>
+                  <h3 class="mb-0">Alexis MATILE</h3>
+                  <div class="mb-1 text-muted">Env : Windows</div>
+                  <p class="mb-auto"><strong>Diplôme :</strong> ?</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                  <img src="assets/images/pages/about/Anonymous_emblem.svg.png" alt="Alexis" width="200" height="250"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-block"
+            (click)="isCollapsed5 = !isCollapsed5"
+            [attr.aria-expanded]="!isCollapsed5"
+            aria-controls="collapseExample4"
+            rippleEffect
+          >
+          <span [data-feather]="'star'" [class]="'mr-25'"></span>Consigne du Projet
+          </button>
+          <div [ngbCollapse]="isCollapsed5">
+            <div class="card mb-0">
+              <div class="card-body">
+                <h2>FONCTIONNALITÉS</h2>
+                <ul>
+                  <li><strong>Authentification :</strong>
+                    <ul>
+                      <li>Inscription (Utilisateur) avec NOM / PRENOM / EMAIL / MOT DE PASSE au minimum</li>
+                      <li>Connexion (Utilisateur) avec EMAIL / MOT DE PASSE</li>
+                      <li>Déconnexion (suppression du token du localStorage)</li>
+                    </ul>
+                  </li>
+                  <li>Espace <strong>ADMIN :</strong>
+                    <ul>
+                      <li>Afficher, Ajouter, Modifier, Supprimer un film avec TITRE / IMAGE / DESCRIPTION au minimum</li>
+                      <li>Afficher la liste de tous les films</li>
+                      <li>Ajouter, Modifier, Supprimer Une Séance pour voir un film avec FILM / MAX SPECTATEURS / HEURE ET DATE au minimum</li>
+                      <li>Afficher la liste des séances par film</li>
+                      <li>Afficher les réservations par séances (avec le nom et prénom des clients)</li>
+                    </ul>
+                  </li>
+                  <li>Espace <strong>USER :</strong>
+                    <ul>
+                      <li>Modifier mon profil NOM / PRENOM / EMAIL / MOT DE PASSE</li>
+                      <li>Afficher la liste de tous les films</li>
+                      <li>Rechercher un film</li>
+                      <li>Afficher la liste des séances par film</li>
+                      <li>Réservation d’une Séance pour un nombre de places au CHOIX :
+                        <ul>
+                          <li>Le prix doit être déterminé par le BACK, pas par le FRONT, sinon c’est une faille</li>
+                          <li>Vous devez utiliser Stripe Checkout pour le paiement de la réservation</li>
+                          <li>Quand il n’y a plus de place disponible, la séance doit être affichée COMPLÈTE et ne doit plus être réservable</li>
+                          <li>Au cas où durant mon passage sur Stripe la séance est complétée, je dois annuler le paymentIntent (la transaction)</li>
+                          <li>Au cas où il reste des places quand je suis redirigé vers le site, je dois capturer les fonds autorisés</li>
+                          <li>Au cas où la réservation a marché, je dois envoyer un email de confirmation avec le numéro de commande, le nombre de places réservées, les infos sur la séance (heure) et le film (nom)</li>
+                        </ul>
+                      </li>
+                      <li>Afficher la liste de mes réservations en les séparant en « À VENIR » et « ARCHIVÉES »</li>
+                    </ul>
+                  </li>
+                  <li>Stack <strong>OBLIGATOIRE :</strong>
+                    <ul>
+                      <li>NEST.JS (Framework)</li>
+                      <li>PassportJS (Auth)</li>
+                      <li>Prisma (ORM)</li>
+                      <li>CLOUDINARY (CDN)</li>
+                      <li>Stripe (Paiement)</li>
+                    </ul>
+                  </li>
+                  <li>Stack <strong>LIBRE :</strong>
+                    <ul>
+                      <li>Email Sender</li>
+                      <li>Tout ce qui concerne des fonctionnalités BONUS</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

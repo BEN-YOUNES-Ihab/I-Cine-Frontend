@@ -98,7 +98,7 @@ export class AuthLoginV2Component implements OnInit {
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('currentUser', JSON.stringify(data.currentUser));
         this.authService.currentUser.next(data.currentUser);
-        this.sucessToastr("Bienvenue sur la platforme I-Ciné","Bienvenue!")
+        this.sucessToastr("Bienvenue sur la platforme ICiné","Bienvenue!")
         this.router.navigate(['/pages/movies-list']);
       } else {
         this.error = "L'identifiant ou le mot de passe est incorrect.";

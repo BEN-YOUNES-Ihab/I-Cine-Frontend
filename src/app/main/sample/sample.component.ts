@@ -15,6 +15,9 @@ import { CoreTranslationService } from '@core/services/translation.service'
 export class SampleComponent implements OnInit {
   public contentHeader: object
 
+  public isCollapsed5 = true;
+  
+
   /**
    *
    * @param {CoreTranslationService} _coreTranslationService

@@ -7,7 +7,9 @@ import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'footer',
-  templateUrl: './footer.component.html'
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss']
+
 })
 export class FooterComponent implements OnInit, OnDestroy {
   public coreConfig: any;
