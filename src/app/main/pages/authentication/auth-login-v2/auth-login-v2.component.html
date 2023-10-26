@@ -1,9 +1,16 @@
-<div class="row justify-content-center">
-  <div class="card">
-    <div class="card-body">
-        <p class="text-center mb-2"> 
-          Veuillez taper votre email et mot de passe à fin d'accéder à votre compte
-        </p>  
+<div class="auth-wrapper auth-v1 px-2">
+  <div class="auth-inner py-2">
+    <!-- Login v1 -->
+    <div class="card mb-0">
+      <div class="card-body">
+        <a routerLink="/pages/movies-list" class="brand-logo">
+          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
+          <h2 class="brand-text text-primary ml-1">I-Ciné</h2>
+        </a>
+
+        <h4 class="card-title mb-1">Bienvenue sur I-Ciné! </h4>
+        <p class="card-text mb-2">Veuillez vous connecter à votre compte et commencer l'aventure</p>
+
         <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
           <div class="alert-body">
             <p>{{ error }}</p>
@@ -73,9 +80,13 @@
             <label class="custom-control-label" for="remember-me"> Se souvenir de moi</label>
           </div>
         </div>
-        <button class="btn btn-primary btn-block" tabindex="4" rippleEffect> Se connecter</button>
+        <button [disabled]="loading" class="btn btn-primary btn-block" tabindex="5" rippleEffect>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Se connecter
+        </button>
       </form>
-
+     <div class="divider my-2">
+          <div class="divider-text">ou</div>
+      </div>
       <p class="text-center mt-2">
         <span>Nouveau sur notre plateforme ?</span>
         <a routerLink="/pages/registration">
@@ -84,10 +95,5 @@
       </p>
   </div>
 </div>
-
-
-
-
-
 
 

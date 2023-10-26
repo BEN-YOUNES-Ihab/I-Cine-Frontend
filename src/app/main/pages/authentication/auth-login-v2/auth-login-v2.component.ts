@@ -47,7 +47,7 @@ export class AuthLoginV2Component implements OnInit {
     this.coreConfigService.config = {
       layout: {
         navbar: {
-          hidden: false
+          hidden: true
         },
         menu: {
           hidden: true
@@ -94,12 +94,16 @@ export class AuthLoginV2Component implements OnInit {
       return;
     }
     this.authService.login(form.value).subscribe(data => {
+      this.loading = true;
       if (data) {
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('currentUser', JSON.stringify(data.currentUser));
         this.authService.currentUser.next(data.currentUser);
-        this.sucessToastr("Bienvenue sur la platforme ICiné","Bienvenue!")
-        this.router.navigate(['/pages/movies-list']);
+        setTimeout(() => {
+          this.router.navigate(['/pages/movies-list']);
+          this.sucessToastr("Bienvenue sur la platforme ICiné","Bienvenue!")
+        }, 1000);
+       
       } else {
         this.error = "L'identifiant ou le mot de passe est incorrect.";
       }

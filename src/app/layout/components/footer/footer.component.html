@@ -10,32 +10,35 @@
       <div class="col-6 col-md-3 item">
         <h3>Services</h3>
         <ul>
-          <li><a href="#">• Film</a></li>
-          <li><a href="#">• À Propos</a></li>
+          <li><a routerLink="/sample">À Propos</a></li>
         </ul>
       </div>
       <div class="col-6 col-md-3 item">
         <h3>Politique et confidentialité</h3>
         <ul>
-          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">• Mentions légales</a></li>
-          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">• Conditions générales de vente</a></li>
-          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">• Règles de confidentialité</a></li>
+          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Mentions légales</a></li>
+          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Conditions générales de vente</a></li>
+          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Règles de confidentialité</a></li>
         </ul>
       </div>
       <div class="col-12 col-md-3 item">
-        <h3>ICine</h3>
+        <h3>I-Ciné</h3>
         <p>La plateforme de vente de billets de cinéma en ligne. Découvrez ici tous les films sortis ou annoncés.</p>
       </div>
       <div class="col-12 item social" style="margin-top: 30px;">
-        <a href="https://www.estiam.education/programme-mdp/"><i class="icon ion-university"></i></a>
-        <a href="https://www.facebook.com/estiameducation/?locale=fr_FR"><i class="icon ion-social-facebook"></i></a>
-        <a href="https://twitter.com/estiamofficiel?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="icon ion-social-twitter"></i></a>
-        <a href="https://www.instagram.com/estiamofficiel/"><i class="icon ion-social-instagram"></i></a>
+        
+        <button type="button" (click)="externalUrl1()"class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
+          <span [data-feather]="'facebook'"></span></button
+        >
+        <button type="button" (click)="externalUrl2()" href="" class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
+          <span [data-feather]="'twitter'"></span></button
+        >
+        <button type="button" (click)="externalUrl3()" href="" class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
+          <span [data-feather]="'instagram'"></span></button
+        >
       </div>
     </div>
     <p class="copyright">ICine © 2023</p>
-    <img src="https://www.simone-perele.com/media/wysiwyg/LOGO-CB-VISA-MASTERCARD_mob_1.jpg" alt="logo icine" width="120" height="35" style="border-radius: 4px;"/>
-
   </div>
   
 </div>

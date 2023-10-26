@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../services/orders.service';
 import { AuthService } from '../../authentication/services/auth.service';
+import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-orders-list',
@@ -14,7 +15,24 @@ export class OrdersListComponent implements OnInit {
   public userId ;
   public archived = "false";
 
-  constructor(private ordersService : OrdersService,private authService: AuthService) { }
+  constructor( 
+    private coreConfigService: CoreConfigService, 
+    private ordersService : OrdersService,
+    private authService: AuthService) { 
+      this.coreConfigService.config = {
+        layout: {
+          navbar: {
+            hidden: false
+          },
+          menu: {
+            hidden: true
+          },
+          footer: {
+            hidden: true
+          }
+        }
+      };
+    }
 
   ngOnInit() {
     this.userId = this.authService.currentUserValue.id;

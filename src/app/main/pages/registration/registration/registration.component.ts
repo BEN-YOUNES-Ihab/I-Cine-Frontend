@@ -1,6 +1,4 @@
 import { ViewEncapsulation, Component, OnInit } from '@angular/core';
-import { French } from "flatpickr/dist/l10n/fr.js"
-import { FlatpickrOptions } from 'ng2-flatpickr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoreConfigService } from '@core/services/config.service';
 import { NgForm } from '@angular/forms';
@@ -21,12 +19,7 @@ export class RegistrationComponent implements OnInit {
   public repeatpasswordTextType: boolean;
   public error: string ="";
   public loading = false;
-  public basicDateOptions: FlatpickrOptions = {
-    altInput: true,
-    "locale": French,
-  }
-  public email;
-  public role;
+
   
   private _unsubscribeAll: Subject<any>;
 
@@ -42,7 +35,7 @@ export class RegistrationComponent implements OnInit {
       this._coreConfigService.config = {
         layout: {
           navbar: {
-            hidden: false
+            hidden: true
           },
           menu: {
             hidden: true
@@ -74,23 +67,34 @@ export class RegistrationComponent implements OnInit {
     this._unsubscribeAll.complete();
   }
 
-  signUp(form: NgForm){
-    if(form.invalid){
+  signUp(form: NgForm) {
+    if (form.invalid) {
       return;
     }
-    console.log(form.value)
-    if(this.passwordIsValid(form.value.password, form.value.confirm_password)){
-        this.userService.addUser(form.value).subscribe((res) => {
-        this.loading = true;
-        setTimeout(() => {
-          this._router.navigate(['/pages/authentication/login-v2']);
-        }, 1000);
-      }),(err)=>{
-        this.error = "Erreur";
-        console.error(err);
+    if (this.passwordIsValid(form.value.password, form.value.confirm_password)) {
+      if(form.value.password.length < 8 || form.value.password.length > 30){
+        this.error ="Votre mot de passe doit contenir entre 8 et 30 caractères"
+        return
       }
-    }else{
-      this.error = "Les mots de passe sont pas identiques";
+
+      this.userService.addUser(form.value).subscribe(
+        (res) => {
+          this.loading = true;
+          setTimeout(() => {
+            this._router.navigate(['/pages/authentication/login-v2']);
+          }, 1000);
+        },
+        (err) => {
+          if (err.error.statusCode === 409) {
+            this.error = "L'email existe déjà";
+          } else {
+            this.error = "Erreur";
+            console.error(err);
+          }
+        }
+      );
+    } else {
+      this.error = "Les mots de passe ne sont pas identiques";
     }
   }
 

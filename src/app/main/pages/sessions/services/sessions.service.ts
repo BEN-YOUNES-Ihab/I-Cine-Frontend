@@ -25,6 +25,10 @@ export class SessionsService {
     return this.http.get(environment.apiUrl + 'sessions/getSessionsByMovieId', { params: queryParams });  
   }
 
+  getSessionsByMovieIdUser(queryParams: any){
+    return this.http.get(environment.apiUrl + 'sessions/getSessionsByMovieIdUser', { params: queryParams });  
+  }
+
   deleteSession(id:string){
     return this.http.delete(environment.apiUrl + `sessions/${id}/deleteSession`);
   }

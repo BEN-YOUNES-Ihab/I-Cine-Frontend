@@ -10,6 +10,7 @@ import { SessionToEdit } from '../models/session';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieToEdit } from '../../movies/models/movie';
 import { MoviesService } from '../../movies/services/movies.service';
+import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-sessions-admin',
@@ -49,6 +50,7 @@ export class SessionsAdminComponent implements OnInit {
 
   contentHeader: ContentHeader ;
   constructor(
+    private coreConfigService : CoreConfigService,
     private sessionsService : SessionsService,
     private modalService: NgbModal,
     private toastr: ToastrService,
@@ -56,7 +58,21 @@ export class SessionsAdminComponent implements OnInit {
     private route: ActivatedRoute,
     private moviesService: MoviesService,
     private router: Router
-  ) { }
+  ) {
+    this.coreConfigService.config = {
+      layout: {
+        navbar: {
+          hidden: false
+        },
+        menu: {
+          hidden: true
+        },
+        footer: {
+          hidden: true
+        }
+      }
+    };
+   }
 
   ngOnInit(): void {
     this.movieId =  this.route.snapshot.paramMap.get('id');

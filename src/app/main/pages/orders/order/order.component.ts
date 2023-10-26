@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-order',
@@ -15,7 +16,24 @@ export class OrderComponent implements OnInit {
   
   // envoyer le places, queryPrice, sessionIdFront et userId pour creer un payement
 
-  constructor(private route: ActivatedRoute) { }
+  constructor( 
+    private coreConfigService: CoreConfigService, 
+    private route: ActivatedRoute) { 
+          // Configure the layout
+    this.coreConfigService.config = {
+      layout: {
+        navbar: {
+          hidden: false
+        },
+        menu: {
+          hidden: true
+        },
+        footer: {
+          hidden: true
+        }
+      }
+    };
+    }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {

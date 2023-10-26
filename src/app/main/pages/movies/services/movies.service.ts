@@ -21,7 +21,7 @@ export class MoviesService {
   }
   
   updateMovieImage(id:string, formData: FormData) {
-    return this.http.post<any>(environment.apiUrl + `movies/${id}/upload-image`, formData);
+    return this.http.post<any>(environment.apiUrl + `movies/${id}/upload-images`, formData);
   }
 
   getMovie(id:string){

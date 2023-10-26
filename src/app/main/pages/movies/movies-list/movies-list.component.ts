@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieToEdit } from '../models/movie';
 import { MoviesService } from '../services/movies.service';
 import { Router } from '@angular/router';
+import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -42,8 +43,23 @@ export class MoviesListComponent implements OnInit {
 
   public pageBasicText = 1;
   constructor(
+    private coreConfigService : CoreConfigService,
     private moviesService : MoviesService,
-    private router : Router) { }
+    private router : Router) { 
+      this.coreConfigService.config = {
+        layout: {
+          navbar: {
+            hidden: false
+          },
+          menu: {
+            hidden: true
+          },
+          footer: {
+            hidden: false
+          }
+        }
+      };
+    }
 
   ngOnInit(): void {
     if(!this.category){

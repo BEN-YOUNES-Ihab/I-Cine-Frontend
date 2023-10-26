@@ -17,8 +17,7 @@ const routes: Routes = [
   {
     path: 'movies-list',
     component: MoviesListComponent,
-    data: { animation: 'movies' },
-    canActivate: [AuthGuard]
+    data: { animation: 'movies' }
   },
   {
     path: "movies-admin",

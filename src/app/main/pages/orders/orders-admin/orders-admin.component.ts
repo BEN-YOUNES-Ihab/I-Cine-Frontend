@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ContentHeader } from 'app/layout/components/content-header/content-header.component';
 import { SessionsService } from '../../sessions/services/sessions.service';
 import { SessionToEdit } from '../../sessions/models/session';
+import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-orders-admin',
@@ -28,9 +29,24 @@ export class OrdersAdminComponent implements OnInit {
   contentHeader: ContentHeader ;
   
   constructor(
+    private coreConfigService: CoreConfigService,
     private ordersService : OrdersService,
     private route:ActivatedRoute,
-    private sessionsService: SessionsService) { }
+    private sessionsService: SessionsService) { 
+      this.coreConfigService.config = {
+        layout: {
+          navbar: {
+            hidden: false
+          },
+          menu: {
+            hidden: true
+          },
+          footer: {
+            hidden: true
+          }
+        }
+      };
+    }
 
   ngOnInit(): void {
 

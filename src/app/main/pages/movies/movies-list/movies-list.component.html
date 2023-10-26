@@ -3,7 +3,7 @@
         <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
             <ng-template ngbSlide *ngFor="let movie of onDisplayMoviesList">
                 <div class="carousel-img-wrapper">
-                    <img height="400px" width="100%" [src]="movie.imageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
+                    <img height="400px" width="100%" [src]="movie.baniereImageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
                 </div>
                 <div class="carousel-caption desc-carousel">
                     <h3 class="text-white">{{movie.title}}</h3>

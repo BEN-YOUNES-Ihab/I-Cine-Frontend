@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../authentication/services/auth.service';
 import { ModalsService } from 'app/shared/services/modals.service';
+import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -26,10 +27,26 @@ export class AccountSettingsComponent implements OnInit {
   public passwordSubmitted = false;
   public passError: string = "";
   constructor(    
+    private coreConfigService : CoreConfigService,
     private userService: UserService,
     private toastr: ToastrService,
     private authService: AuthService,
-    private modalService: ModalsService) { }
+    private modalService: ModalsService) {
+
+    this.coreConfigService.config = {
+      layout: {
+        navbar: {
+          hidden: false
+        },
+        menu: {
+          hidden: true
+        },
+        footer: {
+          hidden: true
+        }
+      }
+    };
+    }
 
   ngOnInit(): void {
       this.userDetails = this.authService.currentUserValue;

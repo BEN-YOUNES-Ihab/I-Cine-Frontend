@@ -1,10 +1,13 @@
-<div class="row justify-content-center">
-  <div class="col-md-6">
-    <div class="card">
-        <div class="card-body">
-            <p class="text-center mb-2"> 
-                Veuillez taper vos informations à fin créer votre compte
-            </p>
+<div class="auth-wrapper auth-v1 px-2">
+  <div class="auth-inner py-2">
+    <!-- Login v1 -->
+    <div class="card mb-0">
+      <div class="card-body">
+        <a routerLink="/pages/movies-list" class="brand-logo">
+          <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
+          <h2 class="brand-text text-primary ml-1">I-Ciné</h2>
+        </a>
+            <p class="card-text mb-2">Veuillez taper vos informations à fin de créer votre compte</p>
             <form class="auth-register-form mt-2" #registrationForm="ngForm" (submit)="signUp(registrationForm)">
                 <div class="form-group">
                   <label for="lastname" class="form-label">Nom</label>
@@ -44,14 +47,15 @@
                 </div>
                 
                 <div class="form-group">
-                  <label for="register-email" class="form-label">Email</label>
+                  <label for="email" class="form-label">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     class="form-control"
                     placeholder="Email"
                     tabindex="2"
                     name="email"
-                    [(ngModel)]="email"
+                    ngModel
+                    email="true"
                     [class.error]="registrationForm.submitted && formEmailRef.invalid"
                     #formEmailRef="ngModel"
                     required
@@ -94,7 +98,7 @@
                   </span>
                 </div>
                 <div class="form-group">
-                  <label for="confirm_password" class="form-label">Confirmer</label>
+                  <label for="confirm_password" class="form-label">Confirmer le mot de passe</label>
                   <div class="input-group input-group-merge form-password-toggle">
                     <input
                       id="confirm_password"
@@ -134,6 +138,15 @@
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>S'inscrire
                 </button>
               </form>
+              <div class="divider my-2">
+                <div class="divider-text">ou</div>
+            </div>
+            <p class="text-center mt-2">
+              <span>Vous avez déjà un compte? </span>
+              <a routerLink="/pages/authentication/login-v2">
+                <span>&nbsp;Connectez-vous</span>
+              </a>
+            </p>
         </div>
     </div>
   </div>

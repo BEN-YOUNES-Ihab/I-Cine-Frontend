@@ -8,6 +8,7 @@ import { French } from "flatpickr/dist/l10n/fr.js"
 import { ModalsService } from 'app/shared/services/modals.service';
 import { Router } from '@angular/router';
 import { ContentHeader } from 'app/layout/components/content-header/content-header.component';
+import { CoreConfigService } from '@core/services/config.service';
 
 @Component({
   selector: 'app-movies-admin',
@@ -32,6 +33,9 @@ export class MoviesAdminComponent implements OnInit {
   public selectedImg: File;
   public selectedImgPath : String | ArrayBuffer;
 
+  public selectedSecondImg: File;
+  public selectedSecondImgPath : String | ArrayBuffer;
+
   public categorysList = ["Test1", "Test2", "Test3" , "Test4"];
   
   public basicDateOptions: FlatpickrOptions = {
@@ -48,12 +52,27 @@ export class MoviesAdminComponent implements OnInit {
     }
   }
   constructor(
+    private coreConfigService : CoreConfigService,
     private moviesService : MoviesService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     private modalsService : ModalsService,
     private router : Router
-  ) { }
+  ) { 
+    this.coreConfigService.config = {
+      layout: {
+        navbar: {
+          hidden: false
+        },
+        menu: {
+          hidden: true
+        },
+        footer: {
+          hidden: true
+        }
+      }
+    };
+  }
 
   ngOnInit() {
     this.getMoviesList();
@@ -80,6 +99,7 @@ export class MoviesAdminComponent implements OnInit {
   clickEditMovie(movie: MovieToEdit ,modalBasic){
     this.movieSubmitted = false;
     this.selectedMovie = movie;
+    this.selectedSecondImgPath = movie.baniereImageUrl;
     this.selectedImgPath = movie.imageUrl;
     this.basicDateOptions.defaultDate = this.selectedMovie.releaseDate;
     this.showAdd = false;
@@ -95,6 +115,7 @@ export class MoviesAdminComponent implements OnInit {
     this.selectedMovie = new MovieToEdit;
     this.movieSubmitted = false;
     this.selectedImgPath = null;
+    this.selectedSecondImgPath = null;
     this.basicDateOptions.defaultDate = this.today;
     this.selectedMovie.onDisplay = false;
     this.selectedMovie.releaseDate = this.today;
@@ -149,13 +170,27 @@ export class MoviesAdminComponent implements OnInit {
       reader.onload = e => this.selectedImgPath = reader.result;
       reader.readAsDataURL(file);
     }
+    console.log()
+  }
+  onBaniereImageSelected(event: any){
+    console.log('hi')
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      this.selectedSecondImg = file;
+      const reader = new FileReader();
+      reader.onload = e => this.selectedSecondImgPath = reader.result;
+      reader.readAsDataURL(file);
+    }
+    console.log(this.selectedImgPath)
+    console.log(this.selectedSecondImgPath);
   }
 
   updateMovieDetails(){
     this.movieSubmitted = true;
     const formData = new FormData();
-    formData.append('file', this.selectedImg);
 
+    formData.append('file', this.selectedImg);
+    formData.append('secondFile', this.selectedSecondImg);
     this.moviesService.updateMovie(this.selectedMovie.id, this.selectedMovie).subscribe(data => {
       this.moviesService.updateMovieImage(this.selectedMovie.id, formData).subscribe(data=>{
         this.getMoviesList();
@@ -171,9 +206,13 @@ export class MoviesAdminComponent implements OnInit {
 
   createMovie(){
     this.movieSubmitted = true;
+    if(!this.selectedImg || !this.selectedSecondImg){
+      this.error= "Ajouter deux images !"
+      return
+    }
     const formData = new FormData();
     formData.append('file', this.selectedImg);
-
+    formData.append('secondFile', this.selectedSecondImg);
     this.moviesService.createMovie(this.selectedMovie).subscribe(data => {
       const tempMovie = data as MovieToEdit;
       this.moviesService.updateMovieImage(tempMovie.id, formData).subscribe(data=>{

@@ -49,4 +49,15 @@ export class FooterComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+
+
+  externalUrl1(){
+    window.open("https://www.facebook.com/estiameducation/?locale=fr_FR");
+  }
+  externalUrl2(){
+    window.open("https://twitter.com/estiamofficiel?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor");
+  }
+  externalUrl3(){
+    window.open("https://www.instagram.com/estiamofficiel/");
+  }
 }

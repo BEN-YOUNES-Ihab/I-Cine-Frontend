@@ -5,6 +5,7 @@ import { ModalsService } from 'app/shared/services/modals.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../authentication/services/auth.service';
+import { CoreConfigService } from '@core/services/config.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -27,11 +28,26 @@ export class UsersComponent implements OnInit {
   public totalPages: number = 0;
 
   constructor(
+    private coreConfigService : CoreConfigService,
     private authService : AuthService,
     private userService : UserService,
     private modalService: NgbModal,
     private modalsService : ModalsService,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService) {
+      this.coreConfigService.config = {
+        layout: {
+          navbar: {
+            hidden: false
+          },
+          menu: {
+            hidden: true
+          },
+          footer: {
+            hidden: true
+          }
+        }
+      };
+    }
 
   ngOnInit() {
     this.currentUser = this.authService.currentUserValue;

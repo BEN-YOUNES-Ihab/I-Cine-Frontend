@@ -1,1 +1,51 @@
-<p>sessions-list works!</p>
+<div *ngIf="currentMovie">
+    <div class="backg" [style.background-image]="'url(' + currentMovie.baniereImageUrl+ ')'">
+      <div class="affiche-container">
+        <img class="affiche" [src]="currentMovie.imageUrl" alt="Card image" />
+      </div>
+      <div class="text-container">
+        <h2>{{currentMovie.title}}</h2>
+        <p>{{currentMovie.releaseDate}}</p>
+        <p>{{currentMovie.durationTime}}</p>
+        <p>{{currentMovie.description}}</p>
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-1 date text-center div-card m-2"  *ngFor="let date of dates">
+        <div class="mb-1 dateenf rounded text-right movie-card cursor-pointer" (click)="afficherHeure(date)">
+          <div style="text-align: center; ">
+            {{ date | date:'EEE'}}
+          </div>
+          <div style="text-align: center;">
+            <strong>{{ date | date:'d'}}</strong>
+          </div>
+          <div  style="text-align: center;">
+            {{ date | date:'MMM'}}
+          </div>
+        </div>
+      </div>
+      <div class="icon ion-android-calendar col col-1 date text-center div-card m-2">
+        <p>Calendrier</p>
+      </div>
+  </div>
+  <div style="margin: 50px;" class="divider">
+    <div class="divider-text">Séance</div>
+  </div>
+  <div >
+    <h4>iCine Bellecour</h4>
+    <span>Lyon 69007</span>
+
+  </div>
+  
+  <div class="row d-flex ">
+    <div class="col-1 date text-center div-card m-2" *ngFor="let date of heures">
+      <div class="mb-1 dateenf rounded text-right movie-card cursor-pointer">
+        <div style="text-align: center; " >
+          {{ date }}
+          <p><strong>VF</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

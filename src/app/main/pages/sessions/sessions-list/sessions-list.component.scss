@@ -1,0 +1,47 @@
+.backg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 600px;
+    display: flex; /* Utilisation de flexbox pour disposer les éléments horizontalement */
+    justify-content: space-between; /* Espacement entre les deux éléments internes */
+    
+    padding: 20px; /* Espacement à l'intérieur de la .backg */
+  }
+  
+  .affiche-container {
+    width: 200px;
+    height: 280px;
+    border-radius: 8px;
+    overflow: hidden; /* Pour s'assurer que l'image ne dépasse pas le cadre */
+  }
+  
+  .affiche {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajuste l'image pour remplir le conteneur sans déformation */
+  }
+  
+  .text-container {
+    flex: 1; /* Le texte prend l'espace restant */
+    padding-left: 20px; /* Espacement à gauche du texte par rapport à l'image */
+    color: white;
+  }
+  
+  .date{
+    border-radius: 6px;
+    background-color: #7566F8;
+    height: 70%;
+    color: white;
+  }
+  .col{
+    border-radius: 8px;
+    background-color: #7566F8;
+    height: 75px;
+    width: 50px;
+    color: white;
+  }
+  
+  .dateenf{
+    align-items: center;
+  }
