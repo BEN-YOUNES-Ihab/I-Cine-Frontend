@@ -191,6 +191,7 @@ export class SessionsAdminComponent implements OnInit {
   createSession(){
     this.sessionSubmitted = true;
     if(!this.selectedSession.places && !this.selectedSession.remaningPlaces){
+      this.error = "Le nombre de places doit être plus que 0."
       return
     }
     this.selectedSession.remaningPlaces = this.selectedSession.places;
@@ -212,6 +213,7 @@ export class SessionsAdminComponent implements OnInit {
   updateSessionDetails(){
     this.sessionSubmitted = true;
     if(!this.selectedSession.places && !this.selectedSession.remaningPlaces){
+      this.error = "Le nombre de places doit être plus que 0."
       return
     }
     if(this.selectedSession.places - this.placesDiff<0){

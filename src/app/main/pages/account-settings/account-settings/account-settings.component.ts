@@ -49,7 +49,7 @@ export class AccountSettingsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-      this.userDetails = this.authService.currentUserValue;
+      this.userDetails  = (JSON.parse(localStorage.getItem('currentUser'))) ; 
     
   }
   sucessToastr(message,title) {
@@ -72,26 +72,29 @@ export class AccountSettingsComponent implements OnInit {
 
     // PUT USER
     this.modalService.openConfirmationModal("Vous ne pourrez pas revenir en arrière !", "danger", "Changer").then(result => {
-      
-      let userToEdit = new UserToEdit;
-      userToEdit.email = form.value.email;
-      userToEdit.firstname = form.value.firstName;
-      userToEdit.lastname = form.value.lastName;
-
-      this.userService.editUser(userToEdit, this.userDetails.email).subscribe(data => {
+      if (result) {
+        let userToEdit = new UserToEdit;
+        userToEdit.email = form.value.email;
+        userToEdit.firstname = form.value.firstName;
+        userToEdit.lastname = form.value.lastName;
+  
+        this.userService.editUser(userToEdit, this.userDetails.email).subscribe(data => {
+  
+  
+        const currentUser = this.authService.currentUserValue;
+        currentUser.lastName = form.value.lastName;
+        currentUser.firstName = form.value.firstName;
+        currentUser.email = form.value.email;
+        this.authService.currentUser.next(currentUser);
+        localStorage.setItem("currentUser",JSON.stringify(currentUser));
         
-      const currentUser = this.authService.currentUserValue;
-      currentUser.lastName = form.value.lastName;
-      currentUser.firstName = form.value.firstName;
-      currentUser.email = form.value.email;
-      this.authService.currentUser.next(currentUser);
-      localStorage.setItem("currentUser",JSON.stringify(currentUser));
-      this.error = "";
-      this.sucessToastr('Profile mis à jour.', 'Succès');
-      }, (err) => {
-        console.log(err);
-        this.errorToastr('Opération échouée', 'Échec');
-      });
+        this.error = "";
+        this.sucessToastr('Profile mis à jour.', 'Succès');
+        }, (err) => {
+          console.log(err);
+          this.errorToastr('Opération échouée', 'Échec');
+        });
+      }
     },
     // PROMISE REJECT
     () => {
@@ -103,25 +106,33 @@ export class AccountSettingsComponent implements OnInit {
       return;
     }
     if (form.value.password == form.value.confirm_password) {
-      this.modalService.openConfirmationModal("Vous ne pourrez pas revenir en arrière !", "danger", "Changer").then(result => {
-        this.userService.putUserPassword(form.value, this.userDetails.email).subscribe((data) => {
-          this.passwordSubmitted = false;
-          let ref = document.getElementById('_cancel')
-          ref?.click();
-          this.sucessToastr('Mot de passe mis à jour', 'Succès');
-          this.passError = "";
-        }, err => {
-          this.errorToastr('Opération échouée', 'Échec');
-        });
-      },
-        // PROMISE REJECT
-        () => {
-        });
+      if(form.value.password.length < 8 || form.value.password.length > 30){
+        this.passError ="Votre mot de passe doit contenir entre 8 et 30 caractères"
+        return
+      }
+      this.modalService.openConfirmationModal('Vous ne pourrez pas revenir en arrière !', 'danger', 'Changer').then(result => {
+        if (result) {
+          this.userService.putUserPassword(form.value, this.userDetails.email).subscribe((data) => {
+            this.passwordSubmitted = false;
+            let ref = document.getElementById('_cancel')
+            ref?.click();
+            this.sucessToastr('Mot de passe mis à jour', 'Succès');
+            this.passError = "";
+          }, err => {
+            if (err.error.statusCode === 400) {
+              this.passError = "Votre ancien mot de passe n'est pas valide";
+            } else {
+              this.errorToastr('Opération échouée', 'Échec');
+              console.error(err);
+            }
+
+          });
+        }
+      }, () => { })
     } else {
       this.passError = "Confirmer votre mot de passe."
     }
   }
-
 
   togglePasswordTextTypeOld() {
     this.passwordTextTypeOld = !this.passwordTextTypeOld;
