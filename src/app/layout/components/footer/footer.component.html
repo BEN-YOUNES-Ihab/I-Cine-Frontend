@@ -1,55 +1,43 @@
-<!-- Footer -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-<div class="footer-dark">
-  <div class="container">
-    <div class="row">
-      <div class="col-6 col-md-3 item">
-        <img src="assets/images/icons/iconic.png" alt="logo icine" width="80" height="80"/>
-      </div>
-      <div class="col-6 col-md-3 item">
-        <h3>Services</h3>
-        <ul>
-          <li><a routerLink="/sample">À Propos</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md-3 item">
-        <h3>Politique et confidentialité</h3>
-        <ul>
-          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Mentions légales</a></li>
-          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Conditions générales de vente</a></li>
-          <li><a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Règles de confidentialité</a></li>
-        </ul>
-      </div>
-      <div class="col-12 col-md-3 item">
-        <h3>I-Ciné</h3>
-        <p>La plateforme de vente de billets de cinéma en ligne. Découvrez ici tous les films sortis ou annoncés.</p>
-      </div>
-      <div class="col-12 item social" style="margin-top: 30px;">
-        
-        <button type="button" (click)="externalUrl1()"class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
-          <span [data-feather]="'facebook'"></span></button
-        >
-        <button type="button" (click)="externalUrl2()" href="" class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
-          <span [data-feather]="'twitter'"></span></button
-        >
-        <button type="button" (click)="externalUrl3()" href="" class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
-          <span [data-feather]="'instagram'"></span></button
-        >
-      </div>
+<div>
+  <div class="row pt-5  border-top">
+    <div class="col-3">
+      <img src="assets/images/icons/iconic.png" alt="logo icine" width="80" height="80"/>
+      <p class="text-muted mt-2">I-Ciné © 2023</p>
     </div>
-    <p class="copyright">ICine © 2023</p>
-  </div>
   
+    <div class="col-3">
+      <h5>Services</h5>
+      <ul  class="nav flex-column">
+        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted"  routerLink="/sample">À Propos</a></li>
+      </ul>
+    </div>
+  
+    <div class="col-3">
+      <h5>Politique et confidentialité</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Mentions légales</a></li>
+        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Conditions générales de vente</a></li>
+        <li class="nav-item mb-2"><a class="nav-link p-0 text-muted" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Règles de confidentialité</a></li>
+      </ul>
+    </div>
+  
+    <div class="col-3">
+      <h5>I-Ciné</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><p class="nav-link p-0 text-muted">La plateforme de vente de billets de cinéma en ligne. Découvrez ici tous les films sortis ou annoncés.</p></li>
+  
+      </ul>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="button" (click)="externalUrl1()"class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
+      <span [data-feather]="'facebook'"></span></button
+    >
+    <button type="button" (click)="externalUrl2()" href="" class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
+      <span [data-feather]="'twitter'"></span></button
+    >
+    <button type="button" (click)="externalUrl3()" href="" class="btn btn-icon btn-icon rounded-circle btn-primary m-1" rippleEffect>
+      <span [data-feather]="'instagram'"></span></button
+    >
+  </div>
 </div>
-<!--/ Footer -->
-
-<!-- Move to top Button-->
-<app-scroll-top *ngIf="coreConfig.layout.scrollTop"></app-scroll-top>
-
-<!-- Buynow Button-->
-<!-- <div class="buy-now">
-  <a href="https://1.envato.market/vuexy_admin" target="_blank" class="btn btn-danger" *ngIf="coreConfig.layout.buyNow"
-    >Buy Now</a
-  >
-</div> -->
