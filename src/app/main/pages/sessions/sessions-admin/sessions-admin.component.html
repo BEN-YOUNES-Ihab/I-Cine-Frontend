@@ -24,8 +24,10 @@
         </button>
       </div>
     </div>
-    <!-- <button (click)="test()" ></button> -->
-    <div class="row" id="basic-table">
+    <div class="m-1" *ngIf="sessionsList.length == 0">
+      <div>Pas de séances</div>
+    </div>
+    <div class="row" id="basic-table" *ngIf="sessionsList.length != 0">
       <div class="col-12">
         <div class="card">
           <div class="table-responsive">

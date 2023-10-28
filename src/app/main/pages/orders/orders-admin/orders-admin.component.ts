@@ -14,7 +14,7 @@ import { CoreConfigService } from '@core/services/config.service';
 })
 export class OrdersAdminComponent implements OnInit {
   public selectedOrder : OrderToDisplay;
-  public ordersList : OrderToDisplay[];
+  public ordersList : OrderToDisplay[] = [];
 
   private sessionId ;
   public currentSession : SessionToEdit;

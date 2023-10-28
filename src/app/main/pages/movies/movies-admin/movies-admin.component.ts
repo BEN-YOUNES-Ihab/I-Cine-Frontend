@@ -23,7 +23,7 @@ export class MoviesAdminComponent implements OnInit {
   public loading = false;
 
   public selectedMovie = new MovieToEdit;
-  public moviesList : MovieToEdit[];
+  public moviesList : MovieToEdit[]=[];
 
   public keyword = "";
   public page: number = 1;

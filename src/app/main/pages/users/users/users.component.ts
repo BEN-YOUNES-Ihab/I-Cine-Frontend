@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit {
   selectedUser = new UserToEditRole;
   public currentUser : CurrentUser;
 
-  public usersList : UserToEditRole[];
+  public usersList : UserToEditRole[] = [];
   public keyword = "";
   public page: number = 1;
   public size: number = 5;

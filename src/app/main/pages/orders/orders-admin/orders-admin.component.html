@@ -1,10 +1,8 @@
 <div class="content-wrapper container-xxl p-0 mt-2">
   <div class="content-body">
     <app-content-header [contentHeader]="contentHeader"></app-content-header>
-    <div *ngIf="ordersList.length == 0">
-      <p>Pas de réservations</p>
-    </div>
-    <div *ngIf="ordersList.length > 0">
+   
+    <div >
       <div class="row mb-2">
         <div class=" col-12 pr-sm-1">
           <div class="input-group input-group-merge">
@@ -23,8 +21,12 @@
           </div>
         </div>
       </div>
-
-      <div class="row" id="basic-table">
+      
+      <div *ngIf="ordersList.length == 0">
+        <p>Pas de réservations</p>
+      </div>
+      
+      <div class="row" id="basic-table" *ngIf="ordersList && ordersList.length > 0">
         <div class="col-12">
           <div class="card">
             <div class="table-responsive">

@@ -31,7 +31,10 @@
           </button>
         </div>
       </div>
-      <div class="row" id="basic-table">
+      <div class="m-1" *ngIf="moviesList.length == 0">
+        <div>Pas de films</div>
+      </div>
+      <div class="row" id="basic-table" *ngIf="moviesList.length != 0">
         <div class="col-12">
           <div class="card">
             <div class="table-responsive">
