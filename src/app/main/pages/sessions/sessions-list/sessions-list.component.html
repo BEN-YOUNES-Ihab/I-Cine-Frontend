@@ -1,51 +1,81 @@
 <div *ngIf="currentMovie">
-    <div class="backg" [style.background-image]="'url(' + currentMovie.baniereImageUrl+ ')'">
-      <div class="affiche-container">
+    <div class="background-image" [style.background-image]="'url(' + currentMovie.baniereImageUrl+ ')'">
+      <div class="affiche-container mt-3">
         <img class="affiche" [src]="currentMovie.imageUrl" alt="Card image" />
       </div>
-      <div class="text-container">
-        <h2>{{currentMovie.title}}</h2>
-        <p>{{currentMovie.releaseDate}}</p>
-        <p>{{currentMovie.durationTime}}</p>
-        <p>{{currentMovie.description}}</p>
+      <div class="text-container mt-3 text-light">
+        <h1 class="text-light" >{{currentMovie.title}}</h1>
+        <p>Sortie en {{currentMovie.releaseDate | date:'MMMM YYYY'}}</p>
+        <div class="badge badge-pill badge-warning">{{convertMinutesToHours(currentMovie.durationTime)}}</div>
+        <div class="badge badge-pill badge-info">{{currentMovie.category}}</div>
+        <p class="mt-1">{{currentMovie.description}}</p>
       </div>
     </div>
-
-    <div class="row d-flex justify-content-center">
-      <div class="col-1 date text-center div-card m-2"  *ngFor="let date of dates">
-        <div class="mb-1 dateenf rounded text-right movie-card cursor-pointer" (click)="afficherHeure(date)">
-          <div style="text-align: center; ">
-            {{ date | date:'EEE'}}
-          </div>
-          <div style="text-align: center;">
-            <strong>{{ date | date:'d'}}</strong>
-          </div>
-          <div  style="text-align: center;">
-            {{ date | date:'MMM'}}
+    <div *ngIf="sessionsList && sessionsList.length>0">
+      <div class="row d-flex justify-content-center">
+        <ng2-flatpickr [(ngModel)]="date" name="date" (ngModelChange)="getSessionsList()" class=" m-2" placeholder="Chosissez une date" #datepicker [config]="basicDateOptions"></ng2-flatpickr>
+      </div>
+      <div class="divider my-2">
+        <div class="divider-text">Le {{date | date:'EEEE d MMMM YYYY'}}</div>
+      </div>
+      <div class="row" *ngIf="sessionsList">
+        <div class="col-1 date-div m-2 cursor-pointer" (click)="clickTime(session, modalBasic)" *ngFor="let session of sessionsList">
+          <div  class="m-2 text-center rounded ">
+          {{ session.date | date:'HH:mm' }}
           </div>
         </div>
       </div>
-      <div class="icon ion-android-calendar col col-1 date text-center div-card m-2">
-        <p>Calendrier</p>
-      </div>
-  </div>
-  <div style="margin: 50px;" class="divider">
-    <div class="divider-text">Séance</div>
-  </div>
-  <div >
-    <h4>iCine Bellecour</h4>
-    <span>Lyon 69007</span>
-
-  </div>
-  
-  <div class="row d-flex ">
-    <div class="col-1 date text-center div-card m-2" *ngFor="let date of heures">
-      <div class="mb-1 dateenf rounded text-right movie-card cursor-pointer">
-        <div style="text-align: center; " >
-          {{ date }}
-          <p><strong>VF</strong></p>
-        </div>
-      </div>
     </div>
-  </div>
+    <div class="mt-4" *ngIf="!sessionsList">
+        <p>Pas de séances disponible pour ce film. </p>
+    </div>
 </div>
+
+
+
+
+<!-- Add and Update Session Modal -->
+<ng-template #modalBasic let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="title" >Réserver</h4>
+      <button type="button" id="close" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="text-center">
+      <h3>{{selectedSession.date | date: 'EEEE d MMMM YYYY' }}</h3>
+      <h4>{{selectedSession.date | date: 'HH:mm' }}</h4>
+    </div>
+    <div class="mt-2 card ">
+      <div class="row pl-2" >
+        <div class="col-8 mt-2"> 
+          <h3>{{currentMovie.title}}</h3>
+            <div class="badge badge-pill badge-warning">Durée : {{convertMinutesToHours(currentMovie.durationTime)}}</div>
+            <div class="badge badge-pill badge-dark">Fin prévu à {{addMinutesToDate(selectedSession.date, currentMovie.durationTime) | date:'HH:mm'}}</div>
+        </div>
+        <div class="col-4 d-flex justify-content-end">
+          <img class="rounded-image" [src]="currentMovie.imageUrl" height="110px" width="90px" alt="Movie Image" >
+        </div>
+      </div>
+    </div>
+    <div class="card ">
+      <div class="row pl-2" >
+        <div class="col-9 mt-2"> <!-- This column will contain the movie title and duration -->
+          <h3>I-Ciné : Lyon 7</h3>
+          <div >Lyon 69007</div>
+        </div>
+        <div class="col-2 mt-2 mr-2"> <!-- This column will contain the image -->
+          <div class="rounded text-center modal-image">
+            <div>Salle</div>
+            <small class="font-weight-bold">03</small>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mr-2 mb-1">{{selectedSession.places}} places</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="submit" (click)="redirectOrder(selectedSession.id)" class="btn btn-primary">Réserver maintenant</button>
+  </div>
+</ng-template>

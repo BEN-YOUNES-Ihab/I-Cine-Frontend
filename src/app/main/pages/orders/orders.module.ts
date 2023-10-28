@@ -32,12 +32,12 @@ const routes: Routes = [
   {
     path: ":id/order",
     component: OrderComponent
-    //,canActivate: [AuthGuard, RoleGuard]
+    ,canActivate: [AuthGuard]
   },
   {
     path: ":id/order/:status",
     component: OrderComponent
-    //,canActivate: [AuthGuard, RoleGuard]
+    ,canActivate: [AuthGuard]
   }
 ];
 

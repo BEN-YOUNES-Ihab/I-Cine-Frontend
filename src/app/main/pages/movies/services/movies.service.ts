@@ -27,7 +27,9 @@ export class MoviesService {
   getMovie(id:string){
     return this.http.get(environment.apiUrl + `movies/${id}/getMovie`,);
   }
-
+  getMovieWithSessions(id:string){
+    return this.http.get(environment.apiUrl + `movies/${id}/getMovieWithSessions`,);
+  }
   getMoviesList(queryParams: any){
     return this.http.get(environment.apiUrl + 'movies/getMoviesList', { params: queryParams });  
   }

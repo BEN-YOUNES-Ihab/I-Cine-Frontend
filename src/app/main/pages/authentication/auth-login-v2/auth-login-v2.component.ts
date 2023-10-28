@@ -64,14 +64,12 @@ export class AuthLoginV2Component implements OnInit {
   sucessToastr(message,title) {
     this.toastr.success(message, title, {
       positionClass: 'toast-bottom-left',
-      toastClass: 'ngx-toastr myToast',
       closeButton: true
     });
   }
   errorToastr(message,title) {
     this.toastr.error(message, title, {
       positionClass: 'toast-bottom-left',
-      toastClass: 'ngx-toastr myToast',
       closeButton: true
     });
   }

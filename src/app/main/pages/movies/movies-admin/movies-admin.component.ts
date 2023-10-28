@@ -132,14 +132,12 @@ export class MoviesAdminComponent implements OnInit {
   errorToastr(message,title) {
     this.toastr.error(message, title, {
       positionClass: 'toast-bottom-left',
-      toastClass: 'ngx-toastr myToast',
       closeButton: true
     });
   }
   sucessToastr(message,title) {
     this.toastr.success(message, title, {
       positionClass: 'toast-bottom-left',
-      toastClass: 'ngx-toastr myToast',
       closeButton: true
     });
   }

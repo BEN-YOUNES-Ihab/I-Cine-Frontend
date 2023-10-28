@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionsService } from '../services/sessions.service';
-import { ActivatedRoute } from '@angular/router';
-import { MovieToEdit } from '../../movies/models/movie';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MovieToDisplay, MovieToEdit } from '../../movies/models/movie';
 import { MoviesService } from '../../movies/services/movies.service';
 import { CoreConfigService } from '@core/services/config.service';
+import { FlatpickrOptions } from 'ng2-flatpickr';
+import { French } from 'flatpickr/dist/l10n/fr';
+import { SessionToEdit } from '../models/session';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sessions-list',
@@ -11,22 +15,28 @@ import { CoreConfigService } from '@core/services/config.service';
   styleUrls: ['./sessions-list.component.scss']
 })
 export class SessionsListComponent implements OnInit {
+  public basicDateOptions: FlatpickrOptions = {
+    "locale": French,
+    altInput: true
+  }
+
   public sessionsList;
   public selectedSession;
   public movieId;
   public date;
-  public currentMovie : MovieToEdit;
-
+  public currentMovie : MovieToDisplay;
+  public sessionsDateToEnable = [] ;
   public contentHeader: object;
-  dates:string[] = [];
-  selectedDate: string | null = null;
+  nextSevenDays:string[] = [];
 
 
   constructor(
+    private modalService : NgbModal,
     private coreConfigService : CoreConfigService,
     private sessionsService : SessionsService, 
     private route : ActivatedRoute,
-    private moviesService : MoviesService) {
+    private moviesService : MoviesService,
+    private router : Router) {
       
     this.coreConfigService.config = {
       layout: {
@@ -41,44 +51,23 @@ export class SessionsListComponent implements OnInit {
         }
       }
       };
-    // Obtenir la date d'aujourd'hui
-    const today = new Date();
-  
-    // Initialisez la liste des dates avec les 7 prochains jours
-    this.dates = [];
-    for (let i = 0; i < 7; i++) {
-      const nextDate = new Date(today);
-      nextDate.setDate(today.getDate() + i);
-      const formattedDate = nextDate.toISOString().split('T')[0];
-      this.dates.push(formattedDate);
-    }
-    
-    
   }
-  
-
-  selectDate(date: string) {
-    this.selectedDate = date;
-    // Vous pouvez ajouter d'autres actions à effectuer lors de la sélection d'une date ici
-  }
-
-  heures = ["14h30", "17h30", "19h30", "21h45", "22h50"];
-
-
-  datesArray = Object.keys(this.heures);
-
-  heureSelectionnee: string = '';
-
   ngOnInit(): void {
     this.movieId = this.route.snapshot.paramMap.get('id');
-    this.date = new Date();
-    this.getMovie();
-    this.getSessionsList();
+    this.getMovieWithSessions();
   }
 
+  clickTime(session: SessionToEdit ,modalBasic){
+    this.selectedSession = session;
+    this.modalService.open(modalBasic, {
+      windowClass: 'modal'
+    });
+    
+  }
+  
   getSessionsList() {
     const queryParams = {
-      Date:this.date,
+      date:this.date,
       movieId: this.movieId,
 
     };
@@ -86,16 +75,60 @@ export class SessionsListComponent implements OnInit {
     this.sessionsService.getSessionsByMovieIdUser(queryParams).subscribe(
       (data: any) => { 
         if (data) {
-          console.log(data);
           this.sessionsList = data;
         }
       },
       (error) => console.log(error)
     );
   }
-  getMovie(){
-    this.moviesService.getMovie(this.movieId).subscribe(data=>{
-      this.currentMovie = data as MovieToEdit;
+
+  getDatesToEnable(){
+    if(this.currentMovie.sessions.length>0){
+      this.currentMovie.sessions.forEach(e =>{
+        let date = new Date(e.date);
+        let today = new Date();
+        if(date > today){
+          this.sessionsDateToEnable.push(e.date);
+        }
+      })
+      let length = this.sessionsDateToEnable.length;
+      
+      this.date = new Date (this.sessionsDateToEnable[length-1]);
+      this.basicDateOptions.enable = this.sessionsDateToEnable;
+      if(this.sessionsDateToEnable.length>0){
+        this.getSessionsList();
+      }
+    }
+    
+  }
+   convertMinutesToHours(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = remainingMinutes < 10 ? '0' + remainingMinutes : remainingMinutes;
+  
+    return `${formattedHours}h${formattedMinutes}`;
+  }
+   addMinutesToDate(date, minutesToAdd:number) {
+    const newDate = new Date(date);
+    newDate.setMinutes(newDate.getMinutes() + minutesToAdd);
+  
+    return newDate;
+  }
+  
+  getMovieWithSessions(){
+    this.moviesService.getMovieWithSessions(this.movieId).subscribe(data=>{
+      this.currentMovie = data as MovieToDisplay;
+      this.getDatesToEnable();
     })
   }
+
+  redirectOrder(sessionId){
+    this.modalService.dismissAll();
+    this.router.navigate([`/pages/${sessionId}/order`])
+  }
 }
+
+
+

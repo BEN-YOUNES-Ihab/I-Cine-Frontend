@@ -108,7 +108,7 @@
 </div>
 
 
-<!-- Add and Update Movi Modal -->
+<!-- Add and Update Session Modal -->
 <ng-template #modalBasic let-modal>
   <div class="modal-header">
       <h4 class="modal-title" id="addSessionTitle" *ngIf="showAdd">Ajouter une séance</h4>
@@ -159,7 +159,6 @@
           <div class="form-group">
             <label for="city-column">Date</label>
             <ng2-flatpickr 
-              [ngClass]="'firstsecond'" 
               [config]="basicDateOptions" 
               [(ngModel)]="selectedSession.date"
               name="basicDate"
