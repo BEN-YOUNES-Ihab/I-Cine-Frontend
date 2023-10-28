@@ -4,7 +4,7 @@
         <img class="affiche" [src]="currentMovie.imageUrl" alt="Card image" />
       </div>
       <div class="text-container mt-3 text-light">
-        <h1 class="text-light" >{{currentMovie.title}}</h1>
+        <h1 class="text-light" >{{currentMovie.title | uppercase}}</h1>
         <p>Sortie en {{currentMovie.releaseDate | date:'MMMM YYYY'}}</p>
         <div class="badge badge-pill badge-warning">{{convertMinutesToHours(currentMovie.durationTime)}}</div>
         <div class="badge badge-pill badge-info">{{currentMovie.category}}</div>
@@ -50,7 +50,7 @@
     <div class="mt-2 card ">
       <div class="row pl-2" >
         <div class="col-8 mt-2"> 
-          <h3>{{currentMovie.title}}</h3>
+          <h3>{{currentMovie.title | uppercase}}</h3>
             <div class="badge badge-pill badge-warning">Durée : {{convertMinutesToHours(currentMovie.durationTime)}}</div>
             <div class="badge badge-pill badge-dark">Fin prévu à {{addMinutesToDate(selectedSession.date, currentMovie.durationTime) | date:'HH:mm'}}</div>
         </div>

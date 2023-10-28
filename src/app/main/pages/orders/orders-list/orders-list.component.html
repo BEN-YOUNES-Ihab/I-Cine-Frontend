@@ -43,7 +43,7 @@
                               [src]="order.session.movie.imageUrl">
                             </a>
                           </div>
-                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'d MMMM y, HH:mm'}}</h6>
+                          <h6 class="col-md-7">{{order.session.movie.title | uppercase}} pour le {{order.session.date | date:'d MMMM YYYY à HH:mm'}}</h6>
                           
                           <div class="col-md-3 text-right custom-total">{{order.places}} Tickets, TOTAL €{{order.amount}}</div>
                         </div>
@@ -98,7 +98,7 @@
                               [src]="order.session.movie.imageUrl">
                             </a>
                           </div>
-                          <h6 class="col-md-7">{{order.session.movie.title}} pour le {{order.session.date | date:'d MMMM y, HH:mm'}}</h6>
+                          <h6 class="col-md-7">{{order.session.movie.title | uppercase}} pour le {{order.session.date | date:'d MMMM YYYY à HH:mm'}}</h6>
                           
                           <div class="col-md-3 text-right custom-total">{{order.places}} Tickets, TOTAL €{{order.amount}}</div>
                         </div>

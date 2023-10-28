@@ -43,12 +43,12 @@
                 <tbody>
                   <tr *ngFor="let order of ordersList">
                     <td >{{order.id}}</td>
-                    <td >{{order.user.lastName}}</td>
+                    <td >{{order.user.lastName | uppercase}} </td>
                     <td >{{order.user.firstName}}</td>
                     <td >{{order.user.email}}</td>
                     <td >{{order.places}}</td>
                     <td >{{order.amount}}</td>
-                    <td >{{order.createdAt | date: 'medium'}}</td>
+                    <td >{{order.createdAt | date:'d MMMM YYYY HH:mm'}}</td>
                   </tr>
                 </tbody>
               </table>

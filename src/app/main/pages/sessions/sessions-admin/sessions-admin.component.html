@@ -45,11 +45,11 @@
               <tbody>
                 <tr *ngFor="let session of sessionsList">
                   <td>{{session.id}}</td>
-                  <td>{{session.date | date:'medium'}}</td>
+                  <td>{{session.date | date:'d MMMM YYYY HH:mm'}}</td>
                   <td>{{session.places}}</td>
                   <td>{{session.remaningPlaces}}</td>
-                  <td>{{session.createdAt | date}}</td>
-                  <td>{{session.updatedAt | date}}</td>
+                  <td>{{session.createdAt | date:'d MMMM YYYY HH:mm'}}</td>
+                  <td>{{session.updatedAt | date:'d MMMM YYYY HH:mm'}}</td>
                   <td>{{session.orders.length}}</td>
                   <td  class="overflow-hidden">
                     <div ngbDropdown container="body">

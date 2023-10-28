@@ -31,15 +31,17 @@
                     <th>Prénom</th>
                     <th>E-mail</th>
                     <th>Role</th>
+                    <th>Nombre de réservations</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let user of usersList">
-                    <td *ngIf="user.id !== currentUser.id">{{user.lastName}}</td>
+                    <td *ngIf="user.id !== currentUser.id">{{user.lastName | uppercase}}</td>
                     <td *ngIf="user.id !== currentUser.id">{{user.firstName}}</td>
                     <td *ngIf="user.id !== currentUser.id">{{user.email}}</td>
                     <td *ngIf="user.id !== currentUser.id">{{user.role}}</td>
+                    <td *ngIf="user.id !== currentUser.id">{{user.orders.length}}</td>
                     <td *ngIf="user.id !== currentUser.id" class="overflow-hidden">
                       <div ngbDropdown container="body">
                         <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">

@@ -52,13 +52,13 @@
                 <tbody>
                   <tr *ngFor="let movie of moviesList">
                     <td>{{movie.id}}</td>
-                    <td>{{movie.title}}</td>
+                    <td>{{movie.title | uppercase}}</td>
                     <td>{{movie.category}}</td>
-                    <td>{{movie.releaseDate | date}}</td>
-                    <td *ngIf="movie.onDisplay == true ">Oui</td>
-                    <td *ngIf="!movie.onDisplay || movie.onDisplay == false ">Non</td>
-                    <td>{{movie.createdAt | date}}</td>
-                    <td>{{movie.updatedAt | date}}</td>
+                    <td>{{movie.releaseDate | date:'d MMMM YYYY'}}</td>
+                    <td *ngIf="movie.onDisplay == true "><span class="badge badge-pill badge-light-success mr-1">Oui</span></td>
+                    <td *ngIf="!movie.onDisplay || movie.onDisplay == false "><span class="badge badge-pill badge-light-danger mr-1">Non</span></td>
+                    <td>{{movie.createdAt | date:'d MMMM YYYY HH:mm'}}</td>
+                    <td>{{movie.updatedAt | date:'d MMMM YYYY HH:mm'}}</td>
                     <td>{{movie.sessions.length}}</td>
                     <td  class="overflow-hidden">
                       <div ngbDropdown container="body">
@@ -214,8 +214,12 @@
                     class="ng-select-size-sm"
                     bindLabel="category"
                     name="category"
+                    required
                     placeholder="Catégorie"
                   ></ng-select>
+                  <span *ngIf="movieSubmitted && !selectedMovie.category" class="invalid-form">
+                    <small class="form-text text-danger">La catégorie est requis!</small>
+                  </span>
                 </div>
               </div>
               <div class="col-12 col-sm-6">
@@ -287,7 +291,11 @@
           </form>
     </div>
     <div class="modal-footer">
-        <button type="submit"  *ngIf="showAdd" (click)="createMovie()" class="btn btn-primary">Ajouter</button>
-        <button type="submit"  *ngIf="showUpdate" (click)="updateMovieDetails()" class="btn btn-primary">Modifier</button>
+      <button *ngIf="showAdd" [disabled]="loading" type="submit"(click)="createMovie()"  class="btn btn-primary" tabindex="5">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Ajouter
+      </button>
+      <button *ngIf="showUpdate" [disabled]="loading" type="submit" (click)="updateMovieDetails()" class="btn btn-primary" tabindex="5">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Modifier
+      </button>
     </div>
 </ng-template>

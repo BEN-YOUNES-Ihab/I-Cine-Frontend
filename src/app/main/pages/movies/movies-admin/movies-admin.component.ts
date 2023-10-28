@@ -20,6 +20,7 @@ export class MoviesAdminComponent implements OnInit {
   public showUpdate !: boolean;
   public movieSubmitted = false;
   public error :string ="";
+  public loading = false;
 
   public selectedMovie = new MovieToEdit;
   public moviesList : MovieToEdit[];
@@ -210,18 +211,25 @@ export class MoviesAdminComponent implements OnInit {
       this.error= "Ajouter deux images !"
       return
     }
+    if(!this.selectedMovie.category || !this.selectedMovie.title || !this.selectedMovie.durationTime){
+      return
+    }
+    console.log(this.selectedMovie)
     const formData = new FormData();
     formData.append('file', this.selectedImg);
     formData.append('secondFile', this.selectedSecondImg);
+
     this.moviesService.createMovie(this.selectedMovie).subscribe(data => {
+      this.loading = true;
       const tempMovie = data as MovieToEdit;
       this.moviesService.updateMovieImage(tempMovie.id, formData).subscribe(data=>{
         this.getMoviesList();
       });
-      this.getMoviesList();
-      this.sucessToastr('Opération éffectuée', 'Succès');
-      this.modalService.dismissAll();
-      this.error = "";
+      setTimeout(() => {
+        this.sucessToastr('Opération éffectuée', 'Succès');
+        this.modalService.dismissAll();
+        this.error = "";
+      }, 1500);
     }, (err) => {
       console.log(err);
       this.error = "Opération échouée"

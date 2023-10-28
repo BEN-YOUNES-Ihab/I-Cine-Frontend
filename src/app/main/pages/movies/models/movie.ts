@@ -3,7 +3,7 @@ import { SessionToEdit } from "../../sessions/models/session";
 export class MovieToEdit {
     id:string;
     title: string;
-    durationTile:number;
+    durationTime:number;
     description: string;
     releaseDate: Date;
     onDisplay: boolean;

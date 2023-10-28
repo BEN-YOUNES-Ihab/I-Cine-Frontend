@@ -6,7 +6,7 @@
                     <img height="400px" width="100%" [src]="movie.baniereImageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
                 </div>
                 <div class="carousel-caption desc-carousel">
-                    <h3 class="text-white">{{movie.title}}</h3>
+                    <h3 class="text-white">{{movie.title | uppercase}}</h3>
                     <p class="truncate text-white">{{movie.description}}</p>
                     <button type="button" class="btn btn-gradient-primary" (click)="redirectToSession(movie.id)">Réserver</button>
                 </div>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <a (click)="redirectToSession(movie.id)"  >{{movie.title}}</a>
+                <a (click)="redirectToSession(movie.id)">{{movie.title | uppercase}}</a>
             </div>
         </div>
         <!--/ Movie Cards -->
