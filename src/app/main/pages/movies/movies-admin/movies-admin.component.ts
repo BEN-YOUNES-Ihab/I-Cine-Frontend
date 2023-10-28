@@ -88,6 +88,8 @@ export class MoviesAdminComponent implements OnInit {
       (data: any) => { 
         if (data) {
           this.moviesList = data.content;
+          console.log(this.moviesList)
+
           this.totalElements = data.totalElements;
           this.totalPages = data.totalPages;
         }
@@ -193,7 +195,7 @@ export class MoviesAdminComponent implements OnInit {
       this.moviesService.updateMovieImage(this.selectedMovie.id, formData).subscribe(data=>{
         this.getMoviesList();
       });
-      this.sucessToastr('Opération éffectuée', 'Succès');
+      this.sucessToastr('Film mis à jour.', 'Succès');
       this.modalService.dismissAll();
       this.error = "";
     }, (err) => {
@@ -225,20 +227,22 @@ export class MoviesAdminComponent implements OnInit {
       this.error = "Opération échouée"
     });
   }
-
-  deleteMovie(id: string){
+  deleteMovie(id: string) {
     this.modalsService.openConfirmationModal('Voulez-vous vraiment supprimer cet film ?', 'danger', 'Supprimer').then(result => {
       if (result) {
-        this.moviesService.deleteMovie(id).subscribe(data => {
-          if (data) {
-            // const index = this.moviesList.findIndex(x => x.id == id);
-            // this.moviesList.splice(index, 1);
-            // this.totalElements = this.totalElements - 1;
+        this.moviesService.deleteMovie(id).subscribe(data=>{
+              // const index = this.moviesList.findIndex(x => x.id == id);
+              // this.moviesList.splice(index, 1);
+              // this.totalElements = this.totalElements - 1;
             this.update();
-            this.sucessToastr('Opération éffectuée', 'Succès');
+            this.sucessToastr('Film supprimé avec succés', 'Succès');
+        },err=>{
+          if (err.error.statusCode === 409) {
+            this.errorToastr('Ce film a des sessions associées.', 'Erreur');
+          } else {
+            this.errorToastr('Opération echouée', 'Erreur');
+            console.error(err);
           }
-        }, (err) => {
-          this.errorToastr('Opération écchouée', 'Échec');
         });
       }
     }, () => { })

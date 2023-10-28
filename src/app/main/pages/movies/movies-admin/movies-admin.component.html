@@ -45,6 +45,7 @@
                     <th>A la lune</th>
                     <th>Date de création</th>
                     <th>Date de modification</th>
+                    <th>Nombre de séances</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -58,6 +59,7 @@
                     <td *ngIf="!movie.onDisplay || movie.onDisplay == false ">Non</td>
                     <td>{{movie.createdAt | date}}</td>
                     <td>{{movie.updatedAt | date}}</td>
+                    <td>{{movie.sessions.length}}</td>
                     <td  class="overflow-hidden">
                       <div ngbDropdown container="body">
                         <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">

@@ -196,12 +196,16 @@ export class SessionsAdminComponent implements OnInit {
     this.selectedSession.remaningPlaces = this.selectedSession.places;
     this.sessionsService.createSession(this.selectedSession).subscribe(data => {
       this.update();
-      this.sucessToastr('Opération éffectuée', 'Succès');
+      this.sucessToastr('Séance supprimée', 'Succès');
       this.modalService.dismissAll();
       this.error = "";
-    }, (err) => {
-      console.log(err);
-      this.error = "Opération échouée"
+    },err=>{
+      if (err.error.statusCode === 409) {
+        this.errorToastr('Vos clients ont déja réserver a cette séance.', 'Erreur');
+      } else {
+        this.errorToastr('Opération echouée', 'Erreur');
+        console.error(err);
+      }
     });
   }
 
@@ -217,7 +221,7 @@ export class SessionsAdminComponent implements OnInit {
     this.selectedSession.remaningPlaces = this.selectedSession.places - this.placesDiff;
     this.sessionsService.updateSession(this.selectedSession.id, this.selectedSession).subscribe(data => {
       this.update();
-      this.sucessToastr('Opération éffectuée', 'Succès');
+      this.sucessToastr('Séance mis à jour.', 'Succès');
       this.modalService.dismissAll();
       this.error = "";
     }, (err) => {
@@ -238,7 +242,12 @@ export class SessionsAdminComponent implements OnInit {
             this.sucessToastr('Opération éffectuée', 'Succès');
           }
         }, (err) => {
-          this.errorToastr('Opération écchouée', 'Échec');
+          if (err.error.statusCode === 409) {
+            this.errorToastr('Cette séances a été reservée par des clients.', 'Erreur');
+          } else {
+            this.errorToastr('Opération echouée', 'Erreur');
+            console.error(err);
+          }
         });
       }
     }, () => { })

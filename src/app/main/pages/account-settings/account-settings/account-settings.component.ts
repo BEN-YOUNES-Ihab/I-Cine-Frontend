@@ -87,7 +87,7 @@ export class AccountSettingsComponent implements OnInit {
       this.authService.currentUser.next(currentUser);
       localStorage.setItem("currentUser",JSON.stringify(currentUser));
       this.error = "";
-      this.sucessToastr('Opération effectuée avec succès', 'Succès');
+      this.sucessToastr('Profile mis à jour.', 'Succès');
       }, (err) => {
         console.log(err);
         this.errorToastr('Opération échouée', 'Échec');
@@ -108,7 +108,7 @@ export class AccountSettingsComponent implements OnInit {
           this.passwordSubmitted = false;
           let ref = document.getElementById('_cancel')
           ref?.click();
-          this.sucessToastr('Opération effectuée avec succès', 'Succès');
+          this.sucessToastr('Mot de passe mis à jour', 'Succès');
           this.passError = "";
         }, err => {
           this.errorToastr('Opération échouée', 'Échec');

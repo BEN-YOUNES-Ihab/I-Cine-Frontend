@@ -101,10 +101,15 @@ export class UsersComponent implements OnInit {
         this.userService.deleteUser(email).subscribe(data => {
           if (data) {
             this.update();
-            this.sucessToastr('Opération éffectuée', 'Succès');
+            this.sucessToastr('Utilisateur supprimé', 'Succès');
           }
         }, (err) => {
-          this.errorToastr('Opération écchouée', 'Échec');
+          if (err.error.statusCode === 409) {
+            this.errorToastr('Cet utilisateur a des réservations.', 'Erreur');
+          } else {
+            this.errorToastr('Opération echouée', 'Erreur');
+            console.error(err);
+          }
         });
       }
     }, () => { })
@@ -118,7 +123,7 @@ export class UsersComponent implements OnInit {
    
     this.userService.editUserRole(user,user.email).subscribe(res=>{
       this.userSubmitted = false;
-      this.sucessToastr('Opération éffectuée', 'Succès');
+      this.sucessToastr('Role modifié.', 'Succès');
       this.getUsersList();
       this.modalService.dismissAll();
     },err=>{

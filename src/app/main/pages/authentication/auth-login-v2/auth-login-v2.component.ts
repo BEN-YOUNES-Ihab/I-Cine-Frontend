@@ -99,7 +99,7 @@ export class AuthLoginV2Component implements OnInit {
         this.authService.currentUser.next(data.currentUser);
         setTimeout(() => {
           this.router.navigate(['/pages/movies-list']);
-          this.sucessToastr("Bienvenue sur la platforme ICiné","Bienvenue!")
+          this.sucessToastr("Bienvenue sur la platforme ICiné.","Bienvenue!")
         }, 1000);
        
       } else {

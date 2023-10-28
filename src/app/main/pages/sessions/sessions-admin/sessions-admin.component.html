@@ -38,6 +38,7 @@
                   <th>Places restantes</th>
                   <th>Date de création</th>
                   <th>Date de modification</th>
+                  <th>Nombre de réservations</th>
                   <th></th>
                 </tr>
               </thead>
@@ -49,6 +50,7 @@
                   <td>{{session.remaningPlaces}}</td>
                   <td>{{session.createdAt | date}}</td>
                   <td>{{session.updatedAt | date}}</td>
+                  <td>{{session.orders.length}}</td>
                   <td  class="overflow-hidden">
                     <div ngbDropdown container="body">
                       <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
