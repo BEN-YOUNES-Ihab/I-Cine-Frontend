@@ -36,8 +36,8 @@
                     <ng-select
                       [items]="categorysList"
                       [(ngModel)]="category"
-                      (ngModelChange)="getMoviesListbyCategory()"
-                      class="ng-select-size-sm"
+                      (ngModelChange)="update()"
+                      class="ng-select"
                       bindLabel="category"
                       name="category"
                       placeholder="Catégorie"

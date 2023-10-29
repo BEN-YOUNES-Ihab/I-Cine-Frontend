@@ -35,7 +35,7 @@ export class MoviesListComponent implements OnInit {
   ];
 
   public title = "";
-  public category = null;
+  public category;
   public page: number = 1;
   public size: number = 24;
   public totalElements: number = 0;
@@ -62,11 +62,14 @@ export class MoviesListComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    let category;
     if(!this.category){
-      this.category =""
+      category ="";
+    }else{
+      category= this.category;
     }
     const queryParams = {
-      category: this.category,
+      category: category,
       title: this.title,
       page: this.page.toString(),
       size: this.size.toString(),
@@ -89,11 +92,14 @@ export class MoviesListComponent implements OnInit {
     if(event){
       this.page = event;
     }
+    let category;
     if(!this.category){
-      this.category =""
+      category ="";
+    }else{
+      category= this.category;
     }
     const queryParams = {
-      category: this.category,
+      category: category,
       title: this.title,
       page: this.page.toString(),
       size: this.size.toString(),

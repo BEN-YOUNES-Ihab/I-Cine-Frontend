@@ -3,14 +3,14 @@
       <app-content-header [contentHeader]="contentHeader"></app-content-header>
 
       <div class="row mb-2">
-        <div class="col-sm-9 pr-sm-1">
+        <div class="col-sm-6 pr-sm-1">
           <div class="input-group input-group-merge">
             <input
               type="text"
               class="form-control"
               name="search"
               placeholder="Rechercher"
-              [(ngModel)]="keyword" 
+              [(ngModel)]="title" 
               (ngModelChange)="update()"
             />
             <div class="input-group-append">
@@ -19,6 +19,28 @@
               </span>
             </div>
           </div>
+        </div>
+        <div class="col-sm-2 pl-1"> 
+          <ng-select
+            [items]="categorysList"
+            [(ngModel)]="category"
+            (ngModelChange)="update()"
+            class="ng-select"
+            bindLabel="category"
+            name="category"
+            placeholder="Catégorie"
+          ></ng-select>
+        </div>
+        <div class="col-sm-1 pl-1"> 
+          <ng-select
+            [items]="onDisplayList"
+            [(ngModel)]="onDisplay"
+            (ngModelChange)="update()"
+            class="ng-select"
+            bindLabel="onDisplay"
+            name="onDisplay"
+            placeholder="A la lune"
+          ></ng-select>
         </div>
         <div class="col-sm-3 pl-sm-1">
           <button
@@ -214,7 +236,7 @@
                   <ng-select
                     [items]="categorysList"
                     [(ngModel)]="selectedMovie.category"
-                    class="ng-select-size-sm"
+                    class="ng-select"
                     bindLabel="category"
                     name="category"
                     required

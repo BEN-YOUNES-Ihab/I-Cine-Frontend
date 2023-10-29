@@ -25,7 +25,10 @@ export class MoviesAdminComponent implements OnInit {
   public selectedMovie = new MovieToEdit;
   public moviesList : MovieToEdit[]=[];
 
-  public keyword = "";
+
+  public title = "";
+  public category ;
+  public onDisplay;
   public page: number = 1;
   public size: number = 5;
   public totalElements: number = 0;
@@ -38,7 +41,7 @@ export class MoviesAdminComponent implements OnInit {
   public selectedSecondImgPath : String | ArrayBuffer;
 
   public categorysList = ["Test1", "Test2", "Test3" , "Test4"];
-  
+  public onDisplayList = ["Oui", "Non"];
   public basicDateOptions: FlatpickrOptions = {
     altInput: true,
     "locale": French,
@@ -80,8 +83,26 @@ export class MoviesAdminComponent implements OnInit {
   }
 
   getMoviesList() {
+    let category;
+    if(!this.category){
+      category ="";
+    }else{
+      category= this.category;
+    }
+    let onDisplay
+    if(!this.onDisplay){
+       onDisplay ="";
+    }
+    if(this.onDisplay=="Oui"){
+      onDisplay = "true";
+    }
+    if(this.onDisplay=="Non"){
+      onDisplay = "false";
+    }
     const queryParams = {
-      keyword: this.keyword,
+      title: this.title,
+      category:category,
+      onDisplay: onDisplay,
       page: this.page.toString(),
       size: this.size.toString(),
     };
