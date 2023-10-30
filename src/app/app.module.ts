@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/pages/movies-list',
+    redirectTo: '/pages/movies-home',
     pathMatch: 'full'
   },
   {

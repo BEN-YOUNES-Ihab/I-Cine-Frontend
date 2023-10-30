@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrdersService } from '../services/orders.service';
+import { AuthService } from '../../authentication/services/auth.service';
+import { UrlData } from '../models/order';
 import { CoreConfigService } from '@core/services/config.service';
+import { SessionsService } from '../../sessions/services/sessions.service';
 
 @Component({
   selector: 'app-order',
@@ -8,43 +12,113 @@ import { CoreConfigService } from '@core/services/config.service';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-  //verifier si l'url a des parametres ou pas pour afficher un message d'erreur ou success
-  // si succes : message + cacher button reserve + details d'ordre ? (de la bdd)
-  // si fail-stock mssage + cacher button reserve + retour vers la page sessions-list
-  // si fail message veuillez recomencer
+  public status = "";
+  public orderId = "";
+  public sessionId = "";
+  public userId;
+  public currentSession;
 
-  
-  // envoyer le places, queryPrice, sessionIdFront et userId pour creer un payement
+  // variable d'issue de paiement
+  orderSucces: boolean = false;
+  ordreFail: boolean = false;
+  outOfStock: boolean = false;
 
-  constructor( 
-    private coreConfigService: CoreConfigService, 
-    private route: ActivatedRoute) { 
-          // Configure the layout
-    this.coreConfigService.config = {
-      layout: {
-        navbar: {
-          hidden: false
-        },
-        menu: {
-          hidden: true
-        },
-        footer: {
-          hidden: true
+  // variable prix
+  numberOfTickets: number = 1;
+  totalPrice: number = 10;
+
+  constructor(
+    private route: Router,
+     private activatedRoute: ActivatedRoute,
+     private ordersService : OrdersService,
+     private authService: AuthService,
+     private sessionsService :SessionsService,
+     private coreConfigService: CoreConfigService
+     ) {
+      this.coreConfigService.config = {
+        layout: {
+          navbar: {
+            hidden: false
+          },
+          menu: {
+            hidden: true
+          },
+          footer: {
+            hidden: true
+          }
         }
+      };
       }
-    };
+
+  ngOnInit(): void {
+    this.userId = this.authService.currentUserValue.id;
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.status = params['status'];
+      this.orderId = params['orderId'];
+    })
+    this.sessionId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (this.status == "success") {
+      console.log('success')
+      this.orderSucces = true
     }
+    else if (this.status == "fail") {
+      this.ordreFail = true
+    }
+    else if (this.status == "fail-stock") {
+      this.outOfStock = true
+    }
+    else {
+      this.orderSucces = false
+      this.ordreFail = false
+      this.outOfStock = false
+    }
+    this.getSessionWithMovie();
+  }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      // get params
-
-      const status = params['status'];
-      const orderId = params['orderId'];
+  getSessionWithMovie(){
+    this.sessionsService.getSession(this.sessionId).subscribe(data=>{
+      this.currentSession = data[0];
+      console.log(this.currentSession)
+    })
+  }
+  convertMinutesToHours(minutes) {
+    const hours = Math.floor(+minutes / 60);
+    const remainingMinutes = +minutes % 60;
+    
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = remainingMinutes < 10 ? '0' + remainingMinutes : remainingMinutes;
   
-      console.log('Status:', status);
-      console.log('Order ID:', orderId);
-    });
+    return `${formattedHours}h${formattedMinutes}`;
+  }
+
+  pageReturn() {
+    this.route.navigate([`/pages/${this.currentSession.movie.id}/sessions-list`]);
+  }
+
+  ajouter() {
+    if (this.numberOfTickets < this.currentSession.remaningPlaces) {
+      this.numberOfTickets += 1
+      this.totalPrice = 10 * this.numberOfTickets
+    }
+  }
+  soustraire() {
+    if (this.numberOfTickets > 1) {
+      this.numberOfTickets -= 1
+      this.totalPrice = 10 * this.numberOfTickets
+    }
+  }
+  order(){
+    console.log('hi')
+    const queryParams = {
+      places: this.numberOfTickets,
+      sessionIdFront: this.sessionId,
+      userId: this.userId,
+    };
+    console.log(queryParams)
+    this.ordersService.createPaymentCheckout(queryParams).subscribe(data =>{
+      let urlData = data as UrlData
+      window.location.replace(urlData.url)
+    })
   }
 
 }

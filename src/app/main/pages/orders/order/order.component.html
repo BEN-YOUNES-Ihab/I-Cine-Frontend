@@ -1,1 +1,48 @@
-<p>order works!</p>
+<div class="body">
+    <div class="recap" *ngIf="currentSession">
+        <div *ngIf="orderSucces==false && outOfStock==false">
+            <h3 class="text-uppercase">{{currentSession.date | date: 'EEEE d MMMM YYYY' }}</h3>
+            <h4>{{currentSession.date | date: 'HH:mm' }}</h4>
+        </div>
+        <!-- Erreur survenue -->
+        <ngb-alert *ngIf="ordreFail==true" [type]="'danger'" [dismissible]="false">
+            <div class="alert-body"><strong>Une erreur est survenue lors du paiement!</strong> Veuillez réessayer... some alerts.</div>
+        </ngb-alert>
+        <ngb-alert *ngIf="outOfStock==true" [type]="'danger'" [dismissible]="false">
+            <div class="alert-body"><strong>Nous sommes désolés,</strong> mais toutes les places ont été vendues.</div>
+        </ngb-alert>
+        <ngb-alert *ngIf="orderSucces==true" [type]="'success'" [dismissible]="false">
+            <div class="alert-body"><strong>Merci pour votre commande !</strong> Votre place pour la séance du {{ currentSession.date | date: 'EEEE d MMMM YYYY à HH:mm' }} a été bien réservée, à très bientôt !</div>
+        </ngb-alert>
+        <form *ngIf="outOfStock==false && orderSucces==false">
+            <p>Choisissez votre nombre de tickets :</p>
+            <div class="count">
+                <button type="button" (click)="soustraire()" class="btn btn-primary" rippleEffect>
+                    <span [data-feather]="'minus'"></span>
+                </button>
+                <p>{{numberOfTickets}}</p>
+                <button type="button" (click)="ajouter()" class="btn btn-primary" rippleEffect>
+                    <span [data-feather]="'plus'"></span>
+                </button>
+            </div>
+            <p class="total"> Total : {{ totalPrice }} €</p>
+        </form>
+        <!-- bouton pour passer au paiement -->
+        <button *ngIf="outOfStock==false && orderSucces==false" (click)="order()" type="button" class="btn btn-primary"
+            rippleEffect>Confirmer</button>
+        <!-- bouton de retour à la page précédente du film choisis-->
+        <button *ngIf="orderSucces==false" type="button" class="btn btn-outline-primary" (click)="pageReturn()"
+            rippleEffect>Retour</button>
+        <!-- bouton de retour à l'acceuil -->
+        <button *ngIf="orderSucces==true" type="button" class="btn btn-primary" (click)="pageReturn()" rippleEffect>Revenir vers le site</button>
+    </div>
+    <div id="orderHeader" *ngIf="currentSession">
+        <img [src]="currentSession.movie.baniereImageUrl" class="img-fluid">
+        <div id="titles">
+            <h1>{{currentSession.movie.title}}</h1>
+            <div class="badge badge-pill badge-warning">{{convertMinutesToHours(currentSession.movie.durationTime)}}</div>
+            <div class="badge badge-pill badge-info">{{currentSession.movie.category}}</div>
+            <p class="mt-1">{{currentSession.movie.description}}</p>
+        </div>
+    </div>
+</div>

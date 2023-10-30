@@ -8,3 +8,6 @@ export class OrderToDisplay {
     updatedAt: Date;
     createdAt:Date;;
 }
+export interface UrlData {
+    url: string; 
+}

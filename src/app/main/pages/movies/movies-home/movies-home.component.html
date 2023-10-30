@@ -1,0 +1,66 @@
+<!-- <div class="content-wrapper container-xxl p-0">
+    <div class="content-body" >
+        <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
+            <ng-template ngbSlide *ngFor="let movie of onDisplayMoviesList">
+                <div class="carousel-img-wrapper">
+                    <img height="400px" width="100%" [src]="movie.baniereImageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
+                </div>
+                <div class="carousel-caption desc-carousel">
+                    <h3 class="text-white">{{movie.title | uppercase}}</h3>
+                    <p class="truncate text-white">{{movie.description}}</p>
+                    <button type="button" class="btn btn-gradient-primary" (click)="redirectToSession(movie.id)">Réserver</button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+        <div class="mt-5">
+            <h2>À l'affiche au cinéma</h2>
+        </div>
+        
+        <div class="row mb-4 mt-1">    
+            <swiper-container 
+            class="mySwiper"  
+            space-between="30"
+            slides-per-view="6" 
+            navigation="true">
+            <swiper-slide *ngFor="let movie of moviesList">
+                    <div class="mb-1 rounded text-right movie-card cursor-pointer">
+                        <div class="background-image" (click)="redirectToSession(movie.id)" [style.background-image]="'url(' + movie.imageUrl + ')'">
+                            <div style="display: block;">
+                                <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">nouveau</div>
+                            </div>
+                            <div class="mb-1" style="display: block;">
+                                <div class="badge badge-pill badge-info margin-badge-two">{{movie.category}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a (click)="redirectToSession(movie.id)">{{movie.title | uppercase}}</a>
+            </swiper-slide>
+          </swiper-container>     
+        </div>     
+        <hr class="hr" />
+        <div class="mt-4">
+            <h2>Avant-premières et préventes</h2>
+        </div>
+        <div class="row mb-2 mt-1">    
+            <swiper-container 
+            class="mySwiper"  
+            space-between="30"
+            slides-per-view="6" 
+            navigation="true">
+            <swiper-slide *ngFor="let movie of moviesList">
+                    <div class="mb-1 rounded text-right movie-card cursor-pointer">
+                        <div class="background-image" (click)="redirectToSession(movie.id)" [style.background-image]="'url(' + movie.imageUrl + ')'">
+                            <div style="display: block;">
+                                <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">nouveau</div>
+                            </div>
+                            <div class="mb-1" style="display: block;">
+                                <div class="badge badge-pill badge-info margin-badge-two">{{movie.category}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a (click)="redirectToSession(movie.id)">{{movie.title | uppercase}}</a>
+            </swiper-slide>
+          </swiper-container>     
+        </div>     
+    </div>
+</div> -->

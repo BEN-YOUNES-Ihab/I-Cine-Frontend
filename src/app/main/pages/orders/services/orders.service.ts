@@ -15,4 +15,7 @@ export class OrdersService {
   getOrdersListByUserId(queryParams: any){
     return this.http.get(environment.apiUrl + 'orders/getOrdersListByUserId', { params: queryParams });  
   }
+  createPaymentCheckout(queryParams: any){
+    return this.http.get(environment.apiUrl + 'payement/create-checkout', { params: queryParams });  
+  }
 }

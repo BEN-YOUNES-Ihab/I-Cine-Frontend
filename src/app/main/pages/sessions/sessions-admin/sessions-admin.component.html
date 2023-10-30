@@ -125,6 +125,23 @@
   <div class="modal-body" tabindex="0" ngbAutofocus>
       <form #SessionForm="ngForm" class="validate-form mt-2">
         <div class="mb-2">
+          <div class="form-group">
+            <label for="city-column">Date</label>
+            <ng2-flatpickr 
+              [config]="basicDateOptions" 
+              [(ngModel)]="selectedSession.date"
+              name="basicDate"
+              required
+              [class.error]="sessionSubmitted && formDate.invalid"
+              #formDate="ngModel"
+              >
+            </ng2-flatpickr>
+          </div>
+          <span *ngIf="sessionSubmitted && formDate.invalid" class="invalid-form">
+            <small class="form-text text-danger" *ngIf="formDate.errors.required">La date est requis!</small>
+          </span>
+          </div>
+        <div class="mb-2">
           <label for="places" class="form-label">Nombre de places</label>
           <input 
             type="number" 
@@ -157,26 +174,7 @@
           <span *ngIf="sessionSubmitted && formRemaningPlaces.invalid" class="invalid-form">
             <small class="form-text text-danger" *ngIf="formRemaningPlaces.errors.required">Le nombre de places est requis!</small>
           </span>
-        </div>
-
-        <div class="mb-2">
-          <div class="form-group">
-            <label for="city-column">Date</label>
-            <ng2-flatpickr 
-              [config]="basicDateOptions" 
-              [(ngModel)]="selectedSession.date"
-              name="basicDate"
-              required
-              [class.error]="sessionSubmitted && formDate.invalid"
-              #formDate="ngModel"
-              >
-            </ng2-flatpickr>
-          </div>
-          <span *ngIf="sessionSubmitted && formDate.invalid" class="invalid-form">
-            <small class="form-text text-danger" *ngIf="formDate.errors.required">La date est requis!</small>
-          </span>
-          </div>
-          
+        </div>          
           <div class="error-class mt-2">
             <ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
               <div class="alert-body">

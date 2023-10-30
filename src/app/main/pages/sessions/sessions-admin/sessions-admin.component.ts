@@ -39,7 +39,8 @@ export class SessionsAdminComponent implements OnInit {
   public basicDateOptions: FlatpickrOptions = {
     altInput: true,
     enableTime: true,
-    "locale": French
+    "locale": French,
+    minDate: new Date()
   }
   public DateRangeOptions: FlatpickrOptions = {
     altInput: true,

@@ -1,18 +1,10 @@
 <div class="content-wrapper container-xxl p-0">
     <div class="content-body" >
-        <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
-            <ng-template ngbSlide *ngFor="let movie of onDisplayMoviesList">
-                <div class="carousel-img-wrapper">
-                    <img height="400px" width="100%" [src]="movie.baniereImageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
-                </div>
-                <div class="carousel-caption desc-carousel">
-                    <h3 class="text-white">{{movie.title | uppercase}}</h3>
-                    <p class="truncate text-white">{{movie.description}}</p>
-                    <button type="button" class="btn btn-gradient-primary" (click)="redirectToSession(movie.id)">Réserver</button>
-                </div>
-            </ng-template>
-        </ngb-carousel>
-
+        <!-- TITLE -->
+        <div class="d-flex justify-content-center">
+            <h1>Tous les films</h1>
+        </div>
+        <!--/ TITLE -->
         <!-- FILTER -->          
         <div class="row mb-2 mt-4">
             <div class="col-sm-6 pr-1"> 
@@ -44,8 +36,7 @@
                     ></ng-select>
             </div>
         </div>
-        <!--/ FILTER -->          
-        
+        <!--/ FILTER -->
         <!-- Movie Cards -->
         <div class="row mt-4">
             <div class="col-xl-2 col-md-4 col-sm-6 text-center div-card mb-2"  *ngFor="let movie of moviesList">
