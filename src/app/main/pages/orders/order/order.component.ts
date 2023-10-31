@@ -17,7 +17,7 @@ export class OrderComponent implements OnInit {
   public sessionId = "";
   public userId;
   public currentSession;
-
+  public loading =false;
   // variable d'issue de paiement
   orderSucces: boolean = false;
   ordreFail: boolean = false;
@@ -108,16 +108,19 @@ export class OrderComponent implements OnInit {
     }
   }
   order(){
-    console.log('hi')
     const queryParams = {
       places: this.numberOfTickets,
       sessionIdFront: this.sessionId,
       userId: this.userId,
     };
-    console.log(queryParams)
+    this.loading = true;
     this.ordersService.createPaymentCheckout(queryParams).subscribe(data =>{
       let urlData = data as UrlData
       window.location.replace(urlData.url)
+      setTimeout(() => {
+      }, 1000);
+    },err=>{
+      console.log(err);
     })
   }
 

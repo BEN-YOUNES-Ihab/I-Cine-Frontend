@@ -6,7 +6,7 @@
         </div>
         <!-- Erreur survenue -->
         <ngb-alert *ngIf="ordreFail==true" [type]="'danger'" [dismissible]="false">
-            <div class="alert-body"><strong>Une erreur est survenue lors du paiement!</strong> Veuillez réessayer... some alerts.</div>
+            <div class="alert-body"><strong>Une erreur est survenue lors du paiement!</strong> Veuillez réessayer...</div>
         </ngb-alert>
         <ngb-alert *ngIf="outOfStock==true" [type]="'danger'" [dismissible]="false">
             <div class="alert-body"><strong>Nous sommes désolés,</strong> mais toutes les places ont été vendues.</div>
@@ -28,8 +28,9 @@
             <p class="total"> Total : {{ totalPrice }} €</p>
         </form>
         <!-- bouton pour passer au paiement -->
-        <button *ngIf="outOfStock==false && orderSucces==false" (click)="order()" type="button" class="btn btn-primary"
-            rippleEffect>Confirmer</button>
+        <button *ngIf="outOfStock==false && orderSucces==false" [disabled]="loading" type="submit"(click)="order()"  class="btn btn-primary" rippleEffect tabindex="5">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Confirmer
+        </button>
         <!-- bouton de retour à la page précédente du film choisis-->
         <button *ngIf="orderSucces==false" type="button" class="btn btn-outline-primary" (click)="pageReturn()"
             rippleEffect>Retour</button>

@@ -26,8 +26,11 @@
         </div>
       </div>
     </div>
-    <div class="mt-4" *ngIf="!sessionsList">
-        <p>Pas de séances disponibles pour ce film.</p>
+    <div class="mt-4 d-flex justify-content-center" *ngIf="!sessionsList">
+        <img src="assets/images/pages/ticket-gray.png" height="150px">
+    </div>
+    <div class="d-flex justify-content-center">
+      <h1>Aucune séance</h1>
     </div>
 </div>
 
