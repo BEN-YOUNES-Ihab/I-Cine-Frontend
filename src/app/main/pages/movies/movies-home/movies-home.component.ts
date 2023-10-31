@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { CoreConfigService } from '@core/services/config.service';
 import {
   SwiperOptions,
 } from 'swiper';
@@ -14,7 +15,21 @@ export class MoviesHomeComponent implements OnInit, AfterViewInit {
 
   public config: SwiperOptions = {};
   
-  constructor() { }
+  constructor(private coreConfigService: CoreConfigService) { 
+    this.coreConfigService.config = {
+      layout: {
+        navbar: {
+          hidden: false
+        },
+        menu: {
+          hidden: true
+        },
+        footer: {
+          hidden: false
+        }
+      }
+    };
+  }
 
   ngAfterViewInit(): void {
     register();

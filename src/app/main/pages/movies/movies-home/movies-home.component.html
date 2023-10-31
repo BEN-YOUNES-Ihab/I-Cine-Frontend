@@ -1,6 +1,6 @@
-<!-- <div class="content-wrapper container-xxl p-0">
+<div class="content-wrapper container-xxl p-0">
     <div class="content-body" >
-        <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
+        <!-- <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
             <ng-template ngbSlide *ngFor="let movie of onDisplayMoviesList">
                 <div class="carousel-img-wrapper">
                     <img height="400px" width="100%" [src]="movie.baniereImageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
@@ -61,6 +61,39 @@
                     <a (click)="redirectToSession(movie.id)">{{movie.title | uppercase}}</a>
             </swiper-slide>
           </swiper-container>     
-        </div>     
+        </div>      -->
+        <hr class="hr" />
+        <div class="mt-4">
+            <h2>Autres</h2>
+        </div>
+        <div class="row match-height">
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="assets/images/pages/moviesList.jpg" alt="Card image cap" />
+                    <div class="card-body">
+                    
+                    <button routerLink="/pages/movies-list" rippleEffect class="btn btn-outline-primary">Voir tous les films</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="assets/images/pages/napoleon.jpg" alt="Card image cap" />
+                    <div class="card-body">
+                    
+                    <a href="javascript:void(0)" rippleEffect class="btn btn-outline-primary">Soon™</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="assets/images/pages/ricky.jpeg" alt="Card image cap" />
+                    <div class="card-body">
+                   
+                    <a href="javascript:void(0)" rippleEffect class="btn btn-outline-primary">Soon™</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div> -->
+</div>
