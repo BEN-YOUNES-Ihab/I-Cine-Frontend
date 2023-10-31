@@ -98,7 +98,7 @@ export class AuthLoginV2Component implements OnInit {
         localStorage.setItem('currentUser', JSON.stringify(data.currentUser));
         this.authService.currentUser.next(data.currentUser);
         setTimeout(() => {
-          this.router.navigate(['/pages/movies-list']);
+          this.router.navigate(['/pages/movies-home']);
           this.sucessToastr("Bienvenue sur la platforme ICiné.","Bienvenue!")
         }, 1000);
        
