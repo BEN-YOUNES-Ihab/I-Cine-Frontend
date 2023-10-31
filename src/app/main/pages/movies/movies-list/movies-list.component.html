@@ -43,7 +43,7 @@
                 <div class="mb-1 rounded text-right movie-card cursor-pointer">
                     <div class="background-image" (click)="redirectToSession(movie.id)" [style.background-image]="'url(' + movie.imageUrl + ')'">
                         <div style="display: block;">
-                            <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">nouveau</div>
+                            <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">Nouveau</div>
                         </div>
                         <div class="mb-1" style="display: block;">
                             <div class="badge badge-pill badge-info margin-badge-two">{{movie.category}}</div>

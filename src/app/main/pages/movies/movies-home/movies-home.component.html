@@ -1,7 +1,7 @@
 <div class="content-wrapper container-xxl p-0">
     <div class="content-body" >
-        <!-- <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
-            <ng-template ngbSlide *ngFor="let movie of onDisplayMoviesList">
+        <ngb-carousel [pauseOnHover]="false"  class="fixed-carousel">
+            <ng-template ngbSlide *ngFor="let movie of onDisplayMovies">
                 <div class="carousel-img-wrapper">
                     <img height="400px" width="100%" [src]="movie.baniereImageUrl" class="full-width-image" alt="Slide {{i + 1}}" />
                 </div>
@@ -22,11 +22,14 @@
             space-between="30"
             slides-per-view="6" 
             navigation="true">
-            <swiper-slide *ngFor="let movie of moviesList">
+            <swiper-slide *ngFor="let movie of toDisplayMovieList">
                     <div class="mb-1 rounded text-right movie-card cursor-pointer">
                         <div class="background-image" (click)="redirectToSession(movie.id)" [style.background-image]="'url(' + movie.imageUrl + ')'">
                             <div style="display: block;">
-                                <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">nouveau</div>
+                                <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">Nouveau</div>
+                            </div>
+                            <div style="display: block;">
+                                <div class="badge badge-pill badge-success margin-badge-one" *ngIf="getBeforePremiereBadge(movie.releaseDate)">Avant-première</div>
                             </div>
                             <div class="mb-1" style="display: block;">
                                 <div class="badge badge-pill badge-info margin-badge-two">{{movie.category}}</div>
@@ -47,11 +50,14 @@
             space-between="30"
             slides-per-view="6" 
             navigation="true">
-            <swiper-slide *ngFor="let movie of moviesList">
+            <swiper-slide *ngFor="let movie of beforePremiereMovies">
                     <div class="mb-1 rounded text-right movie-card cursor-pointer">
                         <div class="background-image" (click)="redirectToSession(movie.id)" [style.background-image]="'url(' + movie.imageUrl + ')'">
                             <div style="display: block;">
-                                <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">nouveau</div>
+                                <div class="badge badge-pill badge-danger margin-badge-one" *ngIf="getNewBadge(movie.releaseDate)">Nouveau</div>
+                            </div>
+                            <div style="display: block;">
+                                <div class="badge badge-pill badge-success margin-badge-one" *ngIf="getBeforePremiereBadge(movie.releaseDate)">Avant-première</div>
                             </div>
                             <div class="mb-1" style="display: block;">
                                 <div class="badge badge-pill badge-info margin-badge-two">{{movie.category}}</div>
@@ -61,7 +67,7 @@
                     <a (click)="redirectToSession(movie.id)">{{movie.title | uppercase}}</a>
             </swiper-slide>
           </swiper-container>     
-        </div>      -->
+        </div>     
         <hr class="hr" />
         <div class="mt-4">
             <h2>Autres</h2>

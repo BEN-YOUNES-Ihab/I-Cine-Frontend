@@ -34,6 +34,9 @@ export class MoviesService {
     return this.http.get(environment.apiUrl + 'movies/getMoviesList', { params: queryParams });  
   }
 
+  getMoviesToDisplay(){
+    return this.http.get(environment.apiUrl + 'movies/getMoviesToDisplay');  
+  }
   
   getMoviesListbyCategory(queryParams: any){
     return this.http.get(environment.apiUrl + 'movies/getMoviesListbyCategory', { params: queryParams });  
