@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: ":id/sessions-admin",
-    component: SessionsAdminComponent
+    component: SessionsAdminComponent,
+    canActivate: [RoleGuard, AuthGuard]
   }
 ];
 
