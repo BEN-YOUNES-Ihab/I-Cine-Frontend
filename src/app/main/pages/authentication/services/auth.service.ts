@@ -22,21 +22,19 @@ constructor(private _http: HttpClient, private router: Router, private coreMenuS
   return this.currentUser.value;
 }
 
-/**
- * User logout
- *
- */
 logout() {
-  // remove user from local storage to log user out
   localStorage.clear();
   this.coreMenuService.setCurrentMenu('landing-menu');
-  // notify
   this.currentUser.next(null);
   this.router.navigate(['pages/authentication/login-v2']);
 }
 
 login(inputdata: any){
   return this._http.post<any>(environment.apiUrl + 'auth/login' , inputdata);
+}
+
+GetAccesToken() {
+  return localStorage.getItem("accessToken");
 }
 
 }

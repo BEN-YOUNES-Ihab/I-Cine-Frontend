@@ -58,7 +58,6 @@ export class OrdersListComponent implements OnInit {
     this.ordersService.getOrdersListByUserId(queryParams).subscribe(
       (data: any) => { 
         if (data) {
-          console.log(data)
           this.ordersList = data.content;
           this.totalElements = data.totalElements;
         }

@@ -58,7 +58,6 @@ export class OrderComponent implements OnInit {
     })
     this.sessionId = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.status == "success") {
-      console.log('success')
       this.orderSucces = true
     }
     else if (this.status == "fail") {
@@ -78,7 +77,6 @@ export class OrderComponent implements OnInit {
   getSessionWithMovie(){
     this.sessionsService.getSession(this.sessionId).subscribe(data=>{
       this.currentSession = data[0];
-      console.log(this.currentSession)
     })
   }
   convertMinutesToHours(minutes) {

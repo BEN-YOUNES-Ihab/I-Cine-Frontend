@@ -110,8 +110,6 @@ export class MoviesAdminComponent implements OnInit {
       (data: any) => { 
         if (data) {
           this.moviesList = data.content;
-          console.log(this.moviesList)
-
           this.totalElements = data.totalElements;
           this.totalPages = data.totalPages;
         }
@@ -192,10 +190,8 @@ export class MoviesAdminComponent implements OnInit {
       reader.onload = e => this.selectedImgPath = reader.result;
       reader.readAsDataURL(file);
     }
-    console.log()
   }
   onBaniereImageSelected(event: any){
-    console.log('hi')
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       this.selectedSecondImg = file;
@@ -203,8 +199,6 @@ export class MoviesAdminComponent implements OnInit {
       reader.onload = e => this.selectedSecondImgPath = reader.result;
       reader.readAsDataURL(file);
     }
-    console.log(this.selectedImgPath)
-    console.log(this.selectedSecondImgPath);
   }
 
   updateMovieDetails(){
@@ -235,7 +229,6 @@ export class MoviesAdminComponent implements OnInit {
     if(!this.selectedMovie.category || !this.selectedMovie.title || !this.selectedMovie.durationTime){
       return
     }
-    console.log(this.selectedMovie)
     const formData = new FormData();
     formData.append('file', this.selectedImg);
     formData.append('secondFile', this.selectedSecondImg);

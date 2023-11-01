@@ -79,7 +79,6 @@ export class MoviesListComponent implements OnInit {
         if (data) {
           this.moviesList = data.content;
           this.onDisplayMoviesList = this.getDisplayedMovies(this.moviesList);
-          console.log(this.onDisplayMoviesList)
           this.totalElements = data.totalElements;
           this.totalPages = data.totalPages;
         }

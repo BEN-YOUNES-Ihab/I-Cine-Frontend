@@ -37,13 +37,17 @@
         <!-- bouton de retour à l'acceuil -->
         <button *ngIf="orderSucces==true" type="button" class="btn btn-primary" (click)="pageReturn()" rippleEffect>Revenir vers le site</button>
     </div>
-    <div id="orderHeader" *ngIf="currentSession">
-        <img [src]="currentSession.movie.baniereImageUrl" class="img-fluid">
-        <div id="titles">
-            <h1>{{currentSession.movie.title}}</h1>
-            <div class="badge badge-pill badge-warning">{{convertMinutesToHours(currentSession.movie.durationTime)}}</div>
-            <div class="badge badge-pill badge-info">{{currentSession.movie.category}}</div>
-            <p class="mt-1">{{currentSession.movie.description}}</p>
+    <div class="background-image" [style.background-image]="'url(' + currentSession.movie.baniereImageUrl+ ')'">
+        <div class="affiche-container mt-3">
+          <img class="affiche" [src]="currentSession.movie.imageUrl" alt="Card image" />
         </div>
-    </div>
+        <div class="text-container mt-3 text-light">
+          <h1 class="text-light" >{{currentSession.movie.title | uppercase}}</h1>
+          <p>Sortie en {{currentSession.movie.releaseDate | date:'MMMM YYYY'}}</p>
+          <div class="badge badge-pill badge-warning">{{convertMinutesToHours(currentSession.movie.durationTime)}}</div>
+          <div class="badge badge-pill badge-info">{{currentSession.movie.category}}</div>
+          <p class="mt-1">{{currentSession.movie.description}}</p>
+        </div>
+      </div>
+    
 </div>

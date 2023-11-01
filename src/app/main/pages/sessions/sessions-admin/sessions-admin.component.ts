@@ -121,7 +121,6 @@ export class SessionsAdminComponent implements OnInit {
     this.sessionsService.getSessionsList(queryParams).subscribe(
       (data: any) => { 
         if (data) {
-          console.log(data);
           this.sessionsList = data.content;
           this.totalElements = data.totalElements;
           this.totalPages = data.totalPages;
