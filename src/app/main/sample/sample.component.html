@@ -25,10 +25,13 @@
             <div class="col-md-6">
               <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                  <strong class="d-inline-block mb-2 text-success">Back & Front</strong>
-                  <h3 class="mb-0">Ihab BEN YOUNES</h3>
-                  <div class="mb-1 text-muted">Env : Windows</div>
-                  <p class="card-text mb-auto"><strong>Diplôme :</strong> ?</p>
+                  <strong class="d-inline-block mb-2 text-warning text-uppercase">Chef de projet / Développeur </strong>
+                  <h3 class="mb-0">BEN YOUNES Ihab</h3>
+                  <div class="row" >
+                    <div (click)="openGithub()" class="cursor-pointer m-1 badge badge-pill badge-glow badge-secondary"><i data-feather="github" class="mr-25"></i>Github</div>
+                    <div (click)="openLinkedin()" style="background-color: blue;"  class="cursor-pointer m-1  badge badge-pill badge-glow badge-info"><i data-feather="linkedin" class="mr-25"></i>Linkedin</div>
+                    <div (click)="openCV()"  class="cursor-pointer m-1  badge badge-pill badge-glow badge-success"><i data-feather="link" class="mr-25"></i>CV</div>
+                  </div>
                 </div>
                 <div class="col-auto d-none d-lg-block">
                   <img src="assets/images/pages/about/ricky.png" alt="Ihab" width="200" height="250"/>
