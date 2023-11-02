@@ -5,5 +5,6 @@ export class SessionToEdit {
     date: Date;
     places: number=0;
     remaningPlaces:number=0;
-    movieId: number
+    movieId: number;
+    orders : any [];
 }

@@ -131,6 +131,7 @@
               [config]="basicDateOptions" 
               [(ngModel)]="selectedSession.date"
               name="basicDate"
+              [placeholder]="selectedSession.date | date:'d MMMM YYYY HH:mm' "
               required
               [class.error]="sessionSubmitted && formDate.invalid"
               #formDate="ngModel"

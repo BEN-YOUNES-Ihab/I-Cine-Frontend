@@ -152,6 +152,10 @@ export class SessionsAdminComponent implements OnInit {
     this.error=""
     this.sessionSubmitted = false;
     this.selectedSession = session;
+    if(session.orders.length>0){
+      this.errorToastr('Vos clients ont déja réserver a cette séance.', 'Impossible!');
+      return
+    }
     this.placesDiff = this.selectedSession.places - this.selectedSession.remaningPlaces;
     this.basicDateOptions.defaultDate = this.selectedSession.date;
     this.showAdd = false;
@@ -226,9 +230,13 @@ export class SessionsAdminComponent implements OnInit {
       this.sucessToastr('Séance mis à jour.', 'Succès');
       this.modalService.dismissAll();
       this.error = "";
-    }, (err) => {
-      console.log(err);
-      this.error = "Opération échouée"
+    },err=>{
+      if (err.error.statusCode === 409) {
+        this.error = 'Vos clients ont déja réserver a cette séance.';
+      } else {
+        this.error = 'Opération echouée';
+        console.error(err);
+      }
     });
   }
 
