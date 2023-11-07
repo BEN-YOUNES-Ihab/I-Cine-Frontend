@@ -14,25 +14,25 @@ export class MoviesListComponent implements OnInit {
   public selectedMovie = new MovieToEdit;
   public moviesList : MovieToEdit[];
   public onDisplayMoviesList :MovieToEdit[];
-  // public categorysList: string[] = [
-  //   "Action",
-  //   "Comédie",
-  //   "Drame",
-  //   "Science-fiction",
-  //   "Horreur",
-  //   "Aventure",
-  //   "Animation",
-  //   "Fantaisie",
-  //   "Romance",
-  //   "Documentaire"
-  // ];
+  public categorysList: string[] = [
+    "Action",
+    "Comédie",
+    "Drame",
+    "Science-fiction",
+    "Horreur",
+    "Aventure",
+    "Animation",
+    "Fantaisie",
+    "Romance",
+    "Documentaire"
+  ];
 
-    public categorysList: string[] = [
+ /*    public categorysList: string[] = [
     "Test1",
     "Test2",
     "Test3",
     "Test4"
-  ];
+  ]; */
 
   public title = "";
   public category;
