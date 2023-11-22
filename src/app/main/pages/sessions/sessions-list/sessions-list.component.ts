@@ -87,7 +87,7 @@ export class SessionsListComponent implements OnInit {
       this.currentMovie.sessions.forEach(e =>{
         let date = new Date(e.date);
         let today = new Date();
-        if(date > today){
+        if(date > today && e.remaningPlaces>0){
           this.sessionsDateToEnable.push(e.date);
         }
       })

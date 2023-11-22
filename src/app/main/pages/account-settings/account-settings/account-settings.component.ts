@@ -15,7 +15,7 @@ import { CoreConfigService } from '@core/services/config.service';
 })
 export class AccountSettingsComponent implements OnInit {
   public userDetails: CurrentUser;
-
+  public initialEmail : string;
   // CHANGE PROFILE FORM VARS
   public changeProfilesubmitted = false;
   public error: string = "";
@@ -50,7 +50,7 @@ export class AccountSettingsComponent implements OnInit {
 
   ngOnInit(): void {
       this.userDetails  = (JSON.parse(localStorage.getItem('currentUser'))) ; 
-    
+      this.initialEmail = this.userDetails.email;
   }
   sucessToastr(message,title) {
     this.toastr.success(message, title, {
@@ -78,13 +78,14 @@ export class AccountSettingsComponent implements OnInit {
         userToEdit.firstname = form.value.firstName;
         userToEdit.lastname = form.value.lastName;
   
-        this.userService.editUser(userToEdit, this.userDetails.email).subscribe(data => {
-  
+        this.userService.editUser(userToEdit, this.initialEmail).subscribe(data => {
+       
   
         const currentUser = this.authService.currentUserValue;
         currentUser.lastName = form.value.lastName;
         currentUser.firstName = form.value.firstName;
         currentUser.email = form.value.email;
+        this.initialEmail = form.value.email;
         this.authService.currentUser.next(currentUser);
         localStorage.setItem("currentUser",JSON.stringify(currentUser));
         

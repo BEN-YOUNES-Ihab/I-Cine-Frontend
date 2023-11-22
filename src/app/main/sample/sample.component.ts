@@ -25,18 +25,9 @@ export class SampleComponent implements OnInit {
   constructor(private _coreTranslationService: CoreTranslationService) {
     this._coreTranslationService.translate(en, fr, de, pt)
   }
-  openGithub(){
-    window.open('https://github.com/BEN-YOUNES-Ihab');
+  openWindow(url){
+    window.open(url);
   }
-  openLinkedin(){
-    window.open('https://www.linkedin.com/in/ihab-ben-younes-8a341123b/');
-  }
-  openCV(){
-    window.open('./assets/cv/cv-ihab-ben_younes.pdf');
-  }
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-
   /**
    * On init
    */

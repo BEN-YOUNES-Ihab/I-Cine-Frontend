@@ -13,7 +13,7 @@
     </div>
     <div *ngIf="sessionsList && sessionsList.length>0">
       <div class="row d-flex justify-content-center">
-        <ng2-flatpickr [(ngModel)]="date" name="date" (ngModelChange)="getSessionsList()" class=" m-2" placeholder="Chosissez une date" #datepicker [config]="basicDateOptions"></ng2-flatpickr>
+        <ng2-flatpickr [(ngModel)]="date" name="date" (ngModelChange)="getSessionsList()" class=" m-2" [placeholder]="date | date:'d-M-YYYY'" #datepicker [config]="basicDateOptions"></ng2-flatpickr>
       </div>
       <div class="divider my-2">
         <div class="divider-text">Le {{date | date:'EEEE d MMMM YYYY'}}</div>

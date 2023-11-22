@@ -80,7 +80,7 @@ export class SessionsAdminComponent implements OnInit {
     this.moviesService.getMovie(this.movieId).subscribe(data =>{
       this.currentMovie = data as MovieToEdit;
       this.contentHeader = {
-        headerTitle: this.currentMovie.title,
+        headerTitle: 'Films',
         actionButton: false,
         breadcrumb: {
           type: '',

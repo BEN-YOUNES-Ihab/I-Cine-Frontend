@@ -67,6 +67,7 @@
                     <th>Titre</th>
                     <th>Catégorie</th>
                     <th>Date de sortie</th>
+                    <th>Durée</th>
                     <th>A la lune</th>
                     <th>Date de création</th>
                     <th>Date de modification</th>
@@ -80,6 +81,7 @@
                     <td>{{movie.title | uppercase}}</td>
                     <td>{{movie.category}}</td>
                     <td>{{movie.releaseDate | date:'d MMMM YYYY'}}</td>
+                    <td>{{movie.durationTime}} min</td>
                     <td *ngIf="movie.onDisplay == true "><span class="badge badge-pill badge-light-success mr-1">Oui</span></td>
                     <td *ngIf="!movie.onDisplay || movie.onDisplay == false "><span class="badge badge-pill badge-light-danger mr-1">Non</span></td>
                     <td>{{movie.createdAt | date:'d MMMM YYYY HH:mm'}}</td>

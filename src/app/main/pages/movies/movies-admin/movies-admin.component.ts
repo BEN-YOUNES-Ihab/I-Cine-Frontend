@@ -40,7 +40,18 @@ export class MoviesAdminComponent implements OnInit {
   public selectedSecondImg: File;
   public selectedSecondImgPath : String | ArrayBuffer;
 
-  public categorysList = ["Test1", "Test2", "Test3" , "Test4"];
+  public categorysList: string[] = [
+    "Action",
+    "Comédie",
+    "Drame",
+    "Science-fiction",
+    "Horreur",
+    "Aventure",
+    "Animation",
+    "Fantaisie",
+    "Romance",
+    "Documentaire"
+  ];
   public onDisplayList = ["Oui", "Non"];
   public basicDateOptions: FlatpickrOptions = {
     altInput: true,
@@ -119,6 +130,7 @@ export class MoviesAdminComponent implements OnInit {
   }
 
   clickEditMovie(movie: MovieToEdit ,modalBasic){
+    this.loading = false;
     this.movieSubmitted = false;
     this.selectedMovie = movie;
     this.selectedSecondImgPath = movie.baniereImageUrl;
@@ -134,6 +146,7 @@ export class MoviesAdminComponent implements OnInit {
     
   }
   clickAddMovie(modalBasic){
+    this.loading = false;
     this.selectedMovie = new MovieToEdit;
     this.movieSubmitted = false;
     this.selectedImgPath = null;

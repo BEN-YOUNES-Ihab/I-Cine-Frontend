@@ -54,7 +54,7 @@ export class OrdersAdminComponent implements OnInit {
     this.sessionsService.getSession(this.sessionId).subscribe(data=>{
       this.currentSession = data as SessionToEdit;
       this.contentHeader = {
-        headerTitle: this.currentSession[0].movie.title,
+        headerTitle: 'Films',
         actionButton: false,
         breadcrumb: {
           type: '',
