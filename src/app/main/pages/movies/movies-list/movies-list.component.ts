@@ -26,6 +26,16 @@ export class MoviesListComponent implements OnInit {
     "Romance",
     "Documentaire"
   ];
+<<<<<<< HEAD
+=======
+
+ /*    public categorysList: string[] = [
+    "Test1",
+    "Test2",
+    "Test3",
+    "Test4"
+  ]; */
+>>>>>>> 247163b1bc36d96951f2b92c8846324e395c90d2
 
 
 
